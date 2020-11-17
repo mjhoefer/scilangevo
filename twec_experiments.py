@@ -29,44 +29,38 @@ def get_path_from_id(id, base_dir, extension='.words'):
     # handle to particular file
     paper = paper_dir / (id + extension)
 
-    return paper
+    if paper.is_file():
+        return paper
+    else:
+        return None
 
-# for a graph, return a list of all the weakly connected components
-# effective a list of lists, where each sublist contains the id.
-# ahh but we also need
-# we need to get the downstream papers. And we do a comparison of the downstream papers with the upstream
-# papers, and the paper in question.
-# hypothesis - papers
-# SOOO
-# you can recurse back from the node in question, get a list of all the papers that come before
-# (this will be a lot...)
-# but you can do it, effectively all the papers that this paper "comes after"
-# and then do the same downstream.  So a single node is the pivot, and the corpus comes from recursing back and
-# forth
-def get_upstream_papers(G, node_id):
-    # coming soon
-    return
+# recursive function that returns a list of papers either upstream or downstream along the citation network
+def get_connected_papers(G, node_id, curr_list=None, upstream=False):
+    master = False
+    if not curr_list:
+        curr_list = set()
+        master = True
 
-all_papers = set()
-
-# recursive function that adds papers to the global variable.
-def get_downstream_papers(G, node_id):
-    global all_papers
-
-    # get all the papers this one cites
-    node_successors = list(G.successors(node_id))
+    # get the list of connected papers
+    if upstream:
+        # sort of confusing, but the citation network "looks backward" so successors are technically upstream
+        node_successors = list(G.successors(node_id))
+    else:
+        node_successors = list(G.predecessors(node_id))
 
     # and remove any elements that are already captured in the global list
-    node_successors_real = [node for node in node_successors if node not in all_papers]
+    node_successors_real = [node for node in node_successors if node not in curr_list]
 
     # end condition - no new nodes to add to the global list
     if len(node_successors_real) == 0:
         return None
     else:
         for node in node_successors_real:
-            all_papers.add(node)
-            get_downstream_papers(G, node)
+            curr_list.add(node)
+            get_connected_papers(G, node, curr_list, upstream)
 
+    if master:
+        return curr_list
 
 ### Just exploring the network for now
 # What are the different components?
@@ -77,7 +71,30 @@ id_code_path = 'arc-paper-ids.tsv'
 # read in the network
 G = nx.read_edgelist(network_path, create_using=nx.DiGraph(), delimiter=' ', nodetype=str)
 
-yikes = get_downstream_papers(G, 'P13-1037')
+downstreams = get_connected_papers(G, 'P13-1037', upstream=False) # length of zero here means nobody cited it :(
+upstreams = get_connected_papers(G, 'P13-1037', upstream=True)  # these are the papers the given paper cites
+
+upstreams = get_connected_papers(G, 'J92-1001', upstream=True)
+
+
+### Testing out running the embeddings on the whole corpus to get an idea of time
+p = Path('.')
+p = p / '..' / 'project_code' / 'papers'
+p = p / 'acl-arc-json' / 'json'
+
+
+all_nodes = list(G.nodes)
+
+papers = []
+for node in all_nodes:
+    temp = get_path_from_id(node, p)
+    if temp:
+        papers.append(temp)
+
+
+create_text_slice(papers, 'every_paper_text.txt')
+
+
 #len(list(G.successors('External_89521')))
 
 exit()
@@ -94,7 +111,11 @@ t = G.nodes['P13-1037']
 
 testing =sorted(G.successors('P13-1037'))
 
-list(G.nodes)
+all_nodes = list(G.nodes)
+
+papers = []
+for node in all_nodes:
+    papers.append(get_path_from_id(node, ))
 
 test = nx.weakly_connected_components(G)
 
@@ -182,3 +203,34 @@ model2['algorithm']
 
 
 
+
+
+
+
+
+
+
+
+### OLD JUNK
+
+
+
+all_papers = set()
+
+# recursive function that adds papers to the global variable.
+def get_downstream_papers(G, node_id):
+    global all_papers
+
+    # get all the papers this one cites
+    node_successors = list(G.successors(node_id))
+
+    # and remove any elements that are already captured in the global list
+    node_successors_real = [node for node in node_successors if node not in all_papers]
+
+    # end condition - no new nodes to add to the global list
+    if len(node_successors_real) == 0:
+        return None
+    else:
+        for node in node_successors_real:
+            all_papers.add(node)
+            get_downstream_papers(G, node)
