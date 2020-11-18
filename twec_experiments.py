@@ -6,6 +6,8 @@ import string
 import networkx as nx
 from operator import itemgetter
 
+import time
+
 # combines all the papers in the papers list into a single text file
 # papers is a list of pathlib objects
 # writes to outfile_name
@@ -14,7 +16,7 @@ from operator import itemgetter
 def create_text_slice(papers, outfile_name):
     with open(outfile_name, 'w', encoding='utf-8') as out:
         for paper in papers:
-            out.write(paper.read_text(encoding='utf-8'))
+            out.write(paper.read_text(encoding='utf-8') + '\n')
     return Path(outfile_name)
 
 
@@ -33,6 +35,17 @@ def get_path_from_id(id, base_dir, extension='.words'):
         return paper
     else:
         return None
+
+
+# turns a list of id strings into a list of Pathlib file objects
+def get_paths_from_strings(ids, p):
+    papers = []
+    for id in ids:
+        temp = get_path_from_id(id, p)
+        if temp:
+            papers.append(temp)
+    return papers
+
 
 # recursive function that returns a list of papers either upstream or downstream along the citation network
 def get_connected_papers(G, node_id, curr_list=None, upstream=False):
@@ -62,19 +75,108 @@ def get_connected_papers(G, node_id, curr_list=None, upstream=False):
     if master:
         return curr_list
 
+
+## PATH TO PAPERS
+p = Path('.') / '..' / 'project_code' / 'papers' / 'acl-arc-json' / 'json'
+
+
 ### Just exploring the network for now
 # What are the different components?
 
 network_path = 'network.txt'
-id_code_path = 'arc-paper-ids.tsv'
-
+# id_code_path = 'arc-paper-ids.tsv'
+#
 # read in the network
 G = nx.read_edgelist(network_path, create_using=nx.DiGraph(), delimiter=' ', nodetype=str)
+#
 
-downstreams = get_connected_papers(G, 'P13-1037', upstream=False) # length of zero here means nobody cited it :(
-upstreams = get_connected_papers(G, 'P13-1037', upstream=True)  # these are the papers the given paper cites
 
-upstreams = get_connected_papers(G, 'J92-1001', upstream=True)
+#### EXPERIMENT 1 ########
+#### COMPARE VECTOR ALIGNMENT BETWEEN EACH PAPER AND THE LARGEST WEAKLY CONNECTED COMPONENT #####
+
+
+### FIRST STEP: GET THE LARGEST COMPONENT OF THE NETWORK (~98.3% of the corpus)
+largest = max(nx.weakly_connected_components(G), key=len)
+
+### NEXT, COMBINE ALL THE PAPERS IN THE COMPONENT INTO A SINGLE TEXT FILE
+### COMMENTED BECUASE IT TAKES SOME TIME AND WE ALREADY RAN IT
+#start1 = time.time()
+#create_text_slice(get_paths_from_strings(largest, p), 'LARGEST_WEAK_COMPONENT.txt')
+#end1 = time.time()
+#elapsed1 = end1 - start1
+#print (elapsed1)
+
+### TRAIN THE COMPASS WORD EMBEDDINGS FOR THIS COMPONENT #####
+### TAKES A WHILE SO WE WILL TIME IT ####
+aligner = TWEC(size=50, siter=10, diter=10, workers=4)
+start2 = time.time()
+aligner.train_compass('LARGEST_WEAK_COMPONENT.txt', overwrite=False, filename="LARGEST_WEAK_COMPONENT.model")
+end2 = time.time()
+elapsed2 = end2 - start2
+print (elapsed2)
+
+
+# write the training time to a file
+with open("experiment_1_train_compass_time.log", 'w', encoding='utf-8') as outfile:
+    outfile.write("time to train compass on largest weakly connected component was \n" + str(elapsed2) + " seconds")
+
+
+id = 'J92-1001'
+fileP = get_path_from_id(id, p)
+slice_one = aligner.train_slice(str(fileP), save=True)
+
+### NOW GO THROUGH AND TRAIN MODELS FOR EVERY INDIVIDUAL PAPER
+### THIS WILL TAKE QUITE A WHILE BECAUSE THERE'S 80k+ papers
+
+### UHHH I NEED 86 gb of free space to actually be able to save all these word embedding models
+## I might have to run this on the free PC I got... that should have space... lol
+
+for paper in largest:
+    fileP = get_path_from_id(paper, p)
+    slice_one = aligner.train_slice(str(fileP), save=True, saveName='EXP1-' + paper)
+
+
+
+
+
+
+
+
+
+
+downstreams = get_connected_papers(G, id, upstream=False) # length of zero here means nobody cited it :(
+upstreams = get_connected_papers(G, id, upstream=True)  # these are the papers the given paper cites
+all = downstreams.union(upstreams)
+all.add(id)
+
+# f_all = create_text_slice(get_paths_from_strings(all, p), 'J92-1001ALL.txt')
+# f_up = create_text_slice(get_paths_from_strings(upstreams, p), 'J92-1001up.txt')
+# f_down = create_text_slice(get_paths_from_strings(downstreams, p), 'J92-1001down.txt')
+# f_self = create_text_slice(get_paths_from_strings([id], p), 'J92-1001self.txt')
+#
+#
+# # decleare a TWEC object, siter is the number of iterations of the compass, diter is the number of iterations of each slice
+# aligner = TWEC(size=50, siter=10, diter=10, workers=4)
+#
+# start = time.time()
+#
+# # train the compass (we are now learning the matrix that will be used to freeze the specific CBOW slices)
+# # this may need some path modification to enable experimentation
+# aligner.train_compass(str(f_down), overwrite=True)
+#
+# end =  time.time()
+#
+# elapsed = end-start
+# print (elapsed)
+
+#### TRAINING COMPASS FOR LARGEST COMPONENT ###
+
+largest = max(nx.strongly_connected_components(G), key=len)
+
+
+
+#
+# upstreams = get_connected_papers(G, 'J92-1001', upstream=True)
 
 
 ### Testing out running the embeddings on the whole corpus to get an idea of time
@@ -93,6 +195,21 @@ for node in all_nodes:
 
 
 create_text_slice(papers, 'every_paper_text.txt')
+
+# decleare a TWEC object, siter is the number of iterations of the compass, diter is the number of iterations of each slice
+aligner = TWEC(size=50, siter=10, diter=10, workers=4)
+
+start = time.time()
+
+# train the compass (we are now learning the matrix that will be used to freeze the specific CBOW slices)
+# this may need some path modification to enable experimentation
+aligner.train_compass('every_paper_text.txt', overwrite=True)
+
+end =  time.time()
+
+elapsed = start-end
+print (elapsed)
+# now see how long it takes to train the compass on that...
 
 
 #len(list(G.successors('External_89521')))

@@ -1,0 +1,1137 @@
+
+2020-11-18 01:26:13,254 : INFO : files read into PathLineSentences:LARGEST_WEAK_COMPONENT.txt
+2020-11-18 01:26:13,254 : WARNING : consider setting layer size to a multiple of 4 for greater performance
+2020-11-18 01:26:13,254 : INFO : collecting all words and their counts
+2020-11-18 01:26:13,254 : INFO : reading file LARGEST_WEAK_COMPONENT.txt
+2020-11-18 01:26:13,269 : INFO : PROGRESS: at sentence #0, processed 0 words, keeping 0 word types
+2020-11-18 01:26:26,199 : INFO : PROGRESS: at sentence #10000, processed 39028698 words, keeping 418805 word types
+2020-11-18 01:26:38,000 : INFO : collected 660358 word types from a corpus of 73713636 raw words and 18847 sentences
+2020-11-18 01:26:38,000 : INFO : Loading a fresh vocabulary
+2020-11-18 01:26:38,642 : INFO : effective_min_count=5 retains 121890 unique words (18% of original 660358, drops 538468)
+2020-11-18 01:26:38,642 : INFO : effective_min_count=5 leaves 72923093 word corpus (98% of original 73713636, drops 790543)
+2020-11-18 01:26:39,051 : INFO : deleting the raw counts dictionary of 660358 items
+2020-11-18 01:26:39,067 : INFO : sample=0.001 downsamples 37 most-common words
+2020-11-18 01:26:39,067 : INFO : downsampling leaves estimated 53674829 word corpus (73.6% of prior 72923093)
+2020-11-18 01:26:39,468 : INFO : estimated required memory for 121890 words and 50 dimensions: 109701000 bytes
+2020-11-18 01:26:39,468 : INFO : resetting layer weights
+2020-11-18 01:27:08,798 : INFO : reading file LARGEST_WEAK_COMPONENT.txt
+2020-11-18 01:27:15,714 : INFO : training model with 4 workers on 121890 vocabulary and 50 features, using sg=0 hs=0 sample=0.001 negative=10 window=5
+2020-11-18 01:27:15,714 : INFO : reading file LARGEST_WEAK_COMPONENT.txt
+2020-11-18 01:27:16,735 : INFO : EPOCH 1 - PROGRESS: at 1.07% words, 567676 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:17,733 : INFO : EPOCH 1 - PROGRESS: at 2.17% words, 578352 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:18,757 : INFO : EPOCH 1 - PROGRESS: at 3.28% words, 580450 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:19,787 : INFO : EPOCH 1 - PROGRESS: at 4.40% words, 580060 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:20,790 : INFO : EPOCH 1 - PROGRESS: at 5.49% words, 581409 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:21,795 : INFO : EPOCH 1 - PROGRESS: at 6.60% words, 582726 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:22,808 : INFO : EPOCH 1 - PROGRESS: at 7.68% words, 581828 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:23,809 : INFO : EPOCH 1 - PROGRESS: at 8.79% words, 583097 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:24,811 : INFO : EPOCH 1 - PROGRESS: at 9.88% words, 583338 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:25,826 : INFO : EPOCH 1 - PROGRESS: at 10.96% words, 582715 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:26,830 : INFO : EPOCH 1 - PROGRESS: at 12.04% words, 582200 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:27,862 : INFO : EPOCH 1 - PROGRESS: at 13.16% words, 582175 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:28,854 : INFO : EPOCH 1 - PROGRESS: at 14.25% words, 582452 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:29,866 : INFO : EPOCH 1 - PROGRESS: at 15.34% words, 582678 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:30,871 : INFO : EPOCH 1 - PROGRESS: at 16.45% words, 582629 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:31,884 : INFO : EPOCH 1 - PROGRESS: at 17.53% words, 582501 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:32,891 : INFO : EPOCH 1 - PROGRESS: at 18.65% words, 583051 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:33,908 : INFO : EPOCH 1 - PROGRESS: at 19.75% words, 583211 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:34,921 : INFO : EPOCH 1 - PROGRESS: at 20.85% words, 583105 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:35,928 : INFO : EPOCH 1 - PROGRESS: at 21.95% words, 583414 words/s, in_qsize 6, out_qsize 0
+2020-11-18 01:27:36,923 : INFO : EPOCH 1 - PROGRESS: at 23.03% words, 583161 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:37,945 : INFO : EPOCH 1 - PROGRESS: at 24.13% words, 583075 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:27:38,948 : INFO : EPOCH 1 - PROGRESS: at 25.24% words, 583605 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:39,978 : INFO : EPOCH 1 - PROGRESS: at 26.33% words, 582846 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:27:40,971 : INFO : EPOCH 1 - PROGRESS: at 27.41% words, 582674 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:41,980 : INFO : EPOCH 1 - PROGRESS: at 28.52% words, 583044 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:42,996 : INFO : EPOCH 1 - PROGRESS: at 29.63% words, 583306 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:27:43,999 : INFO : EPOCH 1 - PROGRESS: at 30.74% words, 583411 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:45,003 : INFO : EPOCH 1 - PROGRESS: at 31.83% words, 583554 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:46,001 : INFO : EPOCH 1 - PROGRESS: at 32.93% words, 583762 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:47,018 : INFO : EPOCH 1 - PROGRESS: at 34.06% words, 584184 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:48,021 : INFO : EPOCH 1 - PROGRESS: at 35.15% words, 584336 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:49,023 : INFO : EPOCH 1 - PROGRESS: at 36.24% words, 584189 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:50,041 : INFO : EPOCH 1 - PROGRESS: at 37.35% words, 584391 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:27:51,042 : INFO : EPOCH 1 - PROGRESS: at 38.42% words, 584004 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:52,050 : INFO : EPOCH 1 - PROGRESS: at 39.52% words, 584227 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:53,040 : INFO : EPOCH 1 - PROGRESS: at 40.61% words, 584111 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:54,047 : INFO : EPOCH 1 - PROGRESS: at 41.72% words, 584275 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:55,070 : INFO : EPOCH 1 - PROGRESS: at 42.82% words, 584148 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:56,067 : INFO : EPOCH 1 - PROGRESS: at 43.92% words, 584320 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:57,068 : INFO : EPOCH 1 - PROGRESS: at 45.01% words, 584296 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:58,082 : INFO : EPOCH 1 - PROGRESS: at 46.12% words, 584377 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:27:59,087 : INFO : EPOCH 1 - PROGRESS: at 47.22% words, 584514 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:00,100 : INFO : EPOCH 1 - PROGRESS: at 48.31% words, 584406 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:01,102 : INFO : EPOCH 1 - PROGRESS: at 49.38% words, 584262 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:28:02,103 : INFO : EPOCH 1 - PROGRESS: at 50.48% words, 584303 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:03,108 : INFO : EPOCH 1 - PROGRESS: at 51.59% words, 584428 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:04,120 : INFO : EPOCH 1 - PROGRESS: at 52.70% words, 584466 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:05,139 : INFO : EPOCH 1 - PROGRESS: at 53.80% words, 584515 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:06,144 : INFO : EPOCH 1 - PROGRESS: at 54.89% words, 584454 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:07,144 : INFO : EPOCH 1 - PROGRESS: at 55.98% words, 584381 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:08,169 : INFO : EPOCH 1 - PROGRESS: at 57.09% words, 584331 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:09,178 : INFO : EPOCH 1 - PROGRESS: at 58.20% words, 584399 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:10,178 : INFO : EPOCH 1 - PROGRESS: at 59.30% words, 584442 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:11,195 : INFO : EPOCH 1 - PROGRESS: at 60.39% words, 584439 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:28:12,197 : INFO : EPOCH 1 - PROGRESS: at 61.48% words, 584342 words/s, in_qsize 5, out_qsize 1
+2020-11-18 01:28:13,199 : INFO : EPOCH 1 - PROGRESS: at 62.59% words, 584517 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:14,199 : INFO : EPOCH 1 - PROGRESS: at 63.67% words, 584460 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:15,200 : INFO : EPOCH 1 - PROGRESS: at 64.77% words, 584473 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:16,214 : INFO : EPOCH 1 - PROGRESS: at 65.88% words, 584624 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:17,223 : INFO : EPOCH 1 - PROGRESS: at 66.97% words, 584520 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:18,217 : INFO : EPOCH 1 - PROGRESS: at 68.07% words, 584584 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:19,237 : INFO : EPOCH 1 - PROGRESS: at 69.10% words, 583944 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:20,246 : INFO : EPOCH 1 - PROGRESS: at 70.20% words, 583933 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:21,271 : INFO : EPOCH 1 - PROGRESS: at 71.30% words, 583857 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:22,271 : INFO : EPOCH 1 - PROGRESS: at 72.40% words, 583938 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:23,277 : INFO : EPOCH 1 - PROGRESS: at 73.48% words, 583837 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:24,278 : INFO : EPOCH 1 - PROGRESS: at 74.58% words, 583880 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:25,295 : INFO : EPOCH 1 - PROGRESS: at 75.66% words, 583743 words/s, in_qsize 5, out_qsize 0
+2020-11-18 01:28:26,292 : INFO : EPOCH 1 - PROGRESS: at 76.78% words, 583929 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:27,302 : INFO : EPOCH 1 - PROGRESS: at 77.86% words, 583836 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:28,310 : INFO : EPOCH 1 - PROGRESS: at 78.95% words, 583774 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:29,312 : INFO : EPOCH 1 - PROGRESS: at 80.04% words, 583719 words/s, in_qsize 5, out_qsize 0
+2020-11-18 01:28:30,325 : INFO : EPOCH 1 - PROGRESS: at 81.13% words, 583691 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:31,317 : INFO : EPOCH 1 - PROGRESS: at 82.24% words, 583866 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:32,332 : INFO : EPOCH 1 - PROGRESS: at 83.34% words, 583878 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:33,335 : INFO : EPOCH 1 - PROGRESS: at 84.45% words, 583979 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:34,336 : INFO : EPOCH 1 - PROGRESS: at 85.57% words, 584128 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:35,338 : INFO : EPOCH 1 - PROGRESS: at 86.67% words, 584217 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:36,355 : INFO : EPOCH 1 - PROGRESS: at 87.79% words, 584273 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:37,378 : INFO : EPOCH 1 - PROGRESS: at 88.87% words, 584144 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:38,374 : INFO : EPOCH 1 - PROGRESS: at 89.97% words, 584186 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:39,391 : INFO : EPOCH 1 - PROGRESS: at 91.06% words, 584113 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:40,406 : INFO : EPOCH 1 - PROGRESS: at 92.17% words, 584142 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:41,454 : INFO : EPOCH 1 - PROGRESS: at 93.29% words, 584114 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:28:42,455 : INFO : EPOCH 1 - PROGRESS: at 94.41% words, 584224 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:43,456 : INFO : EPOCH 1 - PROGRESS: at 95.50% words, 584217 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:44,474 : INFO : EPOCH 1 - PROGRESS: at 96.60% words, 584258 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:45,482 : INFO : EPOCH 1 - PROGRESS: at 97.69% words, 584229 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:28:46,493 : INFO : EPOCH 1 - PROGRESS: at 98.81% words, 584286 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:47,504 : INFO : EPOCH 1 - PROGRESS: at 99.92% words, 584388 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:47,536 : INFO : worker thread finished; awaiting finish of 3 more threads
+2020-11-18 01:28:47,551 : INFO : worker thread finished; awaiting finish of 2 more threads
+2020-11-18 01:28:47,551 : INFO : worker thread finished; awaiting finish of 1 more threads
+2020-11-18 01:28:47,574 : INFO : worker thread finished; awaiting finish of 0 more threads
+2020-11-18 01:28:47,575 : INFO : EPOCH - 1 : training on 73713636 raw words (53675008 effective words) took 91.8s, 584407 effective words/s
+2020-11-18 01:28:47,577 : INFO : reading file LARGEST_WEAK_COMPONENT.txt
+2020-11-18 01:28:48,578 : INFO : EPOCH 2 - PROGRESS: at 1.09% words, 580253 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:49,587 : INFO : EPOCH 2 - PROGRESS: at 2.17% words, 578615 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:50,578 : INFO : EPOCH 2 - PROGRESS: at 3.28% words, 583583 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:51,626 : INFO : EPOCH 2 - PROGRESS: at 4.39% words, 582027 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:52,642 : INFO : EPOCH 2 - PROGRESS: at 5.52% words, 583952 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:53,645 : INFO : EPOCH 2 - PROGRESS: at 6.62% words, 585042 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:54,662 : INFO : EPOCH 2 - PROGRESS: at 7.71% words, 584729 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:55,664 : INFO : EPOCH 2 - PROGRESS: at 8.82% words, 584568 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:56,682 : INFO : EPOCH 2 - PROGRESS: at 9.93% words, 585423 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:57,678 : INFO : EPOCH 2 - PROGRESS: at 11.01% words, 584346 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:58,685 : INFO : EPOCH 2 - PROGRESS: at 12.10% words, 584371 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:28:59,710 : INFO : EPOCH 2 - PROGRESS: at 13.20% words, 583393 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:00,718 : INFO : EPOCH 2 - PROGRESS: at 14.29% words, 583555 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:01,735 : INFO : EPOCH 2 - PROGRESS: at 15.40% words, 584002 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:29:02,736 : INFO : EPOCH 2 - PROGRESS: at 16.52% words, 584886 words/s, in_qsize 7, out_qsize 1
+2020-11-18 01:29:03,737 : INFO : EPOCH 2 - PROGRESS: at 17.61% words, 584597 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:04,749 : INFO : EPOCH 2 - PROGRESS: at 18.71% words, 584857 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:05,739 : INFO : EPOCH 2 - PROGRESS: at 19.80% words, 585122 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:06,758 : INFO : EPOCH 2 - PROGRESS: at 20.89% words, 584710 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:07,774 : INFO : EPOCH 2 - PROGRESS: at 22.00% words, 584953 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:29:08,780 : INFO : EPOCH 2 - PROGRESS: at 23.09% words, 584670 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:09,791 : INFO : EPOCH 2 - PROGRESS: at 24.20% words, 584633 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:10,792 : INFO : EPOCH 2 - PROGRESS: at 25.31% words, 585129 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:11,816 : INFO : EPOCH 2 - PROGRESS: at 26.42% words, 585068 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:12,813 : INFO : EPOCH 2 - PROGRESS: at 27.51% words, 585116 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:13,816 : INFO : EPOCH 2 - PROGRESS: at 28.60% words, 584968 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:14,821 : INFO : EPOCH 2 - PROGRESS: at 29.71% words, 585432 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:15,825 : INFO : EPOCH 2 - PROGRESS: at 30.82% words, 585639 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:16,819 : INFO : EPOCH 2 - PROGRESS: at 31.91% words, 585652 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:17,845 : INFO : EPOCH 2 - PROGRESS: at 33.02% words, 585689 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:29:18,858 : INFO : EPOCH 2 - PROGRESS: at 34.08% words, 584952 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:19,875 : INFO : EPOCH 2 - PROGRESS: at 35.18% words, 584850 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:20,876 : INFO : EPOCH 2 - PROGRESS: at 36.29% words, 584918 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:21,884 : INFO : EPOCH 2 - PROGRESS: at 37.40% words, 585216 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:22,893 : INFO : EPOCH 2 - PROGRESS: at 38.47% words, 584791 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:23,898 : INFO : EPOCH 2 - PROGRESS: at 39.58% words, 585008 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:29:24,905 : INFO : EPOCH 2 - PROGRESS: at 40.69% words, 585180 words/s, in_qsize 6, out_qsize 0
+2020-11-18 01:29:25,908 : INFO : EPOCH 2 - PROGRESS: at 41.78% words, 585104 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:26,925 : INFO : EPOCH 2 - PROGRESS: at 42.87% words, 584909 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:29:27,927 : INFO : EPOCH 2 - PROGRESS: at 43.97% words, 584811 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:28,945 : INFO : EPOCH 2 - PROGRESS: at 45.06% words, 584578 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:29,964 : INFO : EPOCH 2 - PROGRESS: at 46.17% words, 584689 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:30,963 : INFO : EPOCH 2 - PROGRESS: at 47.27% words, 584788 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:31,970 : INFO : EPOCH 2 - PROGRESS: at 48.38% words, 584895 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:32,967 : INFO : EPOCH 2 - PROGRESS: at 49.45% words, 584706 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:33,986 : INFO : EPOCH 2 - PROGRESS: at 50.56% words, 584843 words/s, in_qsize 6, out_qsize 0
+2020-11-18 01:29:34,986 : INFO : EPOCH 2 - PROGRESS: at 51.65% words, 584818 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:35,989 : INFO : EPOCH 2 - PROGRESS: at 52.75% words, 584882 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:36,989 : INFO : EPOCH 2 - PROGRESS: at 53.85% words, 584885 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:38,006 : INFO : EPOCH 2 - PROGRESS: at 54.93% words, 584703 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:39,007 : INFO : EPOCH 2 - PROGRESS: at 56.06% words, 585046 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:29:40,017 : INFO : EPOCH 2 - PROGRESS: at 57.14% words, 584811 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:41,017 : INFO : EPOCH 2 - PROGRESS: at 58.24% words, 584970 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:42,029 : INFO : EPOCH 2 - PROGRESS: at 59.34% words, 584860 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:43,051 : INFO : EPOCH 2 - PROGRESS: at 60.44% words, 584745 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:44,059 : INFO : EPOCH 2 - PROGRESS: at 61.52% words, 584523 words/s, in_qsize 6, out_qsize 1
+2020-11-18 01:29:45,071 : INFO : EPOCH 2 - PROGRESS: at 62.63% words, 584713 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:46,064 : INFO : EPOCH 2 - PROGRESS: at 63.73% words, 584712 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:47,089 : INFO : EPOCH 2 - PROGRESS: at 64.85% words, 584783 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:48,096 : INFO : EPOCH 2 - PROGRESS: at 65.95% words, 584860 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:49,084 : INFO : EPOCH 2 - PROGRESS: at 67.03% words, 584804 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:50,111 : INFO : EPOCH 2 - PROGRESS: at 68.13% words, 584760 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:51,111 : INFO : EPOCH 2 - PROGRESS: at 69.23% words, 584779 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:52,117 : INFO : EPOCH 2 - PROGRESS: at 70.33% words, 584780 words/s, in_qsize 6, out_qsize 0
+2020-11-18 01:29:53,133 : INFO : EPOCH 2 - PROGRESS: at 71.44% words, 584877 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:29:54,119 : INFO : EPOCH 2 - PROGRESS: at 72.54% words, 584954 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:55,135 : INFO : EPOCH 2 - PROGRESS: at 73.63% words, 584933 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:56,145 : INFO : EPOCH 2 - PROGRESS: at 74.73% words, 584875 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:57,145 : INFO : EPOCH 2 - PROGRESS: at 75.84% words, 585005 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:58,174 : INFO : EPOCH 2 - PROGRESS: at 76.89% words, 584495 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:29:59,174 : INFO : EPOCH 2 - PROGRESS: at 78.00% words, 584609 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:00,182 : INFO : EPOCH 2 - PROGRESS: at 79.10% words, 584587 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:01,207 : INFO : EPOCH 2 - PROGRESS: at 80.20% words, 584567 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:02,210 : INFO : EPOCH 2 - PROGRESS: at 81.29% words, 584529 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:03,211 : INFO : EPOCH 2 - PROGRESS: at 82.40% words, 584623 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:04,228 : INFO : EPOCH 2 - PROGRESS: at 83.52% words, 584773 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:05,229 : INFO : EPOCH 2 - PROGRESS: at 84.62% words, 584836 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:06,230 : INFO : EPOCH 2 - PROGRESS: at 85.72% words, 584914 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:07,230 : INFO : EPOCH 2 - PROGRESS: at 86.82% words, 584882 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:08,248 : INFO : EPOCH 2 - PROGRESS: at 87.92% words, 584902 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:09,249 : INFO : EPOCH 2 - PROGRESS: at 89.02% words, 584980 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:10,255 : INFO : EPOCH 2 - PROGRESS: at 90.11% words, 584986 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:11,253 : INFO : EPOCH 2 - PROGRESS: at 91.20% words, 584973 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:12,256 : INFO : EPOCH 2 - PROGRESS: at 92.27% words, 584782 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:13,270 : INFO : EPOCH 2 - PROGRESS: at 93.36% words, 584750 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:30:14,263 : INFO : EPOCH 2 - PROGRESS: at 94.47% words, 584926 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:15,280 : INFO : EPOCH 2 - PROGRESS: at 95.57% words, 584901 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:16,285 : INFO : EPOCH 2 - PROGRESS: at 96.54% words, 584142 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:17,293 : INFO : EPOCH 2 - PROGRESS: at 97.49% words, 583252 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:30:18,295 : INFO : EPOCH 2 - PROGRESS: at 98.52% words, 582959 words/s, in_qsize 6, out_qsize 0
+2020-11-18 01:30:19,298 : INFO : EPOCH 2 - PROGRESS: at 99.56% words, 582614 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:19,660 : INFO : worker thread finished; awaiting finish of 3 more threads
+2020-11-18 01:30:19,675 : INFO : worker thread finished; awaiting finish of 2 more threads
+2020-11-18 01:30:19,675 : INFO : worker thread finished; awaiting finish of 1 more threads
+2020-11-18 01:30:19,706 : INFO : worker thread finished; awaiting finish of 0 more threads
+2020-11-18 01:30:19,706 : INFO : EPOCH - 2 : training on 73713636 raw words (53677864 effective words) took 92.1s, 582619 effective words/s
+2020-11-18 01:30:19,706 : INFO : reading file LARGEST_WEAK_COMPONENT.txt
+2020-11-18 01:30:20,707 : INFO : EPOCH 3 - PROGRESS: at 1.03% words, 553324 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:21,707 : INFO : EPOCH 3 - PROGRESS: at 2.16% words, 577250 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:22,725 : INFO : EPOCH 3 - PROGRESS: at 3.25% words, 578005 words/s, in_qsize 7, out_qsize 1
+2020-11-18 01:30:23,725 : INFO : EPOCH 3 - PROGRESS: at 4.36% words, 583491 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:24,737 : INFO : EPOCH 3 - PROGRESS: at 5.45% words, 581873 words/s, in_qsize 6, out_qsize 2
+2020-11-18 01:30:25,738 : INFO : EPOCH 3 - PROGRESS: at 6.50% words, 578137 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:26,752 : INFO : EPOCH 3 - PROGRESS: at 7.39% words, 563158 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:27,768 : INFO : EPOCH 3 - PROGRESS: at 8.33% words, 555387 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:30:28,772 : INFO : EPOCH 3 - PROGRESS: at 9.10% words, 539652 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:29,790 : INFO : EPOCH 3 - PROGRESS: at 9.97% words, 530927 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:30,794 : INFO : EPOCH 3 - PROGRESS: at 10.87% words, 526929 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:31,794 : INFO : EPOCH 3 - PROGRESS: at 11.74% words, 521759 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:32,810 : INFO : EPOCH 3 - PROGRESS: at 12.70% words, 520474 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:33,822 : INFO : EPOCH 3 - PROGRESS: at 13.56% words, 515926 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:34,840 : INFO : EPOCH 3 - PROGRESS: at 14.40% words, 510945 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:35,848 : INFO : EPOCH 3 - PROGRESS: at 15.22% words, 506258 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:36,863 : INFO : EPOCH 3 - PROGRESS: at 16.06% words, 502808 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:37,865 : INFO : EPOCH 3 - PROGRESS: at 16.96% words, 501475 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:38,886 : INFO : EPOCH 3 - PROGRESS: at 17.87% words, 500309 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:39,889 : INFO : EPOCH 3 - PROGRESS: at 18.84% words, 501039 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:40,907 : INFO : EPOCH 3 - PROGRESS: at 19.81% words, 501736 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:41,913 : INFO : EPOCH 3 - PROGRESS: at 20.74% words, 501323 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:42,931 : INFO : EPOCH 3 - PROGRESS: at 21.86% words, 505398 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:43,946 : INFO : EPOCH 3 - PROGRESS: at 22.89% words, 507030 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:44,986 : INFO : EPOCH 3 - PROGRESS: at 23.82% words, 506045 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:30:46,016 : INFO : EPOCH 3 - PROGRESS: at 24.60% words, 502047 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:47,017 : INFO : EPOCH 3 - PROGRESS: at 25.57% words, 502715 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:30:48,017 : INFO : EPOCH 3 - PROGRESS: at 26.48% words, 502190 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:49,037 : INFO : EPOCH 3 - PROGRESS: at 27.37% words, 501020 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:50,053 : INFO : EPOCH 3 - PROGRESS: at 28.25% words, 499716 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:51,064 : INFO : EPOCH 3 - PROGRESS: at 29.37% words, 502856 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:52,065 : INFO : EPOCH 3 - PROGRESS: at 30.45% words, 505131 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:53,066 : INFO : EPOCH 3 - PROGRESS: at 31.30% words, 503802 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:54,077 : INFO : EPOCH 3 - PROGRESS: at 32.28% words, 504182 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:55,083 : INFO : EPOCH 3 - PROGRESS: at 33.11% words, 502435 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:56,097 : INFO : EPOCH 3 - PROGRESS: at 33.96% words, 501055 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:57,099 : INFO : EPOCH 3 - PROGRESS: at 34.80% words, 499684 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:58,101 : INFO : EPOCH 3 - PROGRESS: at 35.73% words, 499690 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:30:59,127 : INFO : EPOCH 3 - PROGRESS: at 36.77% words, 500909 words/s, in_qsize 6, out_qsize 0
+2020-11-18 01:31:00,140 : INFO : EPOCH 3 - PROGRESS: at 37.61% words, 499414 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:01,147 : INFO : EPOCH 3 - PROGRESS: at 38.66% words, 500858 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:02,169 : INFO : EPOCH 3 - PROGRESS: at 39.73% words, 502363 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:03,176 : INFO : EPOCH 3 - PROGRESS: at 40.75% words, 503268 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:04,182 : INFO : EPOCH 3 - PROGRESS: at 41.78% words, 504349 words/s, in_qsize 6, out_qsize 0
+2020-11-18 01:31:05,186 : INFO : EPOCH 3 - PROGRESS: at 42.81% words, 505302 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:06,180 : INFO : EPOCH 3 - PROGRESS: at 43.82% words, 506107 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:07,192 : INFO : EPOCH 3 - PROGRESS: at 44.76% words, 505998 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:08,201 : INFO : EPOCH 3 - PROGRESS: at 45.59% words, 504714 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:31:09,215 : INFO : EPOCH 3 - PROGRESS: at 46.47% words, 503841 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:10,217 : INFO : EPOCH 3 - PROGRESS: at 47.47% words, 504463 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:11,239 : INFO : EPOCH 3 - PROGRESS: at 48.46% words, 504828 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:12,240 : INFO : EPOCH 3 - PROGRESS: at 49.47% words, 505528 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:13,260 : INFO : EPOCH 3 - PROGRESS: at 50.47% words, 505951 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:14,274 : INFO : EPOCH 3 - PROGRESS: at 51.44% words, 506116 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:15,283 : INFO : EPOCH 3 - PROGRESS: at 52.45% words, 506626 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:16,288 : INFO : EPOCH 3 - PROGRESS: at 53.41% words, 506743 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:17,288 : INFO : EPOCH 3 - PROGRESS: at 54.35% words, 506770 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:18,313 : INFO : EPOCH 3 - PROGRESS: at 55.34% words, 506871 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:19,320 : INFO : EPOCH 3 - PROGRESS: at 56.20% words, 506047 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:20,328 : INFO : EPOCH 3 - PROGRESS: at 57.14% words, 505934 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:21,347 : INFO : EPOCH 3 - PROGRESS: at 58.12% words, 506131 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:22,349 : INFO : EPOCH 3 - PROGRESS: at 59.10% words, 506384 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:23,349 : INFO : EPOCH 3 - PROGRESS: at 60.07% words, 506642 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:24,365 : INFO : EPOCH 3 - PROGRESS: at 61.02% words, 506568 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:25,369 : INFO : EPOCH 3 - PROGRESS: at 62.03% words, 507098 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:26,370 : INFO : EPOCH 3 - PROGRESS: at 63.07% words, 507850 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:27,370 : INFO : EPOCH 3 - PROGRESS: at 64.02% words, 507901 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:28,372 : INFO : EPOCH 3 - PROGRESS: at 65.12% words, 509071 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:29,374 : INFO : EPOCH 3 - PROGRESS: at 66.12% words, 509431 words/s, in_qsize 6, out_qsize 0
+2020-11-18 01:31:30,384 : INFO : EPOCH 3 - PROGRESS: at 67.08% words, 509414 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:31,387 : INFO : EPOCH 3 - PROGRESS: at 68.07% words, 509733 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:32,395 : INFO : EPOCH 3 - PROGRESS: at 69.04% words, 509776 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:33,397 : INFO : EPOCH 3 - PROGRESS: at 70.02% words, 510018 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:34,408 : INFO : EPOCH 3 - PROGRESS: at 71.02% words, 510271 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:35,408 : INFO : EPOCH 3 - PROGRESS: at 71.96% words, 510172 words/s, in_qsize 6, out_qsize 0
+2020-11-18 01:31:36,416 : INFO : EPOCH 3 - PROGRESS: at 72.95% words, 510378 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:37,433 : INFO : EPOCH 3 - PROGRESS: at 73.92% words, 510451 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:38,434 : INFO : EPOCH 3 - PROGRESS: at 74.91% words, 510681 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:39,445 : INFO : EPOCH 3 - PROGRESS: at 75.94% words, 511124 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:40,445 : INFO : EPOCH 3 - PROGRESS: at 76.94% words, 511405 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:41,474 : INFO : EPOCH 3 - PROGRESS: at 77.96% words, 511676 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:42,476 : INFO : EPOCH 3 - PROGRESS: at 78.94% words, 511831 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:43,509 : INFO : EPOCH 3 - PROGRESS: at 79.74% words, 510658 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:44,534 : INFO : EPOCH 3 - PROGRESS: at 80.70% words, 510584 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:45,540 : INFO : EPOCH 3 - PROGRESS: at 81.69% words, 510785 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:46,544 : INFO : EPOCH 3 - PROGRESS: at 82.66% words, 510851 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:47,535 : INFO : EPOCH 3 - PROGRESS: at 83.68% words, 511222 words/s, in_qsize 6, out_qsize 0
+2020-11-18 01:31:48,560 : INFO : EPOCH 3 - PROGRESS: at 84.61% words, 511057 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:49,552 : INFO : EPOCH 3 - PROGRESS: at 85.60% words, 511297 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:31:50,582 : INFO : EPOCH 3 - PROGRESS: at 86.62% words, 511560 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:51,597 : INFO : EPOCH 3 - PROGRESS: at 87.59% words, 511604 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:52,617 : INFO : EPOCH 3 - PROGRESS: at 88.55% words, 511535 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:53,625 : INFO : EPOCH 3 - PROGRESS: at 89.55% words, 511759 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:54,640 : INFO : EPOCH 3 - PROGRESS: at 90.56% words, 511968 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:55,652 : INFO : EPOCH 3 - PROGRESS: at 91.62% words, 512498 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:56,668 : INFO : EPOCH 3 - PROGRESS: at 92.64% words, 512822 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:57,670 : INFO : EPOCH 3 - PROGRESS: at 93.65% words, 513138 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:58,677 : INFO : EPOCH 3 - PROGRESS: at 94.66% words, 513341 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:31:59,680 : INFO : EPOCH 3 - PROGRESS: at 95.61% words, 513344 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:00,689 : INFO : EPOCH 3 - PROGRESS: at 96.58% words, 513362 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:01,697 : INFO : EPOCH 3 - PROGRESS: at 97.55% words, 513374 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:02,701 : INFO : EPOCH 3 - PROGRESS: at 98.45% words, 513089 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:03,705 : INFO : EPOCH 3 - PROGRESS: at 99.46% words, 513311 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:04,307 : INFO : worker thread finished; awaiting finish of 3 more threads
+2020-11-18 01:32:04,317 : INFO : worker thread finished; awaiting finish of 2 more threads
+2020-11-18 01:32:04,319 : INFO : worker thread finished; awaiting finish of 1 more threads
+2020-11-18 01:32:04,340 : INFO : worker thread finished; awaiting finish of 0 more threads
+2020-11-18 01:32:04,340 : INFO : EPOCH - 3 : training on 73713636 raw words (53671698 effective words) took 104.6s, 512974 effective words/s
+2020-11-18 01:32:04,342 : INFO : reading file LARGEST_WEAK_COMPONENT.txt
+2020-11-18 01:32:05,343 : INFO : EPOCH 4 - PROGRESS: at 0.93% words, 497431 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:06,348 : INFO : EPOCH 4 - PROGRESS: at 1.84% words, 493926 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:07,355 : INFO : EPOCH 4 - PROGRESS: at 2.84% words, 505771 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:08,363 : INFO : EPOCH 4 - PROGRESS: at 3.83% words, 511639 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:09,389 : INFO : EPOCH 4 - PROGRESS: at 4.86% words, 517357 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:10,403 : INFO : EPOCH 4 - PROGRESS: at 5.87% words, 520534 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:11,408 : INFO : EPOCH 4 - PROGRESS: at 6.86% words, 521344 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:12,417 : INFO : EPOCH 4 - PROGRESS: at 7.82% words, 519831 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:13,419 : INFO : EPOCH 4 - PROGRESS: at 8.80% words, 520419 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:14,422 : INFO : EPOCH 4 - PROGRESS: at 9.84% words, 523993 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:15,416 : INFO : EPOCH 4 - PROGRESS: at 10.92% words, 529289 words/s, in_qsize 8, out_qsize 1
+2020-11-18 01:32:16,422 : INFO : EPOCH 4 - PROGRESS: at 11.98% words, 532385 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:17,424 : INFO : EPOCH 4 - PROGRESS: at 12.98% words, 532605 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:18,433 : INFO : EPOCH 4 - PROGRESS: at 13.98% words, 532634 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:19,459 : INFO : EPOCH 4 - PROGRESS: at 15.01% words, 533128 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:20,465 : INFO : EPOCH 4 - PROGRESS: at 16.04% words, 533614 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:21,476 : INFO : EPOCH 4 - PROGRESS: at 16.76% words, 525116 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:22,490 : INFO : EPOCH 4 - PROGRESS: at 17.43% words, 515555 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:23,498 : INFO : EPOCH 4 - PROGRESS: at 18.21% words, 510319 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:24,507 : INFO : EPOCH 4 - PROGRESS: at 19.04% words, 506743 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:25,533 : INFO : EPOCH 4 - PROGRESS: at 20.01% words, 506938 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:26,543 : INFO : EPOCH 4 - PROGRESS: at 21.04% words, 508924 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:27,577 : INFO : EPOCH 4 - PROGRESS: at 22.06% words, 509651 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:28,655 : INFO : EPOCH 4 - PROGRESS: at 22.67% words, 500514 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:29,666 : INFO : EPOCH 4 - PROGRESS: at 23.47% words, 497609 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:30,677 : INFO : EPOCH 4 - PROGRESS: at 24.52% words, 499827 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:31,667 : INFO : EPOCH 4 - PROGRESS: at 25.62% words, 503138 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:32,692 : INFO : EPOCH 4 - PROGRESS: at 26.65% words, 504465 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:33,690 : INFO : EPOCH 4 - PROGRESS: at 27.76% words, 507424 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:34,706 : INFO : EPOCH 4 - PROGRESS: at 28.73% words, 507710 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:35,719 : INFO : EPOCH 4 - PROGRESS: at 29.71% words, 508227 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:36,716 : INFO : EPOCH 4 - PROGRESS: at 30.73% words, 509258 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:37,723 : INFO : EPOCH 4 - PROGRESS: at 31.81% words, 511303 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:38,726 : INFO : EPOCH 4 - PROGRESS: at 32.85% words, 512736 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:39,734 : INFO : EPOCH 4 - PROGRESS: at 33.94% words, 514837 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:40,724 : INFO : EPOCH 4 - PROGRESS: at 34.93% words, 515198 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:41,733 : INFO : EPOCH 4 - PROGRESS: at 36.04% words, 517267 words/s, in_qsize 7, out_qsize 1
+2020-11-18 01:32:42,748 : INFO : EPOCH 4 - PROGRESS: at 37.17% words, 519402 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:43,755 : INFO : EPOCH 4 - PROGRESS: at 38.27% words, 521252 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:32:44,754 : INFO : EPOCH 4 - PROGRESS: at 39.32% words, 522234 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:45,751 : INFO : EPOCH 4 - PROGRESS: at 40.44% words, 524027 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:46,765 : INFO : EPOCH 4 - PROGRESS: at 41.50% words, 524890 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:47,785 : INFO : EPOCH 4 - PROGRESS: at 42.63% words, 526644 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:48,788 : INFO : EPOCH 4 - PROGRESS: at 43.70% words, 527472 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:49,817 : INFO : EPOCH 4 - PROGRESS: at 44.78% words, 528478 words/s, in_qsize 6, out_qsize 2
+2020-11-18 01:32:50,833 : INFO : EPOCH 4 - PROGRESS: at 45.84% words, 529133 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:51,829 : INFO : EPOCH 4 - PROGRESS: at 46.92% words, 530200 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:52,847 : INFO : EPOCH 4 - PROGRESS: at 48.04% words, 531507 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:53,862 : INFO : EPOCH 4 - PROGRESS: at 49.09% words, 532152 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:54,864 : INFO : EPOCH 4 - PROGRESS: at 50.03% words, 531513 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:55,910 : INFO : EPOCH 4 - PROGRESS: at 50.83% words, 529098 words/s, in_qsize 6, out_qsize 1
+2020-11-18 01:32:56,922 : INFO : EPOCH 4 - PROGRESS: at 51.49% words, 525630 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:57,926 : INFO : EPOCH 4 - PROGRESS: at 52.41% words, 524981 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:58,927 : INFO : EPOCH 4 - PROGRESS: at 53.38% words, 524936 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:32:59,928 : INFO : EPOCH 4 - PROGRESS: at 54.38% words, 525141 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:00,932 : INFO : EPOCH 4 - PROGRESS: at 55.44% words, 525790 words/s, in_qsize 7, out_qsize 1
+2020-11-18 01:33:01,933 : INFO : EPOCH 4 - PROGRESS: at 56.44% words, 526018 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:02,947 : INFO : EPOCH 4 - PROGRESS: at 57.50% words, 526580 words/s, in_qsize 6, out_qsize 1
+2020-11-18 01:33:03,968 : INFO : EPOCH 4 - PROGRESS: at 58.57% words, 527227 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:04,985 : INFO : EPOCH 4 - PROGRESS: at 59.59% words, 527400 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:06,014 : INFO : EPOCH 4 - PROGRESS: at 60.65% words, 527809 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:07,010 : INFO : EPOCH 4 - PROGRESS: at 61.69% words, 528304 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:08,016 : INFO : EPOCH 4 - PROGRESS: at 62.69% words, 528388 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:33:09,038 : INFO : EPOCH 4 - PROGRESS: at 63.70% words, 528464 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:10,044 : INFO : EPOCH 4 - PROGRESS: at 64.77% words, 529078 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:11,051 : INFO : EPOCH 4 - PROGRESS: at 65.81% words, 529489 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:12,052 : INFO : EPOCH 4 - PROGRESS: at 66.85% words, 529913 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:13,060 : INFO : EPOCH 4 - PROGRESS: at 67.93% words, 530532 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:14,071 : INFO : EPOCH 4 - PROGRESS: at 68.98% words, 530954 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:15,103 : INFO : EPOCH 4 - PROGRESS: at 70.07% words, 531492 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:16,115 : INFO : EPOCH 4 - PROGRESS: at 71.13% words, 531898 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:17,121 : INFO : EPOCH 4 - PROGRESS: at 72.22% words, 532531 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:33:18,128 : INFO : EPOCH 4 - PROGRESS: at 73.27% words, 532915 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:19,146 : INFO : EPOCH 4 - PROGRESS: at 74.20% words, 532321 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:20,167 : INFO : EPOCH 4 - PROGRESS: at 74.87% words, 529871 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:21,166 : INFO : EPOCH 4 - PROGRESS: at 75.95% words, 530508 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:22,172 : INFO : EPOCH 4 - PROGRESS: at 76.98% words, 530755 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:23,188 : INFO : EPOCH 4 - PROGRESS: at 78.03% words, 531072 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:24,214 : INFO : EPOCH 4 - PROGRESS: at 79.14% words, 531755 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:33:25,222 : INFO : EPOCH 4 - PROGRESS: at 80.08% words, 531360 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:26,250 : INFO : EPOCH 4 - PROGRESS: at 80.97% words, 530520 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:27,250 : INFO : EPOCH 4 - PROGRESS: at 81.95% words, 530357 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:28,280 : INFO : EPOCH 4 - PROGRESS: at 82.82% words, 529513 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:29,301 : INFO : EPOCH 4 - PROGRESS: at 83.65% words, 528365 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:30,296 : INFO : EPOCH 4 - PROGRESS: at 84.25% words, 525957 words/s, in_qsize 6, out_qsize 1
+2020-11-18 01:33:31,322 : INFO : EPOCH 4 - PROGRESS: at 84.96% words, 524238 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:33:32,320 : INFO : EPOCH 4 - PROGRESS: at 85.93% words, 524179 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:33,350 : INFO : EPOCH 4 - PROGRESS: at 86.98% words, 524467 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:34,348 : INFO : EPOCH 4 - PROGRESS: at 87.96% words, 524380 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:35,399 : INFO : EPOCH 4 - PROGRESS: at 88.76% words, 523125 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:36,409 : INFO : EPOCH 4 - PROGRESS: at 89.57% words, 522061 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:37,420 : INFO : EPOCH 4 - PROGRESS: at 90.29% words, 520523 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:33:38,429 : INFO : EPOCH 4 - PROGRESS: at 90.97% words, 518908 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:39,432 : INFO : EPOCH 4 - PROGRESS: at 91.63% words, 517181 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:40,440 : INFO : EPOCH 4 - PROGRESS: at 92.18% words, 514798 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:41,455 : INFO : EPOCH 4 - PROGRESS: at 92.94% words, 513646 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:42,463 : INFO : EPOCH 4 - PROGRESS: at 93.70% words, 512534 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:43,469 : INFO : EPOCH 4 - PROGRESS: at 94.38% words, 511035 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:44,537 : INFO : EPOCH 4 - PROGRESS: at 94.97% words, 508742 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:45,561 : INFO : EPOCH 4 - PROGRESS: at 95.36% words, 505657 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:46,562 : INFO : EPOCH 4 - PROGRESS: at 95.94% words, 503739 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:47,582 : INFO : EPOCH 4 - PROGRESS: at 96.63% words, 502388 words/s, in_qsize 7, out_qsize 1
+2020-11-18 01:33:48,583 : INFO : EPOCH 4 - PROGRESS: at 97.10% words, 499967 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:49,582 : INFO : EPOCH 4 - PROGRESS: at 97.77% words, 498645 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:50,582 : INFO : EPOCH 4 - PROGRESS: at 98.53% words, 497714 words/s, in_qsize 6, out_qsize 1
+2020-11-18 01:33:51,625 : INFO : EPOCH 4 - PROGRESS: at 99.13% words, 495958 words/s, in_qsize 6, out_qsize 1
+2020-11-18 01:33:52,671 : INFO : EPOCH 4 - PROGRESS: at 99.62% words, 493583 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:53,083 : INFO : worker thread finished; awaiting finish of 3 more threads
+2020-11-18 01:33:53,099 : INFO : worker thread finished; awaiting finish of 2 more threads
+2020-11-18 01:33:53,099 : INFO : worker thread finished; awaiting finish of 1 more threads
+2020-11-18 01:33:53,123 : INFO : worker thread finished; awaiting finish of 0 more threads
+2020-11-18 01:33:53,123 : INFO : EPOCH - 4 : training on 73713636 raw words (53672035 effective words) took 108.8s, 493349 effective words/s
+2020-11-18 01:33:53,123 : INFO : reading file LARGEST_WEAK_COMPONENT.txt
+2020-11-18 01:33:54,128 : INFO : EPOCH 5 - PROGRESS: at 0.71% words, 383962 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:55,140 : INFO : EPOCH 5 - PROGRESS: at 1.47% words, 391181 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:56,149 : INFO : EPOCH 5 - PROGRESS: at 2.15% words, 383559 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:57,193 : INFO : EPOCH 5 - PROGRESS: at 2.71% words, 358788 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:58,263 : INFO : EPOCH 5 - PROGRESS: at 3.14% words, 329237 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:33:59,279 : INFO : EPOCH 5 - PROGRESS: at 3.64% words, 317600 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:00,308 : INFO : EPOCH 5 - PROGRESS: at 4.16% words, 311549 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:34:01,303 : INFO : EPOCH 5 - PROGRESS: at 4.75% words, 312092 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:02,323 : INFO : EPOCH 5 - PROGRESS: at 5.22% words, 305178 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:03,339 : INFO : EPOCH 5 - PROGRESS: at 5.66% words, 298071 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:04,370 : INFO : EPOCH 5 - PROGRESS: at 5.97% words, 285380 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:05,375 : INFO : EPOCH 5 - PROGRESS: at 6.37% words, 279495 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:06,393 : INFO : EPOCH 5 - PROGRESS: at 6.80% words, 275375 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:07,390 : INFO : EPOCH 5 - PROGRESS: at 7.34% words, 276455 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:08,409 : INFO : EPOCH 5 - PROGRESS: at 7.93% words, 278798 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:09,633 : INFO : EPOCH 5 - PROGRESS: at 8.38% words, 272755 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:34:10,640 : INFO : EPOCH 5 - PROGRESS: at 8.76% words, 268852 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:11,640 : INFO : EPOCH 5 - PROGRESS: at 9.10% words, 264043 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:12,647 : INFO : EPOCH 5 - PROGRESS: at 9.53% words, 262380 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:13,661 : INFO : EPOCH 5 - PROGRESS: at 9.92% words, 259589 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:14,676 : INFO : EPOCH 5 - PROGRESS: at 10.34% words, 257499 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:34:15,696 : INFO : EPOCH 5 - PROGRESS: at 10.78% words, 256732 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:34:16,699 : INFO : EPOCH 5 - PROGRESS: at 11.29% words, 257410 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:17,728 : INFO : EPOCH 5 - PROGRESS: at 11.69% words, 255335 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:18,792 : INFO : EPOCH 5 - PROGRESS: at 12.02% words, 251654 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:19,873 : INFO : EPOCH 5 - PROGRESS: at 12.45% words, 250047 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:20,879 : INFO : EPOCH 5 - PROGRESS: at 12.87% words, 249073 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:21,892 : INFO : EPOCH 5 - PROGRESS: at 13.56% words, 253068 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:22,910 : INFO : EPOCH 5 - PROGRESS: at 14.10% words, 254098 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:34:23,941 : INFO : EPOCH 5 - PROGRESS: at 14.83% words, 258326 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:24,993 : INFO : EPOCH 5 - PROGRESS: at 15.29% words, 257492 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:26,041 : INFO : EPOCH 5 - PROGRESS: at 15.68% words, 255841 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:27,061 : INFO : EPOCH 5 - PROGRESS: at 16.16% words, 255664 words/s, in_qsize 7, out_qsize 1
+2020-11-18 01:34:28,073 : INFO : EPOCH 5 - PROGRESS: at 16.68% words, 256347 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:29,066 : INFO : EPOCH 5 - PROGRESS: at 17.35% words, 259140 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:30,079 : INFO : EPOCH 5 - PROGRESS: at 18.24% words, 264959 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:31,095 : INFO : EPOCH 5 - PROGRESS: at 19.18% words, 271324 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:32,099 : INFO : EPOCH 5 - PROGRESS: at 20.14% words, 277587 words/s, in_qsize 6, out_qsize 1
+2020-11-18 01:34:33,097 : INFO : EPOCH 5 - PROGRESS: at 21.15% words, 284126 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:34:34,090 : INFO : EPOCH 5 - PROGRESS: at 22.18% words, 290696 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:35,097 : INFO : EPOCH 5 - PROGRESS: at 23.19% words, 296654 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:36,113 : INFO : EPOCH 5 - PROGRESS: at 24.23% words, 302615 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:37,119 : INFO : EPOCH 5 - PROGRESS: at 25.30% words, 308686 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:38,133 : INFO : EPOCH 5 - PROGRESS: at 26.36% words, 314496 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:39,135 : INFO : EPOCH 5 - PROGRESS: at 27.37% words, 319328 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:40,143 : INFO : EPOCH 5 - PROGRESS: at 28.45% words, 324772 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:41,161 : INFO : EPOCH 5 - PROGRESS: at 29.55% words, 330169 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:42,167 : INFO : EPOCH 5 - PROGRESS: at 30.57% words, 334588 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:34:43,175 : INFO : EPOCH 5 - PROGRESS: at 31.65% words, 339518 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:44,173 : INFO : EPOCH 5 - PROGRESS: at 32.70% words, 343907 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:45,178 : INFO : EPOCH 5 - PROGRESS: at 33.77% words, 348365 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:46,178 : INFO : EPOCH 5 - PROGRESS: at 34.87% words, 352864 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:47,186 : INFO : EPOCH 5 - PROGRESS: at 35.91% words, 356611 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:48,195 : INFO : EPOCH 5 - PROGRESS: at 36.95% words, 360321 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:49,193 : INFO : EPOCH 5 - PROGRESS: at 38.00% words, 363926 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:50,199 : INFO : EPOCH 5 - PROGRESS: at 39.04% words, 367282 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:51,195 : INFO : EPOCH 5 - PROGRESS: at 40.08% words, 370541 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:52,234 : INFO : EPOCH 5 - PROGRESS: at 41.13% words, 373600 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:53,236 : INFO : EPOCH 5 - PROGRESS: at 42.16% words, 376455 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:54,250 : INFO : EPOCH 5 - PROGRESS: at 43.22% words, 379559 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:55,246 : INFO : EPOCH 5 - PROGRESS: at 44.29% words, 382690 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:56,252 : INFO : EPOCH 5 - PROGRESS: at 45.37% words, 385823 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:34:57,259 : INFO : EPOCH 5 - PROGRESS: at 46.48% words, 389014 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:58,258 : INFO : EPOCH 5 - PROGRESS: at 47.53% words, 391692 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:34:59,270 : INFO : EPOCH 5 - PROGRESS: at 48.59% words, 394417 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:00,265 : INFO : EPOCH 5 - PROGRESS: at 49.62% words, 396681 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:01,276 : INFO : EPOCH 5 - PROGRESS: at 50.67% words, 399170 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:02,301 : INFO : EPOCH 5 - PROGRESS: at 51.73% words, 401479 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:03,302 : INFO : EPOCH 5 - PROGRESS: at 52.79% words, 403810 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:04,302 : INFO : EPOCH 5 - PROGRESS: at 53.84% words, 406012 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:05,314 : INFO : EPOCH 5 - PROGRESS: at 54.88% words, 408128 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:06,326 : INFO : EPOCH 5 - PROGRESS: at 55.98% words, 410539 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:35:07,320 : INFO : EPOCH 5 - PROGRESS: at 57.05% words, 412651 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:08,323 : INFO : EPOCH 5 - PROGRESS: at 58.12% words, 414849 words/s, in_qsize 6, out_qsize 0
+2020-11-18 01:35:09,325 : INFO : EPOCH 5 - PROGRESS: at 59.18% words, 416838 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:10,341 : INFO : EPOCH 5 - PROGRESS: at 60.24% words, 418728 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:11,362 : INFO : EPOCH 5 - PROGRESS: at 61.32% words, 420761 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:12,359 : INFO : EPOCH 5 - PROGRESS: at 62.37% words, 422550 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:13,376 : INFO : EPOCH 5 - PROGRESS: at 63.42% words, 424206 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:14,370 : INFO : EPOCH 5 - PROGRESS: at 64.47% words, 425893 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:15,385 : INFO : EPOCH 5 - PROGRESS: at 65.50% words, 427365 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:16,393 : INFO : EPOCH 5 - PROGRESS: at 66.58% words, 429145 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:17,400 : INFO : EPOCH 5 - PROGRESS: at 67.66% words, 430876 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:18,417 : INFO : EPOCH 5 - PROGRESS: at 68.72% words, 432501 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:19,433 : INFO : EPOCH 5 - PROGRESS: at 69.79% words, 434065 words/s, in_qsize 6, out_qsize 1
+2020-11-18 01:35:20,442 : INFO : EPOCH 5 - PROGRESS: at 70.82% words, 435408 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:35:21,440 : INFO : EPOCH 5 - PROGRESS: at 71.89% words, 436893 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:22,452 : INFO : EPOCH 5 - PROGRESS: at 73.00% words, 438639 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:35:23,475 : INFO : EPOCH 5 - PROGRESS: at 74.11% words, 440297 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:35:24,486 : INFO : EPOCH 5 - PROGRESS: at 75.22% words, 441934 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:35:25,496 : INFO : EPOCH 5 - PROGRESS: at 76.34% words, 443561 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:26,501 : INFO : EPOCH 5 - PROGRESS: at 77.41% words, 444908 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:27,511 : INFO : EPOCH 5 - PROGRESS: at 78.51% words, 446400 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:28,535 : INFO : EPOCH 5 - PROGRESS: at 79.60% words, 447785 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:29,544 : INFO : EPOCH 5 - PROGRESS: at 80.66% words, 448980 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:30,546 : INFO : EPOCH 5 - PROGRESS: at 81.67% words, 449924 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:31,553 : INFO : EPOCH 5 - PROGRESS: at 82.70% words, 450953 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:32,560 : INFO : EPOCH 5 - PROGRESS: at 83.71% words, 451846 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:33,571 : INFO : EPOCH 5 - PROGRESS: at 84.78% words, 453029 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:35:34,564 : INFO : EPOCH 5 - PROGRESS: at 85.83% words, 454086 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:35,585 : INFO : EPOCH 5 - PROGRESS: at 86.86% words, 455008 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:36,586 : INFO : EPOCH 5 - PROGRESS: at 87.93% words, 456123 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:37,585 : INFO : EPOCH 5 - PROGRESS: at 88.96% words, 457059 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:38,595 : INFO : EPOCH 5 - PROGRESS: at 89.97% words, 457836 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:39,599 : INFO : EPOCH 5 - PROGRESS: at 90.96% words, 458522 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:40,600 : INFO : EPOCH 5 - PROGRESS: at 92.00% words, 459446 words/s, in_qsize 6, out_qsize 1
+2020-11-18 01:35:41,603 : INFO : EPOCH 5 - PROGRESS: at 93.10% words, 460614 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:42,618 : INFO : EPOCH 5 - PROGRESS: at 94.17% words, 461629 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:43,623 : INFO : EPOCH 5 - PROGRESS: at 95.15% words, 462189 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:44,629 : INFO : EPOCH 5 - PROGRESS: at 96.19% words, 463064 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:45,649 : INFO : EPOCH 5 - PROGRESS: at 97.23% words, 463823 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:46,656 : INFO : EPOCH 5 - PROGRESS: at 98.29% words, 464710 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:47,679 : INFO : EPOCH 5 - PROGRESS: at 99.26% words, 465125 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:48,320 : INFO : worker thread finished; awaiting finish of 3 more threads
+2020-11-18 01:35:48,320 : INFO : worker thread finished; awaiting finish of 2 more threads
+2020-11-18 01:35:48,336 : INFO : worker thread finished; awaiting finish of 1 more threads
+2020-11-18 01:35:48,357 : INFO : worker thread finished; awaiting finish of 0 more threads
+2020-11-18 01:35:48,357 : INFO : EPOCH - 5 : training on 73713636 raw words (53674426 effective words) took 115.2s, 465826 effective words/s
+2020-11-18 01:35:48,357 : INFO : reading file LARGEST_WEAK_COMPONENT.txt
+2020-11-18 01:35:49,365 : INFO : EPOCH 6 - PROGRESS: at 0.97% words, 519953 words/s, in_qsize 7, out_qsize 1
+2020-11-18 01:35:50,359 : INFO : EPOCH 6 - PROGRESS: at 2.03% words, 544631 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:51,397 : INFO : EPOCH 6 - PROGRESS: at 3.11% words, 550152 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:52,408 : INFO : EPOCH 6 - PROGRESS: at 4.16% words, 552857 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:53,409 : INFO : EPOCH 6 - PROGRESS: at 5.25% words, 557777 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:54,418 : INFO : EPOCH 6 - PROGRESS: at 6.35% words, 563490 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:35:55,419 : INFO : EPOCH 6 - PROGRESS: at 7.42% words, 563784 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:56,449 : INFO : EPOCH 6 - PROGRESS: at 8.51% words, 565049 words/s, in_qsize 5, out_qsize 0
+2020-11-18 01:35:57,444 : INFO : EPOCH 6 - PROGRESS: at 9.57% words, 565838 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:58,459 : INFO : EPOCH 6 - PROGRESS: at 10.64% words, 565521 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:35:59,473 : INFO : EPOCH 6 - PROGRESS: at 11.67% words, 564006 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:36:00,464 : INFO : EPOCH 6 - PROGRESS: at 12.70% words, 562940 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:01,492 : INFO : EPOCH 6 - PROGRESS: at 13.49% words, 551890 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:02,508 : INFO : EPOCH 6 - PROGRESS: at 14.44% words, 548212 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:03,515 : INFO : EPOCH 6 - PROGRESS: at 15.34% words, 543741 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:04,515 : INFO : EPOCH 6 - PROGRESS: at 16.35% words, 543507 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:05,538 : INFO : EPOCH 6 - PROGRESS: at 17.28% words, 540227 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:06,546 : INFO : EPOCH 6 - PROGRESS: at 18.20% words, 537315 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:07,548 : INFO : EPOCH 6 - PROGRESS: at 19.11% words, 534784 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:08,565 : INFO : EPOCH 6 - PROGRESS: at 20.05% words, 532969 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:09,554 : INFO : EPOCH 6 - PROGRESS: at 21.07% words, 533719 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:10,588 : INFO : EPOCH 6 - PROGRESS: at 22.12% words, 534324 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:11,584 : INFO : EPOCH 6 - PROGRESS: at 23.18% words, 535630 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:12,594 : INFO : EPOCH 6 - PROGRESS: at 24.20% words, 536167 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:36:13,594 : INFO : EPOCH 6 - PROGRESS: at 25.24% words, 536923 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:14,624 : INFO : EPOCH 6 - PROGRESS: at 26.28% words, 537199 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:15,627 : INFO : EPOCH 6 - PROGRESS: at 27.28% words, 537055 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:16,638 : INFO : EPOCH 6 - PROGRESS: at 28.30% words, 537242 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:17,647 : INFO : EPOCH 6 - PROGRESS: at 29.33% words, 537516 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:18,643 : INFO : EPOCH 6 - PROGRESS: at 30.39% words, 538558 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:19,654 : INFO : EPOCH 6 - PROGRESS: at 31.44% words, 539173 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:20,662 : INFO : EPOCH 6 - PROGRESS: at 32.51% words, 540248 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:36:21,680 : INFO : EPOCH 6 - PROGRESS: at 33.59% words, 541159 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:22,678 : INFO : EPOCH 6 - PROGRESS: at 34.64% words, 541719 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:23,686 : INFO : EPOCH 6 - PROGRESS: at 35.72% words, 542920 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:24,685 : INFO : EPOCH 6 - PROGRESS: at 36.76% words, 543243 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:25,693 : INFO : EPOCH 6 - PROGRESS: at 37.81% words, 543778 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:26,697 : INFO : EPOCH 6 - PROGRESS: at 38.89% words, 544647 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:27,698 : INFO : EPOCH 6 - PROGRESS: at 39.98% words, 545605 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:36:28,698 : INFO : EPOCH 6 - PROGRESS: at 40.99% words, 545535 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:29,721 : INFO : EPOCH 6 - PROGRESS: at 42.07% words, 545842 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:30,728 : INFO : EPOCH 6 - PROGRESS: at 43.15% words, 546618 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:36:31,737 : INFO : EPOCH 6 - PROGRESS: at 44.21% words, 547033 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:32,733 : INFO : EPOCH 6 - PROGRESS: at 45.28% words, 547595 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:33,733 : INFO : EPOCH 6 - PROGRESS: at 46.35% words, 548157 words/s, in_qsize 6, out_qsize 0
+2020-11-18 01:36:34,738 : INFO : EPOCH 6 - PROGRESS: at 47.45% words, 549057 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:35,758 : INFO : EPOCH 6 - PROGRESS: at 48.49% words, 549162 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:36:36,745 : INFO : EPOCH 6 - PROGRESS: at 49.56% words, 549687 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:37,751 : INFO : EPOCH 6 - PROGRESS: at 50.66% words, 550469 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:38,772 : INFO : EPOCH 6 - PROGRESS: at 51.73% words, 550808 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:39,785 : INFO : EPOCH 6 - PROGRESS: at 52.82% words, 551369 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:40,786 : INFO : EPOCH 6 - PROGRESS: at 53.90% words, 551811 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:41,806 : INFO : EPOCH 6 - PROGRESS: at 54.98% words, 552178 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:42,804 : INFO : EPOCH 6 - PROGRESS: at 56.08% words, 552672 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:43,814 : INFO : EPOCH 6 - PROGRESS: at 57.14% words, 552940 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:44,834 : INFO : EPOCH 6 - PROGRESS: at 58.24% words, 553521 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:36:45,838 : INFO : EPOCH 6 - PROGRESS: at 59.34% words, 554006 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:46,848 : INFO : EPOCH 6 - PROGRESS: at 60.44% words, 554684 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:47,870 : INFO : EPOCH 6 - PROGRESS: at 61.53% words, 554806 words/s, in_qsize 5, out_qsize 1
+2020-11-18 01:36:48,888 : INFO : EPOCH 6 - PROGRESS: at 62.60% words, 555083 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:49,898 : INFO : EPOCH 6 - PROGRESS: at 63.66% words, 555241 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:50,891 : INFO : EPOCH 6 - PROGRESS: at 64.76% words, 555735 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:51,894 : INFO : EPOCH 6 - PROGRESS: at 65.84% words, 556130 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:52,897 : INFO : EPOCH 6 - PROGRESS: at 66.93% words, 556532 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:53,913 : INFO : EPOCH 6 - PROGRESS: at 68.06% words, 557245 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:54,934 : INFO : EPOCH 6 - PROGRESS: at 69.14% words, 557409 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:55,938 : INFO : EPOCH 6 - PROGRESS: at 70.24% words, 557846 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:56,943 : INFO : EPOCH 6 - PROGRESS: at 71.32% words, 558084 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:57,946 : INFO : EPOCH 6 - PROGRESS: at 72.39% words, 558281 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:36:58,953 : INFO : EPOCH 6 - PROGRESS: at 73.47% words, 558537 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:36:59,955 : INFO : EPOCH 6 - PROGRESS: at 74.53% words, 558636 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:00,957 : INFO : EPOCH 6 - PROGRESS: at 75.59% words, 558754 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:01,976 : INFO : EPOCH 6 - PROGRESS: at 76.71% words, 559261 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:02,983 : INFO : EPOCH 6 - PROGRESS: at 77.84% words, 559768 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:37:03,988 : INFO : EPOCH 6 - PROGRESS: at 78.96% words, 560272 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:04,987 : INFO : EPOCH 6 - PROGRESS: at 80.04% words, 560496 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:06,004 : INFO : EPOCH 6 - PROGRESS: at 81.12% words, 560629 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:07,030 : INFO : EPOCH 6 - PROGRESS: at 82.21% words, 560814 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:08,028 : INFO : EPOCH 6 - PROGRESS: at 83.30% words, 561056 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:09,028 : INFO : EPOCH 6 - PROGRESS: at 84.41% words, 561462 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:10,051 : INFO : EPOCH 6 - PROGRESS: at 85.49% words, 561622 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:11,046 : INFO : EPOCH 6 - PROGRESS: at 86.61% words, 562100 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:12,056 : INFO : EPOCH 6 - PROGRESS: at 87.71% words, 562453 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:13,060 : INFO : EPOCH 6 - PROGRESS: at 88.79% words, 562594 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:37:14,060 : INFO : EPOCH 6 - PROGRESS: at 89.84% words, 562608 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:15,061 : INFO : EPOCH 6 - PROGRESS: at 90.89% words, 562576 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:16,061 : INFO : EPOCH 6 - PROGRESS: at 91.97% words, 562744 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:17,082 : INFO : EPOCH 6 - PROGRESS: at 93.06% words, 562937 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:18,084 : INFO : EPOCH 6 - PROGRESS: at 94.16% words, 563216 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:19,082 : INFO : EPOCH 6 - PROGRESS: at 95.21% words, 563207 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:20,093 : INFO : EPOCH 6 - PROGRESS: at 96.28% words, 563369 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:21,080 : INFO : EPOCH 6 - PROGRESS: at 97.36% words, 563508 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:22,098 : INFO : EPOCH 6 - PROGRESS: at 98.46% words, 563741 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:23,099 : INFO : EPOCH 6 - PROGRESS: at 99.54% words, 563922 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:23,489 : INFO : worker thread finished; awaiting finish of 3 more threads
+2020-11-18 01:37:23,489 : INFO : worker thread finished; awaiting finish of 2 more threads
+2020-11-18 01:37:23,505 : INFO : worker thread finished; awaiting finish of 1 more threads
+2020-11-18 01:37:23,518 : INFO : worker thread finished; awaiting finish of 0 more threads
+2020-11-18 01:37:23,518 : INFO : EPOCH - 6 : training on 73713636 raw words (53671945 effective words) took 95.2s, 563990 effective words/s
+2020-11-18 01:37:23,518 : INFO : reading file LARGEST_WEAK_COMPONENT.txt
+2020-11-18 01:37:24,532 : INFO : EPOCH 7 - PROGRESS: at 1.08% words, 578912 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:25,540 : INFO : EPOCH 7 - PROGRESS: at 2.14% words, 569742 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:26,548 : INFO : EPOCH 7 - PROGRESS: at 3.23% words, 571165 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:27,580 : INFO : EPOCH 7 - PROGRESS: at 4.34% words, 574706 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:28,576 : INFO : EPOCH 7 - PROGRESS: at 5.44% words, 576848 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:29,604 : INFO : EPOCH 7 - PROGRESS: at 6.51% words, 574858 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:30,608 : INFO : EPOCH 7 - PROGRESS: at 7.55% words, 572986 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:37:31,604 : INFO : EPOCH 7 - PROGRESS: at 8.61% words, 571770 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:32,617 : INFO : EPOCH 7 - PROGRESS: at 9.70% words, 572054 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:37:33,633 : INFO : EPOCH 7 - PROGRESS: at 10.71% words, 568288 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:34,649 : INFO : EPOCH 7 - PROGRESS: at 11.78% words, 568250 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:35,650 : INFO : EPOCH 7 - PROGRESS: at 12.88% words, 569738 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:36,660 : INFO : EPOCH 7 - PROGRESS: at 13.94% words, 569412 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:37,688 : INFO : EPOCH 7 - PROGRESS: at 15.01% words, 568899 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:38,694 : INFO : EPOCH 7 - PROGRESS: at 16.12% words, 570520 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:39,695 : INFO : EPOCH 7 - PROGRESS: at 17.19% words, 570584 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:40,701 : INFO : EPOCH 7 - PROGRESS: at 18.27% words, 570742 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:41,703 : INFO : EPOCH 7 - PROGRESS: at 19.35% words, 571414 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:42,710 : INFO : EPOCH 7 - PROGRESS: at 20.45% words, 572131 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:43,722 : INFO : EPOCH 7 - PROGRESS: at 21.53% words, 572341 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:37:44,728 : INFO : EPOCH 7 - PROGRESS: at 22.59% words, 571958 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:45,728 : INFO : EPOCH 7 - PROGRESS: at 23.66% words, 571890 words/s, in_qsize 6, out_qsize 0
+2020-11-18 01:37:46,731 : INFO : EPOCH 7 - PROGRESS: at 24.71% words, 571701 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:47,741 : INFO : EPOCH 7 - PROGRESS: at 25.73% words, 570524 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:48,743 : INFO : EPOCH 7 - PROGRESS: at 26.82% words, 570897 words/s, in_qsize 6, out_qsize 1
+2020-11-18 01:37:49,745 : INFO : EPOCH 7 - PROGRESS: at 27.85% words, 570035 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:50,750 : INFO : EPOCH 7 - PROGRESS: at 28.96% words, 570608 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:51,754 : INFO : EPOCH 7 - PROGRESS: at 30.05% words, 571140 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:52,767 : INFO : EPOCH 7 - PROGRESS: at 31.09% words, 570775 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:53,757 : INFO : EPOCH 7 - PROGRESS: at 32.21% words, 571714 words/s, in_qsize 6, out_qsize 1
+2020-11-18 01:37:54,760 : INFO : EPOCH 7 - PROGRESS: at 33.30% words, 572184 words/s, in_qsize 6, out_qsize 1
+2020-11-18 01:37:55,769 : INFO : EPOCH 7 - PROGRESS: at 34.33% words, 571574 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:56,773 : INFO : EPOCH 7 - PROGRESS: at 35.40% words, 571535 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:37:57,782 : INFO : EPOCH 7 - PROGRESS: at 36.44% words, 571097 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:37:58,788 : INFO : EPOCH 7 - PROGRESS: at 37.47% words, 570450 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:37:59,794 : INFO : EPOCH 7 - PROGRESS: at 38.50% words, 569881 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:38:00,804 : INFO : EPOCH 7 - PROGRESS: at 39.54% words, 569443 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:01,811 : INFO : EPOCH 7 - PROGRESS: at 40.61% words, 569387 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:02,810 : INFO : EPOCH 7 - PROGRESS: at 41.62% words, 568753 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:03,808 : INFO : EPOCH 7 - PROGRESS: at 42.71% words, 569111 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:04,817 : INFO : EPOCH 7 - PROGRESS: at 43.74% words, 568526 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:05,825 : INFO : EPOCH 7 - PROGRESS: at 44.77% words, 568109 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:06,823 : INFO : EPOCH 7 - PROGRESS: at 45.81% words, 567839 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:07,841 : INFO : EPOCH 7 - PROGRESS: at 46.83% words, 567180 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:08,859 : INFO : EPOCH 7 - PROGRESS: at 47.86% words, 566684 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:09,877 : INFO : EPOCH 7 - PROGRESS: at 48.91% words, 566483 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:38:10,892 : INFO : EPOCH 7 - PROGRESS: at 49.96% words, 566185 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:11,895 : INFO : EPOCH 7 - PROGRESS: at 51.00% words, 565922 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:12,894 : INFO : EPOCH 7 - PROGRESS: at 52.04% words, 565767 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:13,906 : INFO : EPOCH 7 - PROGRESS: at 53.10% words, 565816 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:14,906 : INFO : EPOCH 7 - PROGRESS: at 54.17% words, 565926 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:15,913 : INFO : EPOCH 7 - PROGRESS: at 55.27% words, 566276 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:16,926 : INFO : EPOCH 7 - PROGRESS: at 56.34% words, 566282 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:17,940 : INFO : EPOCH 7 - PROGRESS: at 57.42% words, 566354 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:18,956 : INFO : EPOCH 7 - PROGRESS: at 58.48% words, 566195 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:38:19,958 : INFO : EPOCH 7 - PROGRESS: at 59.58% words, 566559 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:20,962 : INFO : EPOCH 7 - PROGRESS: at 60.61% words, 566346 words/s, in_qsize 6, out_qsize 1
+2020-11-18 01:38:21,982 : INFO : EPOCH 7 - PROGRESS: at 61.69% words, 566461 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:22,974 : INFO : EPOCH 7 - PROGRESS: at 62.75% words, 566529 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:23,991 : INFO : EPOCH 7 - PROGRESS: at 63.87% words, 566965 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:24,985 : INFO : EPOCH 7 - PROGRESS: at 64.93% words, 566986 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:25,994 : INFO : EPOCH 7 - PROGRESS: at 65.96% words, 566762 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:26,999 : INFO : EPOCH 7 - PROGRESS: at 67.02% words, 566690 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:28,008 : INFO : EPOCH 7 - PROGRESS: at 68.09% words, 566795 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:29,007 : INFO : EPOCH 7 - PROGRESS: at 69.14% words, 566726 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:30,023 : INFO : EPOCH 7 - PROGRESS: at 70.21% words, 566656 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:31,026 : INFO : EPOCH 7 - PROGRESS: at 71.27% words, 566640 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:32,033 : INFO : EPOCH 7 - PROGRESS: at 72.34% words, 566692 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:33,041 : INFO : EPOCH 7 - PROGRESS: at 73.41% words, 566797 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:34,042 : INFO : EPOCH 7 - PROGRESS: at 74.45% words, 566614 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:35,043 : INFO : EPOCH 7 - PROGRESS: at 75.48% words, 566402 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:36,053 : INFO : EPOCH 7 - PROGRESS: at 76.54% words, 566411 words/s, in_qsize 6, out_qsize 0
+2020-11-18 01:38:37,057 : INFO : EPOCH 7 - PROGRESS: at 77.62% words, 566459 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:38,070 : INFO : EPOCH 7 - PROGRESS: at 78.66% words, 566328 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:39,075 : INFO : EPOCH 7 - PROGRESS: at 79.73% words, 566340 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:40,090 : INFO : EPOCH 7 - PROGRESS: at 80.80% words, 566372 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:41,088 : INFO : EPOCH 7 - PROGRESS: at 81.85% words, 566337 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:42,101 : INFO : EPOCH 7 - PROGRESS: at 82.82% words, 565676 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:43,112 : INFO : EPOCH 7 - PROGRESS: at 83.87% words, 565536 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:44,133 : INFO : EPOCH 7 - PROGRESS: at 84.96% words, 565715 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:45,144 : INFO : EPOCH 7 - PROGRESS: at 86.07% words, 566010 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:46,151 : INFO : EPOCH 7 - PROGRESS: at 87.11% words, 565853 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:47,162 : INFO : EPOCH 7 - PROGRESS: at 88.14% words, 565607 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:48,167 : INFO : EPOCH 7 - PROGRESS: at 89.16% words, 565317 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:49,178 : INFO : EPOCH 7 - PROGRESS: at 90.23% words, 565388 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:50,178 : INFO : EPOCH 7 - PROGRESS: at 91.32% words, 565583 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:51,182 : INFO : EPOCH 7 - PROGRESS: at 92.40% words, 565753 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:52,207 : INFO : EPOCH 7 - PROGRESS: at 93.51% words, 565982 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:53,214 : INFO : EPOCH 7 - PROGRESS: at 94.60% words, 566112 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:54,214 : INFO : EPOCH 7 - PROGRESS: at 95.70% words, 566374 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:55,219 : INFO : EPOCH 7 - PROGRESS: at 96.80% words, 566645 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:56,218 : INFO : EPOCH 7 - PROGRESS: at 97.90% words, 566878 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:57,236 : INFO : EPOCH 7 - PROGRESS: at 98.89% words, 566424 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:58,263 : INFO : EPOCH 7 - PROGRESS: at 99.89% words, 565967 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:38:58,311 : INFO : worker thread finished; awaiting finish of 3 more threads
+2020-11-18 01:38:58,327 : INFO : worker thread finished; awaiting finish of 2 more threads
+2020-11-18 01:38:58,342 : INFO : worker thread finished; awaiting finish of 1 more threads
+2020-11-18 01:38:58,358 : INFO : worker thread finished; awaiting finish of 0 more threads
+2020-11-18 01:38:58,358 : INFO : EPOCH - 7 : training on 73713636 raw words (53675333 effective words) took 94.8s, 565964 effective words/s
+2020-11-18 01:38:58,358 : INFO : reading file LARGEST_WEAK_COMPONENT.txt
+2020-11-18 01:38:59,361 : INFO : EPOCH 8 - PROGRESS: at 0.96% words, 512950 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:00,365 : INFO : EPOCH 8 - PROGRESS: at 1.96% words, 523662 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:01,385 : INFO : EPOCH 8 - PROGRESS: at 3.06% words, 545245 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:02,387 : INFO : EPOCH 8 - PROGRESS: at 4.18% words, 559183 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:03,404 : INFO : EPOCH 8 - PROGRESS: at 5.29% words, 564303 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:04,409 : INFO : EPOCH 8 - PROGRESS: at 6.40% words, 568253 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:05,414 : INFO : EPOCH 8 - PROGRESS: at 7.46% words, 567652 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:06,426 : INFO : EPOCH 8 - PROGRESS: at 8.52% words, 567195 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:07,437 : INFO : EPOCH 8 - PROGRESS: at 9.58% words, 567588 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:39:08,447 : INFO : EPOCH 8 - PROGRESS: at 10.68% words, 569276 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:09,448 : INFO : EPOCH 8 - PROGRESS: at 11.77% words, 570509 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:10,449 : INFO : EPOCH 8 - PROGRESS: at 12.82% words, 569735 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:11,454 : INFO : EPOCH 8 - PROGRESS: at 13.92% words, 571168 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:12,455 : INFO : EPOCH 8 - PROGRESS: at 15.01% words, 571947 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:13,454 : INFO : EPOCH 8 - PROGRESS: at 16.12% words, 573305 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:14,458 : INFO : EPOCH 8 - PROGRESS: at 17.15% words, 571670 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:15,483 : INFO : EPOCH 8 - PROGRESS: at 18.21% words, 571326 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:16,481 : INFO : EPOCH 8 - PROGRESS: at 19.32% words, 572654 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:17,481 : INFO : EPOCH 8 - PROGRESS: at 20.41% words, 573254 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:18,486 : INFO : EPOCH 8 - PROGRESS: at 21.51% words, 573930 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:19,492 : INFO : EPOCH 8 - PROGRESS: at 22.63% words, 574989 words/s, in_qsize 6, out_qsize 1
+2020-11-18 01:39:20,513 : INFO : EPOCH 8 - PROGRESS: at 23.71% words, 575005 words/s, in_qsize 6, out_qsize 1
+2020-11-18 01:39:21,504 : INFO : EPOCH 8 - PROGRESS: at 24.78% words, 574847 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:22,502 : INFO : EPOCH 8 - PROGRESS: at 25.84% words, 574615 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:23,520 : INFO : EPOCH 8 - PROGRESS: at 26.89% words, 573574 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:24,534 : INFO : EPOCH 8 - PROGRESS: at 27.99% words, 574118 words/s, in_qsize 6, out_qsize 0
+2020-11-18 01:39:25,548 : INFO : EPOCH 8 - PROGRESS: at 29.04% words, 573430 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:26,546 : INFO : EPOCH 8 - PROGRESS: at 30.12% words, 573759 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:27,547 : INFO : EPOCH 8 - PROGRESS: at 31.18% words, 573598 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:28,552 : INFO : EPOCH 8 - PROGRESS: at 32.28% words, 573905 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:29,563 : INFO : EPOCH 8 - PROGRESS: at 33.33% words, 573603 words/s, in_qsize 6, out_qsize 1
+2020-11-18 01:39:30,562 : INFO : EPOCH 8 - PROGRESS: at 34.45% words, 574508 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:31,571 : INFO : EPOCH 8 - PROGRESS: at 35.56% words, 575077 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:32,571 : INFO : EPOCH 8 - PROGRESS: at 36.61% words, 574690 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:33,578 : INFO : EPOCH 8 - PROGRESS: at 37.67% words, 574255 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:34,593 : INFO : EPOCH 8 - PROGRESS: at 38.72% words, 573814 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:35,609 : INFO : EPOCH 8 - PROGRESS: at 39.82% words, 573987 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:36,623 : INFO : EPOCH 8 - PROGRESS: at 40.89% words, 573897 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:37,631 : INFO : EPOCH 8 - PROGRESS: at 41.92% words, 573173 words/s, in_qsize 7, out_qsize 1
+2020-11-18 01:39:38,633 : INFO : EPOCH 8 - PROGRESS: at 43.03% words, 573657 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:39:39,638 : INFO : EPOCH 8 - PROGRESS: at 44.07% words, 573299 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:40,638 : INFO : EPOCH 8 - PROGRESS: at 45.14% words, 573231 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:41,646 : INFO : EPOCH 8 - PROGRESS: at 46.19% words, 572992 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:42,665 : INFO : EPOCH 8 - PROGRESS: at 47.21% words, 572048 words/s, in_qsize 6, out_qsize 1
+2020-11-18 01:39:43,694 : INFO : EPOCH 8 - PROGRESS: at 48.27% words, 571743 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:44,703 : INFO : EPOCH 8 - PROGRESS: at 49.24% words, 570575 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:45,700 : INFO : EPOCH 8 - PROGRESS: at 50.10% words, 568269 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:46,709 : INFO : EPOCH 8 - PROGRESS: at 50.78% words, 563959 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:47,728 : INFO : EPOCH 8 - PROGRESS: at 51.73% words, 562662 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:48,737 : INFO : EPOCH 8 - PROGRESS: at 52.71% words, 561813 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:49,735 : INFO : EPOCH 8 - PROGRESS: at 53.80% words, 562207 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:50,753 : INFO : EPOCH 8 - PROGRESS: at 54.88% words, 562447 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:39:51,747 : INFO : EPOCH 8 - PROGRESS: at 55.86% words, 561722 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:52,755 : INFO : EPOCH 8 - PROGRESS: at 56.83% words, 560896 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:53,767 : INFO : EPOCH 8 - PROGRESS: at 57.74% words, 559493 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:54,774 : INFO : EPOCH 8 - PROGRESS: at 58.56% words, 557349 words/s, in_qsize 6, out_qsize 0
+2020-11-18 01:39:55,763 : INFO : EPOCH 8 - PROGRESS: at 59.58% words, 557128 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:56,799 : INFO : EPOCH 8 - PROGRESS: at 60.56% words, 556255 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:57,816 : INFO : EPOCH 8 - PROGRESS: at 61.44% words, 554794 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:58,814 : INFO : EPOCH 8 - PROGRESS: at 62.42% words, 554267 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:39:59,825 : INFO : EPOCH 8 - PROGRESS: at 63.25% words, 552481 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:00,828 : INFO : EPOCH 8 - PROGRESS: at 63.82% words, 548518 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:40:01,818 : INFO : EPOCH 8 - PROGRESS: at 64.80% words, 548159 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:02,843 : INFO : EPOCH 8 - PROGRESS: at 65.92% words, 548824 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:03,860 : INFO : EPOCH 8 - PROGRESS: at 66.83% words, 547775 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:04,883 : INFO : EPOCH 8 - PROGRESS: at 67.61% words, 545635 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:05,885 : INFO : EPOCH 8 - PROGRESS: at 68.64% words, 545710 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:06,894 : INFO : EPOCH 8 - PROGRESS: at 69.72% words, 546153 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:07,898 : INFO : EPOCH 8 - PROGRESS: at 70.77% words, 546358 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:08,909 : INFO : EPOCH 8 - PROGRESS: at 71.82% words, 546538 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:09,932 : INFO : EPOCH 8 - PROGRESS: at 72.75% words, 545652 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:10,935 : INFO : EPOCH 8 - PROGRESS: at 73.67% words, 544950 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:40:11,942 : INFO : EPOCH 8 - PROGRESS: at 74.67% words, 544761 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:12,941 : INFO : EPOCH 8 - PROGRESS: at 75.75% words, 545208 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:13,971 : INFO : EPOCH 8 - PROGRESS: at 76.67% words, 544337 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:14,976 : INFO : EPOCH 8 - PROGRESS: at 77.70% words, 544420 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:15,982 : INFO : EPOCH 8 - PROGRESS: at 78.70% words, 544251 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:16,996 : INFO : EPOCH 8 - PROGRESS: at 79.75% words, 544394 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:17,996 : INFO : EPOCH 8 - PROGRESS: at 80.84% words, 544839 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:19,005 : INFO : EPOCH 8 - PROGRESS: at 81.84% words, 544733 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:20,010 : INFO : EPOCH 8 - PROGRESS: at 82.82% words, 544493 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:21,023 : INFO : EPOCH 8 - PROGRESS: at 83.78% words, 544012 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:22,024 : INFO : EPOCH 8 - PROGRESS: at 84.71% words, 543501 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:23,026 : INFO : EPOCH 8 - PROGRESS: at 85.65% words, 543006 words/s, in_qsize 6, out_qsize 0
+2020-11-18 01:40:24,024 : INFO : EPOCH 8 - PROGRESS: at 86.49% words, 541914 words/s, in_qsize 6, out_qsize 1
+2020-11-18 01:40:25,038 : INFO : EPOCH 8 - PROGRESS: at 87.55% words, 542192 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:26,040 : INFO : EPOCH 8 - PROGRESS: at 88.54% words, 542065 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:27,070 : INFO : EPOCH 8 - PROGRESS: at 89.47% words, 541367 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:28,064 : INFO : EPOCH 8 - PROGRESS: at 90.38% words, 540746 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:29,080 : INFO : EPOCH 8 - PROGRESS: at 91.31% words, 540284 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:30,088 : INFO : EPOCH 8 - PROGRESS: at 92.24% words, 539814 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:31,089 : INFO : EPOCH 8 - PROGRESS: at 93.21% words, 539589 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:40:32,104 : INFO : EPOCH 8 - PROGRESS: at 94.23% words, 539573 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:33,121 : INFO : EPOCH 8 - PROGRESS: at 95.18% words, 539226 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:34,132 : INFO : EPOCH 8 - PROGRESS: at 96.12% words, 538796 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:35,144 : INFO : EPOCH 8 - PROGRESS: at 97.13% words, 538769 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:36,180 : INFO : EPOCH 8 - PROGRESS: at 98.14% words, 538582 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:37,205 : INFO : EPOCH 8 - PROGRESS: at 99.16% words, 538534 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:38,024 : INFO : worker thread finished; awaiting finish of 3 more threads
+2020-11-18 01:40:38,054 : INFO : worker thread finished; awaiting finish of 2 more threads
+2020-11-18 01:40:38,064 : INFO : worker thread finished; awaiting finish of 1 more threads
+2020-11-18 01:40:38,076 : INFO : worker thread finished; awaiting finish of 0 more threads
+2020-11-18 01:40:38,076 : INFO : EPOCH - 8 : training on 73713636 raw words (53677162 effective words) took 99.7s, 538362 effective words/s
+2020-11-18 01:40:38,078 : INFO : reading file LARGEST_WEAK_COMPONENT.txt
+2020-11-18 01:40:39,084 : INFO : EPOCH 9 - PROGRESS: at 0.93% words, 495429 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:40,084 : INFO : EPOCH 9 - PROGRESS: at 1.86% words, 497323 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:41,091 : INFO : EPOCH 9 - PROGRESS: at 2.86% words, 510448 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:42,100 : INFO : EPOCH 9 - PROGRESS: at 3.81% words, 508370 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:43,114 : INFO : EPOCH 9 - PROGRESS: at 4.79% words, 510832 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:44,120 : INFO : EPOCH 9 - PROGRESS: at 5.75% words, 511414 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:45,139 : INFO : EPOCH 9 - PROGRESS: at 6.77% words, 514682 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:46,146 : INFO : EPOCH 9 - PROGRESS: at 7.71% words, 513082 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:47,148 : INFO : EPOCH 9 - PROGRESS: at 8.64% words, 511666 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:48,155 : INFO : EPOCH 9 - PROGRESS: at 9.60% words, 511197 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:49,151 : INFO : EPOCH 9 - PROGRESS: at 10.56% words, 511733 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:50,163 : INFO : EPOCH 9 - PROGRESS: at 11.56% words, 513367 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:40:51,165 : INFO : EPOCH 9 - PROGRESS: at 12.50% words, 512392 words/s, in_qsize 6, out_qsize 1
+2020-11-18 01:40:52,190 : INFO : EPOCH 9 - PROGRESS: at 13.49% words, 512930 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:53,205 : INFO : EPOCH 9 - PROGRESS: at 14.44% words, 512459 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:54,210 : INFO : EPOCH 9 - PROGRESS: at 15.40% words, 512480 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:55,222 : INFO : EPOCH 9 - PROGRESS: at 16.39% words, 513058 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:56,226 : INFO : EPOCH 9 - PROGRESS: at 17.34% words, 512908 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:57,244 : INFO : EPOCH 9 - PROGRESS: at 18.30% words, 512504 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:58,246 : INFO : EPOCH 9 - PROGRESS: at 19.13% words, 509280 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:40:59,256 : INFO : EPOCH 9 - PROGRESS: at 19.88% words, 503868 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:41:00,261 : INFO : EPOCH 9 - PROGRESS: at 20.80% words, 503300 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:01,274 : INFO : EPOCH 9 - PROGRESS: at 21.83% words, 505267 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:02,274 : INFO : EPOCH 9 - PROGRESS: at 22.86% words, 507089 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:41:03,275 : INFO : EPOCH 9 - PROGRESS: at 23.90% words, 509133 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:04,293 : INFO : EPOCH 9 - PROGRESS: at 24.96% words, 511074 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:05,291 : INFO : EPOCH 9 - PROGRESS: at 26.01% words, 512950 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:06,327 : INFO : EPOCH 9 - PROGRESS: at 26.68% words, 506997 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:07,338 : INFO : EPOCH 9 - PROGRESS: at 27.48% words, 503958 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:08,350 : INFO : EPOCH 9 - PROGRESS: at 28.48% words, 504881 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:09,365 : INFO : EPOCH 9 - PROGRESS: at 29.57% words, 507194 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:10,368 : INFO : EPOCH 9 - PROGRESS: at 30.42% words, 505704 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:11,363 : INFO : EPOCH 9 - PROGRESS: at 31.32% words, 504972 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:12,380 : INFO : EPOCH 9 - PROGRESS: at 32.14% words, 502967 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:13,376 : INFO : EPOCH 9 - PROGRESS: at 33.14% words, 503781 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:14,390 : INFO : EPOCH 9 - PROGRESS: at 34.09% words, 504058 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:41:15,400 : INFO : EPOCH 9 - PROGRESS: at 35.07% words, 504427 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:16,410 : INFO : EPOCH 9 - PROGRESS: at 36.01% words, 504371 words/s, in_qsize 7, out_qsize 1
+2020-11-18 01:41:17,414 : INFO : EPOCH 9 - PROGRESS: at 36.93% words, 503995 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:18,427 : INFO : EPOCH 9 - PROGRESS: at 37.81% words, 503028 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:19,434 : INFO : EPOCH 9 - PROGRESS: at 38.71% words, 502475 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:20,444 : INFO : EPOCH 9 - PROGRESS: at 39.67% words, 502632 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:21,446 : INFO : EPOCH 9 - PROGRESS: at 40.61% words, 502629 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:22,477 : INFO : EPOCH 9 - PROGRESS: at 41.61% words, 503094 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:23,480 : INFO : EPOCH 9 - PROGRESS: at 42.61% words, 503699 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:24,480 : INFO : EPOCH 9 - PROGRESS: at 43.63% words, 504655 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:25,480 : INFO : EPOCH 9 - PROGRESS: at 44.45% words, 503257 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:26,495 : INFO : EPOCH 9 - PROGRESS: at 45.36% words, 502880 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:27,496 : INFO : EPOCH 9 - PROGRESS: at 46.37% words, 503625 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:28,498 : INFO : EPOCH 9 - PROGRESS: at 47.38% words, 504435 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:29,508 : INFO : EPOCH 9 - PROGRESS: at 48.38% words, 504944 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:30,511 : INFO : EPOCH 9 - PROGRESS: at 49.39% words, 505684 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:31,501 : INFO : EPOCH 9 - PROGRESS: at 50.42% words, 506496 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:32,519 : INFO : EPOCH 9 - PROGRESS: at 51.38% words, 506682 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:33,517 : INFO : EPOCH 9 - PROGRESS: at 52.46% words, 507860 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:34,521 : INFO : EPOCH 9 - PROGRESS: at 53.55% words, 509186 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:35,536 : INFO : EPOCH 9 - PROGRESS: at 54.64% words, 510471 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:36,569 : INFO : EPOCH 9 - PROGRESS: at 55.60% words, 510238 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:37,568 : INFO : EPOCH 9 - PROGRESS: at 56.60% words, 510542 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:38,583 : INFO : EPOCH 9 - PROGRESS: at 57.59% words, 510900 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:39,586 : INFO : EPOCH 9 - PROGRESS: at 58.42% words, 509794 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:40,587 : INFO : EPOCH 9 - PROGRESS: at 59.26% words, 508852 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:41,584 : INFO : EPOCH 9 - PROGRESS: at 60.25% words, 509183 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:42,590 : INFO : EPOCH 9 - PROGRESS: at 61.29% words, 509891 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:43,608 : INFO : EPOCH 9 - PROGRESS: at 62.37% words, 510811 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:44,629 : INFO : EPOCH 9 - PROGRESS: at 63.42% words, 511511 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:45,631 : INFO : EPOCH 9 - PROGRESS: at 64.38% words, 511559 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:46,637 : INFO : EPOCH 9 - PROGRESS: at 65.07% words, 509456 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:47,643 : INFO : EPOCH 9 - PROGRESS: at 65.79% words, 507611 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:48,646 : INFO : EPOCH 9 - PROGRESS: at 66.80% words, 507991 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:49,677 : INFO : EPOCH 9 - PROGRESS: at 67.88% words, 508882 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:50,693 : INFO : EPOCH 9 - PROGRESS: at 68.93% words, 509509 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:51,711 : INFO : EPOCH 9 - PROGRESS: at 69.99% words, 510165 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:52,714 : INFO : EPOCH 9 - PROGRESS: at 71.08% words, 511087 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:53,733 : INFO : EPOCH 9 - PROGRESS: at 72.15% words, 511789 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:54,739 : INFO : EPOCH 9 - PROGRESS: at 73.22% words, 512615 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:55,741 : INFO : EPOCH 9 - PROGRESS: at 74.30% words, 513468 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:56,749 : INFO : EPOCH 9 - PROGRESS: at 75.28% words, 513521 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:57,753 : INFO : EPOCH 9 - PROGRESS: at 75.99% words, 511879 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:58,750 : INFO : EPOCH 9 - PROGRESS: at 77.06% words, 512632 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:41:59,756 : INFO : EPOCH 9 - PROGRESS: at 78.05% words, 512819 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:00,758 : INFO : EPOCH 9 - PROGRESS: at 78.88% words, 511995 words/s, in_qsize 6, out_qsize 0
+2020-11-18 01:42:01,764 : INFO : EPOCH 9 - PROGRESS: at 79.83% words, 511942 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:02,791 : INFO : EPOCH 9 - PROGRESS: at 80.74% words, 511523 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:03,809 : INFO : EPOCH 9 - PROGRESS: at 81.58% words, 510681 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:04,823 : INFO : EPOCH 9 - PROGRESS: at 82.32% words, 509304 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:05,852 : INFO : EPOCH 9 - PROGRESS: at 83.09% words, 508025 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:06,855 : INFO : EPOCH 9 - PROGRESS: at 83.92% words, 507339 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:07,860 : INFO : EPOCH 9 - PROGRESS: at 84.59% words, 505594 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:08,888 : INFO : EPOCH 9 - PROGRESS: at 85.30% words, 504162 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:09,908 : INFO : EPOCH 9 - PROGRESS: at 86.17% words, 503635 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:10,906 : INFO : EPOCH 9 - PROGRESS: at 87.17% words, 503976 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:11,913 : INFO : EPOCH 9 - PROGRESS: at 88.20% words, 504467 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:12,928 : INFO : EPOCH 9 - PROGRESS: at 89.19% words, 504654 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:13,939 : INFO : EPOCH 9 - PROGRESS: at 90.19% words, 504909 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:14,943 : INFO : EPOCH 9 - PROGRESS: at 91.20% words, 505249 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:15,956 : INFO : EPOCH 9 - PROGRESS: at 92.28% words, 506020 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:16,964 : INFO : EPOCH 9 - PROGRESS: at 93.36% words, 506675 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:17,975 : INFO : EPOCH 9 - PROGRESS: at 94.44% words, 507437 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:18,963 : INFO : EPOCH 9 - PROGRESS: at 95.53% words, 508199 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:19,984 : INFO : EPOCH 9 - PROGRESS: at 96.60% words, 508826 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:20,996 : INFO : EPOCH 9 - PROGRESS: at 97.69% words, 509430 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:22,004 : INFO : EPOCH 9 - PROGRESS: at 98.77% words, 510073 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:23,010 : INFO : EPOCH 9 - PROGRESS: at 99.85% words, 510690 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:23,120 : INFO : worker thread finished; awaiting finish of 3 more threads
+2020-11-18 01:42:23,120 : INFO : worker thread finished; awaiting finish of 2 more threads
+2020-11-18 01:42:23,135 : INFO : worker thread finished; awaiting finish of 1 more threads
+2020-11-18 01:42:23,151 : INFO : worker thread finished; awaiting finish of 0 more threads
+2020-11-18 01:42:23,151 : INFO : EPOCH - 9 : training on 73713636 raw words (53674889 effective words) took 105.1s, 510789 effective words/s
+2020-11-18 01:42:23,151 : INFO : reading file LARGEST_WEAK_COMPONENT.txt
+2020-11-18 01:42:24,160 : INFO : EPOCH 10 - PROGRESS: at 1.07% words, 570749 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:25,175 : INFO : EPOCH 10 - PROGRESS: at 2.11% words, 560960 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:26,181 : INFO : EPOCH 10 - PROGRESS: at 2.89% words, 512581 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:27,201 : INFO : EPOCH 10 - PROGRESS: at 3.94% words, 523001 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:28,207 : INFO : EPOCH 10 - PROGRESS: at 5.04% words, 535611 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:29,229 : INFO : EPOCH 10 - PROGRESS: at 6.16% words, 545406 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:30,223 : INFO : EPOCH 10 - PROGRESS: at 7.26% words, 551271 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:31,231 : INFO : EPOCH 10 - PROGRESS: at 8.37% words, 556459 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:32,242 : INFO : EPOCH 10 - PROGRESS: at 9.48% words, 560104 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:33,268 : INFO : EPOCH 10 - PROGRESS: at 10.59% words, 562668 words/s, in_qsize 6, out_qsize 1
+2020-11-18 01:42:34,268 : INFO : EPOCH 10 - PROGRESS: at 11.72% words, 566007 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:35,286 : INFO : EPOCH 10 - PROGRESS: at 12.79% words, 566250 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:36,293 : INFO : EPOCH 10 - PROGRESS: at 13.81% words, 564593 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:37,304 : INFO : EPOCH 10 - PROGRESS: at 14.72% words, 558604 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:38,291 : INFO : EPOCH 10 - PROGRESS: at 15.79% words, 559571 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:39,332 : INFO : EPOCH 10 - PROGRESS: at 16.90% words, 560837 words/s, in_qsize 5, out_qsize 2
+2020-11-18 01:42:40,350 : INFO : EPOCH 10 - PROGRESS: at 18.06% words, 563782 words/s, in_qsize 6, out_qsize 1
+2020-11-18 01:42:41,357 : INFO : EPOCH 10 - PROGRESS: at 19.16% words, 565320 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:42,374 : INFO : EPOCH 10 - PROGRESS: at 20.28% words, 566653 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:42:43,399 : INFO : EPOCH 10 - PROGRESS: at 21.41% words, 568187 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:42:44,395 : INFO : EPOCH 10 - PROGRESS: at 22.53% words, 569663 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:45,399 : INFO : EPOCH 10 - PROGRESS: at 23.65% words, 570565 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:46,403 : INFO : EPOCH 10 - PROGRESS: at 24.75% words, 571491 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:47,427 : INFO : EPOCH 10 - PROGRESS: at 25.88% words, 572484 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:48,425 : INFO : EPOCH 10 - PROGRESS: at 26.99% words, 573136 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:49,453 : INFO : EPOCH 10 - PROGRESS: at 28.13% words, 574123 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:50,461 : INFO : EPOCH 10 - PROGRESS: at 29.26% words, 575035 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:51,477 : INFO : EPOCH 10 - PROGRESS: at 30.38% words, 575940 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:42:52,467 : INFO : EPOCH 10 - PROGRESS: at 31.49% words, 576683 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:53,478 : INFO : EPOCH 10 - PROGRESS: at 32.62% words, 577436 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:54,474 : INFO : EPOCH 10 - PROGRESS: at 33.73% words, 578063 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:55,494 : INFO : EPOCH 10 - PROGRESS: at 34.87% words, 578969 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:42:56,492 : INFO : EPOCH 10 - PROGRESS: at 35.97% words, 579348 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:57,524 : INFO : EPOCH 10 - PROGRESS: at 37.12% words, 579987 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:58,528 : INFO : EPOCH 10 - PROGRESS: at 38.23% words, 580309 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:42:59,541 : INFO : EPOCH 10 - PROGRESS: at 39.22% words, 578716 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:00,549 : INFO : EPOCH 10 - PROGRESS: at 40.32% words, 578858 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:01,567 : INFO : EPOCH 10 - PROGRESS: at 41.45% words, 579374 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:43:02,583 : INFO : EPOCH 10 - PROGRESS: at 42.57% words, 579663 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:03,581 : INFO : EPOCH 10 - PROGRESS: at 43.67% words, 579914 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:04,589 : INFO : EPOCH 10 - PROGRESS: at 44.78% words, 580230 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:05,607 : INFO : EPOCH 10 - PROGRESS: at 45.91% words, 580567 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:06,623 : INFO : EPOCH 10 - PROGRESS: at 47.03% words, 580780 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:43:07,653 : INFO : EPOCH 10 - PROGRESS: at 48.15% words, 580927 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:08,651 : INFO : EPOCH 10 - PROGRESS: at 49.26% words, 581269 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:09,649 : INFO : EPOCH 10 - PROGRESS: at 50.36% words, 581417 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:10,658 : INFO : EPOCH 10 - PROGRESS: at 51.47% words, 581592 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:11,659 : INFO : EPOCH 10 - PROGRESS: at 52.58% words, 581892 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:12,661 : INFO : EPOCH 10 - PROGRESS: at 53.70% words, 582227 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:43:13,680 : INFO : EPOCH 10 - PROGRESS: at 54.83% words, 582609 words/s, in_qsize 6, out_qsize 0
+2020-11-18 01:43:14,681 : INFO : EPOCH 10 - PROGRESS: at 55.92% words, 582595 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:15,692 : INFO : EPOCH 10 - PROGRESS: at 57.03% words, 582623 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:16,708 : INFO : EPOCH 10 - PROGRESS: at 58.17% words, 583053 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:17,716 : INFO : EPOCH 10 - PROGRESS: at 59.28% words, 583251 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:18,725 : INFO : EPOCH 10 - PROGRESS: at 60.39% words, 583308 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:19,760 : INFO : EPOCH 10 - PROGRESS: at 61.53% words, 583464 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:20,756 : INFO : EPOCH 10 - PROGRESS: at 62.64% words, 583731 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:21,762 : INFO : EPOCH 10 - PROGRESS: at 63.75% words, 583872 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:22,773 : INFO : EPOCH 10 - PROGRESS: at 64.87% words, 584068 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:23,769 : INFO : EPOCH 10 - PROGRESS: at 65.99% words, 584360 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:24,771 : INFO : EPOCH 10 - PROGRESS: at 67.10% words, 584464 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:25,789 : INFO : EPOCH 10 - PROGRESS: at 68.22% words, 584640 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:26,793 : INFO : EPOCH 10 - PROGRESS: at 69.33% words, 584681 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:27,804 : INFO : EPOCH 10 - PROGRESS: at 70.46% words, 584904 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:28,821 : INFO : EPOCH 10 - PROGRESS: at 71.57% words, 585041 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:43:29,815 : INFO : EPOCH 10 - PROGRESS: at 72.70% words, 585290 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:30,852 : INFO : EPOCH 10 - PROGRESS: at 73.82% words, 585338 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:43:31,872 : INFO : EPOCH 10 - PROGRESS: at 74.95% words, 585484 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:43:32,874 : INFO : EPOCH 10 - PROGRESS: at 76.07% words, 585644 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:33,885 : INFO : EPOCH 10 - PROGRESS: at 77.20% words, 585852 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:34,882 : INFO : EPOCH 10 - PROGRESS: at 78.32% words, 586032 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:35,886 : INFO : EPOCH 10 - PROGRESS: at 79.46% words, 586320 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:36,902 : INFO : EPOCH 10 - PROGRESS: at 80.57% words, 586273 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:37,914 : INFO : EPOCH 10 - PROGRESS: at 81.69% words, 586491 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:38,914 : INFO : EPOCH 10 - PROGRESS: at 82.80% words, 586561 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:39,920 : INFO : EPOCH 10 - PROGRESS: at 83.93% words, 586747 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:40,919 : INFO : EPOCH 10 - PROGRESS: at 85.05% words, 586954 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:41,940 : INFO : EPOCH 10 - PROGRESS: at 86.17% words, 587023 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:42,960 : INFO : EPOCH 10 - PROGRESS: at 87.31% words, 587259 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:43:43,967 : INFO : EPOCH 10 - PROGRESS: at 88.42% words, 587329 words/s, in_qsize 6, out_qsize 0
+2020-11-18 01:43:44,986 : INFO : EPOCH 10 - PROGRESS: at 89.55% words, 587424 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:43:45,983 : INFO : EPOCH 10 - PROGRESS: at 90.68% words, 587519 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:46,989 : INFO : EPOCH 10 - PROGRESS: at 91.81% words, 587777 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:48,008 : INFO : EPOCH 10 - PROGRESS: at 92.94% words, 587929 words/s, in_qsize 8, out_qsize 0
+2020-11-18 01:43:49,014 : INFO : EPOCH 10 - PROGRESS: at 94.07% words, 588052 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:50,011 : INFO : EPOCH 10 - PROGRESS: at 95.17% words, 588083 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:51,016 : INFO : EPOCH 10 - PROGRESS: at 96.28% words, 588210 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:52,027 : INFO : EPOCH 10 - PROGRESS: at 97.40% words, 588303 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:53,022 : INFO : EPOCH 10 - PROGRESS: at 98.52% words, 588438 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:54,034 : INFO : EPOCH 10 - PROGRESS: at 99.64% words, 588537 words/s, in_qsize 7, out_qsize 0
+2020-11-18 01:43:54,320 : INFO : worker thread finished; awaiting finish of 3 more threads
+2020-11-18 01:43:54,336 : INFO : worker thread finished; awaiting finish of 2 more threads
+2020-11-18 01:43:54,336 : INFO : worker thread finished; awaiting finish of 1 more threads
+2020-11-18 01:43:54,352 : INFO : worker thread finished; awaiting finish of 0 more threads
+2020-11-18 01:43:54,352 : INFO : EPOCH - 10 : training on 73713636 raw words (53675111 effective words) took 91.2s, 588531 effective words/s
+2020-11-18 01:43:54,352 : INFO : training on a 737136360 raw words (536745471 effective words) took 998.6s, 537477 effective words/s
+2020-11-18 01:43:54,352 : INFO : saving Word2Vec object under model\LARGEST_WEAK_COMPONENT.model, separately None
+2020-11-18 01:43:54,352 : INFO : not storing attribute vectors_norm
+2020-11-18 01:43:54,352 : INFO : not storing attribute cum_table
+2020-11-18 01:43:55,204 : INFO : saved model\LARGEST_WEAK_COMPONENT.model
+2020-11-18 01:48:55,791 : WARNING : consider setting layer size to a multiple of 4 for greater performance
+2020-11-18 01:48:55,791 : INFO : collecting all words and their counts
+2020-11-18 01:48:55,791 : INFO : PROGRESS: at sentence #0, processed 0 words, keeping 0 word types
+2020-11-18 01:48:55,807 : INFO : collected 1639 word types from a corpus of 11419 raw words and 2 sentences
+2020-11-18 01:48:55,807 : INFO : Loading a fresh vocabulary
+2020-11-18 01:48:55,807 : INFO : effective_min_count=5 retains 1553 unique words (94% of original 1639, drops 86)
+2020-11-18 01:48:55,807 : INFO : effective_min_count=5 leaves 11314 word corpus (99% of original 11419, drops 105)
+2020-11-18 01:48:55,823 : INFO : deleting the raw counts dictionary of 1639 items
+2020-11-18 01:48:55,823 : INFO : sample=0.001 downsamples 53 most-common words
+2020-11-18 01:48:55,823 : INFO : downsampling leaves estimated 7829 word corpus (69.2% of prior 11314)
+2020-11-18 01:48:55,823 : INFO : estimated required memory for 1553 words and 50 dimensions: 1397700 bytes
+2020-11-18 01:48:55,823 : INFO : resetting layer weights
+2020-11-18 01:48:56,263 : INFO : training model with 4 workers on 1553 vocabulary and 50 features, using sg=0 hs=0 sample=0.001 negative=10 window=5
+2020-11-18 01:48:56,263 : INFO : worker thread finished; awaiting finish of 3 more threads
+2020-11-18 01:48:56,263 : INFO : worker thread finished; awaiting finish of 2 more threads
+2020-11-18 01:48:56,278 : INFO : worker thread finished; awaiting finish of 1 more threads
+2020-11-18 01:48:56,294 : INFO : worker thread finished; awaiting finish of 0 more threads
+2020-11-18 01:48:56,294 : INFO : EPOCH - 1 : training on 11419 raw words (7807 effective words) took 0.0s, 244730 effective words/s
+2020-11-18 01:48:56,309 : INFO : worker thread finished; awaiting finish of 3 more threads
+2020-11-18 01:48:56,309 : INFO : worker thread finished; awaiting finish of 2 more threads
+2020-11-18 01:48:56,309 : INFO : worker thread finished; awaiting finish of 1 more threads
+2020-11-18 01:48:56,325 : INFO : worker thread finished; awaiting finish of 0 more threads
+2020-11-18 01:48:56,325 : INFO : EPOCH - 2 : training on 11419 raw words (7841 effective words) took 0.0s, 251355 effective words/s
+2020-11-18 01:48:56,342 : INFO : worker thread finished; awaiting finish of 3 more threads
+2020-11-18 01:48:56,342 : INFO : worker thread finished; awaiting finish of 2 more threads
+2020-11-18 01:48:56,342 : INFO : worker thread finished; awaiting finish of 1 more threads
+2020-11-18 01:48:56,358 : INFO : worker thread finished; awaiting finish of 0 more threads
+2020-11-18 01:48:56,358 : INFO : EPOCH - 3 : training on 11419 raw words (7831 effective words) took 0.0s, 239920 effective words/s
+2020-11-18 01:48:56,373 : INFO : worker thread finished; awaiting finish of 3 more threads
+2020-11-18 01:48:56,373 : INFO : worker thread finished; awaiting finish of 2 more threads
+2020-11-18 01:48:56,373 : INFO : worker thread finished; awaiting finish of 1 more threads
+2020-11-18 01:48:56,406 : INFO : worker thread finished; awaiting finish of 0 more threads
+2020-11-18 01:48:56,407 : INFO : EPOCH - 4 : training on 11419 raw words (7835 effective words) took 0.0s, 238733 effective words/s
+2020-11-18 01:48:56,415 : INFO : worker thread finished; awaiting finish of 3 more threads
+2020-11-18 01:48:56,416 : INFO : worker thread finished; awaiting finish of 2 more threads
+2020-11-18 01:48:56,422 : INFO : worker thread finished; awaiting finish of 1 more threads
+2020-11-18 01:48:56,432 : INFO : worker thread finished; awaiting finish of 0 more threads
+2020-11-18 01:48:56,432 : INFO : EPOCH - 5 : training on 11419 raw words (7832 effective words) took 0.0s, 231450 effective words/s
+2020-11-18 01:48:56,448 : INFO : worker thread finished; awaiting finish of 3 more threads
+2020-11-18 01:48:56,448 : INFO : worker thread finished; awaiting finish of 2 more threads
+2020-11-18 01:48:56,448 : INFO : worker thread finished; awaiting finish of 1 more threads
+2020-11-18 01:48:56,481 : INFO : worker thread finished; awaiting finish of 0 more threads
+2020-11-18 01:48:56,481 : INFO : EPOCH - 6 : training on 11419 raw words (7819 effective words) took 0.0s, 232875 effective words/s
+2020-11-18 01:48:56,490 : INFO : worker thread finished; awaiting finish of 3 more threads
+2020-11-18 01:48:56,491 : INFO : worker thread finished; awaiting finish of 2 more threads
+2020-11-18 01:48:56,492 : INFO : worker thread finished; awaiting finish of 1 more threads
+2020-11-18 01:48:56,508 : INFO : worker thread finished; awaiting finish of 0 more threads
+2020-11-18 01:48:56,508 : INFO : EPOCH - 7 : training on 11419 raw words (7864 effective words) took 0.0s, 233092 effective words/s
+2020-11-18 01:48:56,523 : INFO : worker thread finished; awaiting finish of 3 more threads
+2020-11-18 01:48:56,523 : INFO : worker thread finished; awaiting finish of 2 more threads
+2020-11-18 01:48:56,523 : INFO : worker thread finished; awaiting finish of 1 more threads
+2020-11-18 01:48:56,558 : INFO : worker thread finished; awaiting finish of 0 more threads
+2020-11-18 01:48:56,559 : INFO : EPOCH - 8 : training on 11419 raw words (7846 effective words) took 0.0s, 214356 effective words/s
+2020-11-18 01:48:56,566 : INFO : worker thread finished; awaiting finish of 3 more threads
+2020-11-18 01:48:56,566 : INFO : worker thread finished; awaiting finish of 2 more threads
+2020-11-18 01:48:56,566 : INFO : worker thread finished; awaiting finish of 1 more threads
+2020-11-18 01:48:56,581 : INFO : worker thread finished; awaiting finish of 0 more threads
+2020-11-18 01:48:56,581 : INFO : EPOCH - 9 : training on 11419 raw words (7826 effective words) took 0.0s, 238800 effective words/s
+2020-11-18 01:48:56,597 : INFO : worker thread finished; awaiting finish of 3 more threads
+2020-11-18 01:48:56,597 : INFO : worker thread finished; awaiting finish of 2 more threads
+2020-11-18 01:48:56,597 : INFO : worker thread finished; awaiting finish of 1 more threads
+2020-11-18 01:48:56,628 : INFO : worker thread finished; awaiting finish of 0 more threads
+2020-11-18 01:48:56,628 : INFO : EPOCH - 10 : training on 11419 raw words (7826 effective words) took 0.0s, 244962 effective words/s
+2020-11-18 01:48:56,628 : INFO : training on a 114190 raw words (78327 effective words) took 0.4s, 214753 effective words/s
+2020-11-18 01:48:56,628 : WARNING : under 10 jobs per worker: consider setting a smaller `batch_words' for smoother alpha decay
+2020-11-18 01:48:56,628 : INFO : saving Word2Vec object under model\J92-1001.model, separately None
+2020-11-18 01:48:56,628 : INFO : not storing attribute vectors_norm
+2020-11-18 01:48:56,628 : INFO : not storing attribute cum_table
+2020-11-18 01:48:56,636 : INFO : saved model\J92-1001.model
