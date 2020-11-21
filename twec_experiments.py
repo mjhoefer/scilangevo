@@ -8,6 +8,34 @@ from operator import itemgetter
 
 import time
 
+import numpy
+
+# for creating XML corpus for sketch engine
+import xml.etree.cElementTree as ET
+
+
+def extract_regular_text(json_file):
+    data = json.loads(json_file.read_bytes())
+    contents = ""
+
+    # now we need to get the paper contents into something that can be parsed using TWEC.
+    # This will largely be concatinating the tokens found in the json structure.
+    data['full_text'] = ''
+    data['lemmas'] = []
+    for section in data['sections']:
+        for subsection in section['subsections']:
+            for sentence in subsection['sentences']:
+                for token in sentence['tokens']:
+                    contents += token['word'] + ' '
+
+    return contents
+
+def get_year(id, p):
+    file = get_path_from_id(id, p, extension='.json')
+    data = json.loads(file.read_bytes())
+    return data['year']
+
+
 # combines all the papers in the papers list into a single text file
 # papers is a list of pathlib objects
 # writes to outfile_name
@@ -21,20 +49,37 @@ def create_text_slice(papers, outfile_name):
 
 
 # returns a pathlib object from an id string
-def get_path_from_id(id, base_dir, extension='.words'):
+def get_path_from_id(id_in, base_dir, extension='.words'):
     # need first char and the last two nums to get it all.
-    first_char = id[0]
-    two_nums = id[1:3]
+    # print (id_in, '\n')
+    if not isinstance(id_in, str):
+        print("BREAK at: ", id_in)
+    first_char = id_in[0]
+    two_nums = id_in[1:3]
 
     paper_dir = base_dir / first_char / (first_char + two_nums)
 
     # handle to particular file
-    paper = paper_dir / (id + extension)
+    paper = paper_dir / (id_in + extension)
 
     if paper.is_file():
         return paper
     else:
         return None
+
+
+# not all papers in the citation network are actually in the corpus
+# this function returns a list of every paper we have a .words file for
+def get_list_of_papers(p):
+    files_owned = []
+    # walk dir and get files we need to parse
+    for path_object in p.glob('**/*'):
+        if path_object.is_file():
+            # gather all json files
+            if path_object.suffix == '.words':
+                files_owned.append(path_object.stem)
+
+    return files_owned
 
 
 # turns a list of id strings into a list of Pathlib file objects
@@ -76,6 +121,146 @@ def get_connected_papers(G, node_id, curr_list=None, upstream=False):
         return curr_list
 
 
+def create_xml_corpus(list_o_papers, p, outfile_path):
+    root = ET.Element("xml")
+
+    for paper in list_o_papers:
+        p_obj = get_path_from_id(paper, p, '.json')
+        if p_obj.is_file():
+            temp_content = extract_regular_text(p_obj)
+            curr_year = get_year(paper, p)
+            doc = ET.SubElement(root, "doc", year=str(curr_year), author=str(paper),
+                                title=paper[0]).text = "<s>" + temp_content + "</s>"
+        else:
+            print("Missing a file ", str(p_obj))
+
+    tree = ET.ElementTree(root)
+    tree.write(outfile_path)
+
+
+def cosine_similarity(word1, word2):
+    to_ret = numpy.dot(word1, word2) / (
+                numpy.linalg.norm(word1) * numpy.linalg.norm(word2))
+    return to_ret
+
+
+def get_intersection_vocab(model_list):
+    words = []
+
+    for model in model_list:
+        if len(words) == 0:
+            words += model.wv.vocab.keys()
+        words = [i for i in words if i in model.wv.vocab.keys()]
+    return words
+
+class Experiment:
+    def __init__(self, prefix_in, size_in=50, siter_in=10, diter_in=10, workers_in=4, exp_dir='.',
+                 paper_dir_in=Path('.') / '..' / 'project_code' / 'papers' / 'acl-arc-json' / 'json'):
+        self.prefix = prefix_in
+        self.size = size_in
+        self.siter = siter_in
+        self.diter = diter_in
+        self.workers = workers_in
+        self.embeddings = []
+        self.slices = []
+        self.compass_path = None  # path to the Compass word2vec model
+        self.logfile = prefix_in + "__EXPERIMENT_LOG.log"
+        self.aligner = None
+        self.paper_dir = paper_dir_in
+        self.models = {}  # key is the paper id. Value is the model path
+
+        # make the path if it does not exist yet
+        if not Path(exp_dir).is_dir():
+            Path(exp_dir).mkdir()
+        self.experiment_dir = Path(exp_dir)
+
+    def create_text_slice(self, list_of_paper_ids, txt_save_loc=None):
+        paths = get_paths_from_strings(list_of_paper_ids, self.paper_dir)
+        if not txt_save_loc:
+            txt_save_loc = self.prefix + "_compass_text.txt"
+
+        txt_save_loc = self.experiment_dir / txt_save_loc
+        to_ret = create_text_slice(paths, str(txt_save_loc))
+        return to_ret
+
+    def train_compass(self, compass_text_path):
+        self.aligner = TWEC(size=self.size, siter=self.siter, diter=self.diter, workers=self.workers)
+        start2 = time.time()
+        self.aligner.train_compass(compass_text_path, overwrite=False, filename=self.prefix + "__COMPASS.model")
+        self.compass_path = str((Path('model') / (self.prefix + "__COMPASS.model")))
+        end2 = time.time()
+        elapsed2 = end2 - start2
+
+        # write the training time to a file
+        with open(self.logfile, 'w+', encoding='utf-8') as outfile:
+            outfile.write(
+                "compass training time: " + str(elapsed2) + " seconds")
+
+
+    # highest level function - just falls a create text slice and a train compass function
+    def train_compass_from_id_list(self, id_list):
+        train_txt = self.create_text_slice(id_list)
+        self.train_compass(str(train_txt))
+
+
+    def train_single_paper_embeddings(self, ids):
+        if not self.aligner:
+            print ("Train compass first, use train_compass")
+            return
+        for id in ids:
+            # get the paper
+            c_path = get_path_from_id(id, self.paper_dir)
+            slice_txt = self.create_text_slice([id], self.prefix + "_" + id + ".txt")
+
+            # train a model for it!
+            #new_slice = self.aligner.train_slice(str(slice_txt), save=True, saveName = str(self.experiment_dir / (self.prefix + '_' + id)))
+
+            new_slice = self.aligner.train_slice(str(slice_txt), save=True,
+                                                 saveName=(self.prefix + '_' + id))
+
+            # what is new_slice?
+            #add to model list
+            self.models[id]= str((Path('model') / (self.prefix + '_' + id + '.model')))
+
+
+    def cosine_similarity(self, word1, word2):
+        cosine_similarity = numpy.dot(word1, word2) / (
+                    numpy.linalg.norm(word1) * numpy.linalg.norm(word2))
+        return cosine_similarity
+
+    def get_model_handle(self, model_path):
+        return Word2Vec.load(model_path)
+
+    def get_wordvec_from_model(self, word, model_path):
+        # this may eventually go somewhere else
+        model1 = Word2Vec.load(model_path)
+        return model1[word]
+
+
+    def compare_word_to_compass(self, word, model_path):
+        this_word = self.get_wordvec_from_model(word, model_path)
+        compass_word = self.get_wordvec_from_model(word, self.compass_path)
+        return self.cosine_similarity(this_word, compass_word)
+
+
+    # gets all the similarity scores for two models
+    def get_similarity_dict(self, model1, model2, words=None):
+        if not words:
+            meepers = [i for i in model1.wv.vocab.keys() if i in model2.wv.vocab.keys()]
+        else:
+            meepers=words
+        similarities = {}
+
+        for i, word in enumerate(meepers):
+            # get the similarity score for every word
+            similarities[meepers[i]] = cosine_similarity(test_model[meepers[i]], c_handle[meepers[i]])
+
+        return similarities
+
+
+
+
+
 ## PATH TO PAPERS
 p = Path('.') / '..' / 'project_code' / 'papers' / 'acl-arc-json' / 'json'
 
@@ -90,7 +275,98 @@ network_path = 'network.txt'
 G = nx.read_edgelist(network_path, create_using=nx.DiGraph(), delimiter=' ', nodetype=str)
 #
 
+#### EXPERIMENT 2
+#### SUBSAMPLING BASED ON HIGHLY CITED PAPERS
 
+in_degs = list(G.in_degree())
+
+in_degs_s = sorted(in_degs,key=itemgetter(1), reverse=True)
+
+# remove external
+in_degs_ss = [i for i in in_degs_s if 'External' not in i[0]]
+
+# ensure we have papers for all the nodes we want:
+paper_list = get_list_of_papers(p)
+
+# remove IDs we don't have papers for
+in_degs_sss = [i for i in in_degs_ss if i[0] in paper_list]
+
+# missing_papers = [i for i in in_degs_ss if i[0] not in paper_list]
+
+# top paper
+top_id = in_degs_sss[0][0]
+
+# get network from top papers (upstream and downstream)
+downstreams = get_connected_papers(G, top_id, upstream=False) # length of zero here means nobody cited it :(
+upstreams = get_connected_papers(G, top_id, upstream=True)  # these are the papers the given paper cites
+all_papers = downstreams.union(upstreams)
+all_papers.add(id)
+
+# ensure we have all the text for these papers
+all_papers_wtext = [i for i in all_papers if i in paper_list]
+
+subset = all_papers_wtext[0:10]
+
+# we will do our first experiment on the papers in all_papers2
+# first, just the compass, and one for each paper in the corpus.
+# this will enable us to kick start our experiment coding infrastructure
+
+# TRAIN COMPASS on all_papers_wtext
+experiment1 = Experiment("exp1", exp_dir='exp1_dir')
+
+# train the compass
+experiment1.train_compass_from_id_list(subset)
+
+# train all the individual papers
+experiment1.train_single_paper_embeddings(subset)
+
+#test the cosine similarity
+
+test_model = experiment1.get_model_handle(experiment1.models[subset[0]])
+meep = test_model.wv.vocab
+mine = test_model['corpus']
+
+c_handle = experiment1.get_model_handle(experiment1.compass_path)
+
+sim_dict_all = experiment1.get_similarity_dict(test_model, c_handle)
+
+meepers2 = get_intersection_vocab([test_model, c_handle])
+
+all_model_handles = [experiment1.get_model_handle(i) for i in experiment1.models.values()]
+
+meepersAll = get_intersection_vocab(all_model_handles)
+
+sim_dict_intersection = experiment1.get_similarity_dict(test_model, c_handle, words=meepersAll)
+
+
+# just start by making a dataframe with each paper and the cosine similarity with each word (compared to compass)
+# are the word embeddings from the paper in question higher in similarity to the papers that came before it? Or after it?
+
+# I can do model.wv.vocab['word']['count'] and that should give me the count (?)
+
+
+# create csv file of similarities, to be read into a dataframe for viz.
+
+
+test_compare = experiment1.compare_word_to_compass('corpus', experiment1.models[subset[0]])
+
+# so I can quickly get a distribution of comparisons between two years.
+# first, find the intersection of the vocab
+# then do pairwise cosine similarity, store in a dict with word: similarity.
+
+
+print("PAUSE")
+
+# TRAIN MODEL on every single individual paper
+
+
+# remove external
+# all_internal = [i for i in list(all_papers) if 'External' not in i]
+
+# UNCOMMENT TO CREATE CORPUS
+#create_xml_corpus(all_papers2, p, 'largest_id_corpus_sketch_engine')
+
+exit()
 #### EXPERIMENT 1 ########
 #### COMPARE VECTOR ALIGNMENT BETWEEN EACH PAPER AND THE LARGEST WEAKLY CONNECTED COMPONENT #####
 
@@ -135,7 +411,7 @@ for paper in largest:
     fileP = get_path_from_id(paper, p)
     slice_one = aligner.train_slice(str(fileP), save=True, saveName='EXP1-' + paper)
 
-
+### END EXPERIMENT !
 
 
 
