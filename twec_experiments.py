@@ -13,6 +13,11 @@ import numpy
 # for creating XML corpus for sketch engine
 import xml.etree.cElementTree as ET
 
+# for data analysis and viz
+import pandas as pd
+import altair as alt
+import altair_viewer
+
 
 def extract_regular_text(json_file):
     data = json.loads(json_file.read_bytes())
@@ -153,6 +158,13 @@ def get_intersection_vocab(model_list):
         words = [i for i in words if i in model.wv.vocab.keys()]
     return words
 
+
+def get_average_similarity(sim_dict):
+    total = 0
+    for key, value in sim_dict.items():
+        total += value
+    return total/len(sim_dict)
+
 class Experiment:
     def __init__(self, prefix_in, size_in=50, siter_in=10, diter_in=10, workers_in=4, exp_dir='.',
                  paper_dir_in=Path('.') / '..' / 'project_code' / 'papers' / 'acl-arc-json' / 'json'):
@@ -253,7 +265,7 @@ class Experiment:
 
         for i, word in enumerate(meepers):
             # get the similarity score for every word
-            similarities[meepers[i]] = cosine_similarity(test_model[meepers[i]], c_handle[meepers[i]])
+            similarities[meepers[i]] = cosine_similarity(model1[meepers[i]], model2[meepers[i]])
 
         return similarities
 
@@ -281,6 +293,8 @@ G = nx.read_edgelist(network_path, create_using=nx.DiGraph(), delimiter=' ', nod
 in_degs = list(G.in_degree())
 
 in_degs_s = sorted(in_degs,key=itemgetter(1), reverse=True)
+
+citation_counts = {i[0]: i[1] for i in in_degs_s}
 
 # remove external
 in_degs_ss = [i for i in in_degs_s if 'External' not in i[0]]
@@ -336,8 +350,40 @@ all_model_handles = [experiment1.get_model_handle(i) for i in experiment1.models
 
 meepersAll = get_intersection_vocab(all_model_handles)
 
-sim_dict_intersection = experiment1.get_similarity_dict(test_model, c_handle, words=meepersAll)
+similarities = {}
+for id, m in experiment1.models.items():
+    curr_model = experiment1.get_model_handle(m)
+    sim_dict_intersection = experiment1.get_similarity_dict(curr_model, c_handle, words=meepersAll)
+    similarities[id] = get_average_similarity(sim_dict_intersection)
 
+
+# combine with citation counts and make a list of dicts for turning into a pandas dataframe
+for_df = []
+for myId, sim in similarities.items():
+    # make a list of dicts to convert to pandas dataframe
+    new_item = {}
+    new_item['id'] = myId
+    new_item['avg_similarity_w_compass'] = sim
+    new_item['citations'] = citation_counts[myId]
+    for_df.append(new_item)
+
+
+# covert to pandas dataframe
+df = pd.DataFrame(for_df)
+
+df.to_csv("experiment1data.csv", header=True,index=False)
+
+
+df = pd.read_csv("experiment1data.csv")
+
+chart = alt.Chart(df).mark_point().encode(
+    alt.X('avg_similarity_w_compass',
+          scale=alt.Scale(domain=(.96, .99))
+    ),
+    y='citations'
+)
+
+altair_viewer.display(chart)
 
 # just start by making a dataframe with each paper and the cosine similarity with each word (compared to compass)
 # are the word embeddings from the paper in question higher in similarity to the papers that came before it? Or after it?
