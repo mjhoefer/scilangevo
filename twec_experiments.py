@@ -18,6 +18,10 @@ import pandas as pd
 import altair as alt
 import altair_viewer
 
+# for time saving expensive network computations
+import pickle
+
+
 
 def extract_regular_text(json_file):
     data = json.loads(json_file.read_bytes())
@@ -34,6 +38,26 @@ def extract_regular_text(json_file):
                     contents += token['word'] + ' '
 
     return contents
+
+
+# stop_words is a list of stop words
+def extract_regular_text_limited_words(json_file, stop_words):
+    data = json.loads(json_file.read_bytes())
+    contents = ""
+
+    # now we need to get the paper contents into something that can be parsed using TWEC.
+    # This will largely be concatinating the tokens found in the json structure.
+    data['full_text'] = ''
+    data['lemmas'] = []
+    for section in data['sections']:
+        for subsection in section['subsections']:
+            for sentence in subsection['sentences']:
+                for token in sentence['tokens']:
+                    if token['word'] not in stop_words and len(token['word']) > 2:
+                        contents += token['word'] + ' '
+
+    return contents
+
 
 def get_year(id, p):
     file = get_path_from_id(id, p, extension='.json')
@@ -126,6 +150,14 @@ def get_connected_papers(G, node_id, curr_list=None, upstream=False):
         return curr_list
 
 
+
+def get_stop_words(path_to_stop):
+    to_ret = []
+    with open(path_to_stop, 'r', encoding='utf-8') as infile:
+        to_ret = infile.readlines()
+    return [i.strip() for i in to_ret]
+
+
 def create_xml_corpus(list_o_papers, p, outfile_path):
     root = ET.Element("xml")
 
@@ -143,12 +175,32 @@ def create_xml_corpus(list_o_papers, p, outfile_path):
     tree.write(outfile_path)
 
 
+def create_xml_corpus_reduced_words(list_o_papers, p, outfile_path, stop_word_path='STOPWORDS.txt'):
+    root = ET.Element("xml")
+
+    stops = get_stop_words(stop_word_path)
+
+    for paper in list_o_papers:
+        p_obj = get_path_from_id(paper, p, '.json')
+        if p_obj.is_file():
+            temp_content = extract_regular_text_limited_words(p_obj, stops)
+            curr_year = get_year(paper, p)
+            doc = ET.SubElement(root, "doc", year=str(curr_year), author=str(paper),
+                                title=paper[0]).text = "<s>" + temp_content + "</s>"
+        else:
+            print("Missing a file ", str(p_obj))
+
+    tree = ET.ElementTree(root)
+    tree.write(outfile_path)
+
+
 def cosine_similarity(word1, word2):
     to_ret = numpy.dot(word1, word2) / (
                 numpy.linalg.norm(word1) * numpy.linalg.norm(word2))
     return to_ret
 
 
+# model_list is a ist of actual word2vec models
 def get_intersection_vocab(model_list):
     words = []
 
@@ -164,6 +216,80 @@ def get_average_similarity(sim_dict):
     for key, value in sim_dict.items():
         total += value
     return total/len(sim_dict)
+
+
+# gets all the similarity scores for two models
+# if word is not in one of the models, it will just store None
+# default word list is the intersection vocab set
+# structure of the returned dict is key=word, value=similarity
+def get_similarity_dict(model1, model2, words=None):
+    if not words:
+        meepers = [i for i in model1.wv.vocab.keys() if i in model2.wv.vocab.keys()]
+    else:
+        meepers=words
+    similarities = {}
+
+    for i, word in enumerate(meepers):
+        if word not in model1.wv.vocab.keys() or word not in model2.wv.vocab.keys():
+            similarities[meepers[i]] = None
+        else:
+            # get the similarity score for every word
+            similarities[meepers[i]] = cosine_similarity(model1[meepers[i]], model2[meepers[i]])
+
+    return similarities
+
+
+# this function does all the pairwise comparisons between the dict of model_handles and the compass_handle
+# basically getting a similarity score for each paper with the overall compass, across all the words
+# in the word list
+# if the particular word isn't in the paper, it will have None in the slot
+# returns a list of dicts, easy for turning into a dataframe
+def get_df_for_compass_comparisons(model_handles, compass_handle, word_list):
+    my_dicts = []
+    for key, model in model_handles.items():
+        d = get_similarity_dict(model, c_handle, word_list)
+        d['id'] = key
+        d['citations'] = citation_counts[key]
+        my_dicts.append(d)
+    return my_dicts
+
+
+## FUNCTION TO GENERATE FIRST RESULT IN PAPER - GEODESIC distance vs. EMBEDDING DISTANCE
+## This function does the pairwise comparisons model to model
+## it will return a list of dicts.
+# # Containing Model 1, model 2, network distance (geodesic), and then similarity scores for the set of words
+def get_pairwise_model_comparisons(model_handles, word_list, geodesic_dict):
+    # the list o dicts
+    myDicts = []
+
+    # keep track of models we're done with
+    completed_handles = []
+
+    # all permutations of model pairs
+    for key1, model1 in model_handles.items():
+        # for each model, create a pairwise model
+        for key2, model2 in model_handles.items():
+            if key2 not in completed_handles and not key2 == key1:
+                ## run the comparisons
+                similarity_scores = get_similarity_dict(model1, model2, word_list)
+                similarity_scores['model1'] = key1
+                similarity_scores['model2'] = key2
+                geo_dist = -1
+                if key1 in geodesic_dict.keys():
+                    if key2 in geodesic_dict[key1].keys():
+                        geo_dist = geodesic_dict[key1][key2]
+                if geo_dist == -1:
+                    # check the reverse path
+                    if key2 in geodesic_dict.keys():
+                        if key1 in geodesic_dict[key2].keys():
+                            geo_dist = geodesic_dict[key2][key1]
+                similarity_scores['geodesic_dist'] = geo_dist
+                myDicts.append(similarity_scores)
+        completed_handles.append(key1)
+    return myDicts
+
+
+
 
 class Experiment:
     def __init__(self, prefix_in, size_in=50, siter_in=10, diter_in=10, workers_in=4, exp_dir='.',
@@ -220,19 +346,24 @@ class Experiment:
             print ("Train compass first, use train_compass")
             return
         for id in ids:
-            # get the paper
-            c_path = get_path_from_id(id, self.paper_dir)
-            slice_txt = self.create_text_slice([id], self.prefix + "_" + id + ".txt")
+            # check to see if the model already exists.
+            # if it does, do not retrain
+            if (Path('model') / (self.prefix + '_' + id + '.model')).is_file():
+                self.models[id] = str((Path('model') / (self.prefix + '_' + id + '.model')))
+            else:
+                # get the paper
+                c_path = get_path_from_id(id, self.paper_dir)
+                slice_txt = self.create_text_slice([id], self.prefix + "_" + id + ".txt")
 
-            # train a model for it!
-            #new_slice = self.aligner.train_slice(str(slice_txt), save=True, saveName = str(self.experiment_dir / (self.prefix + '_' + id)))
+                # train a model for it!
+                #new_slice = self.aligner.train_slice(str(slice_txt), save=True, saveName = str(self.experiment_dir / (self.prefix + '_' + id)))
 
-            new_slice = self.aligner.train_slice(str(slice_txt), save=True,
-                                                 saveName=(self.prefix + '_' + id))
+                new_slice = self.aligner.train_slice(str(slice_txt), save=True,
+                                                     saveName=(self.prefix + '_' + id))
 
-            # what is new_slice?
-            #add to model list
-            self.models[id]= str((Path('model') / (self.prefix + '_' + id + '.model')))
+                # what is new_slice?
+                #add to model list
+                self.models[id]= str((Path('model') / (self.prefix + '_' + id + '.model')))
 
 
     def cosine_similarity(self, word1, word2):
@@ -253,22 +384,6 @@ class Experiment:
         this_word = self.get_wordvec_from_model(word, model_path)
         compass_word = self.get_wordvec_from_model(word, self.compass_path)
         return self.cosine_similarity(this_word, compass_word)
-
-
-    # gets all the similarity scores for two models
-    def get_similarity_dict(self, model1, model2, words=None):
-        if not words:
-            meepers = [i for i in model1.wv.vocab.keys() if i in model2.wv.vocab.keys()]
-        else:
-            meepers=words
-        similarities = {}
-
-        for i, word in enumerate(meepers):
-            # get the similarity score for every word
-            similarities[meepers[i]] = cosine_similarity(model1[meepers[i]], model2[meepers[i]])
-
-        return similarities
-
 
 
 
@@ -314,25 +429,240 @@ top_id = in_degs_sss[0][0]
 downstreams = get_connected_papers(G, top_id, upstream=False) # length of zero here means nobody cited it :(
 upstreams = get_connected_papers(G, top_id, upstream=True)  # these are the papers the given paper cites
 all_papers = downstreams.union(upstreams)
-all_papers.add(id)
+all_papers.add(top_id)
 
 # ensure we have all the text for these papers
 all_papers_wtext = [i for i in all_papers if i in paper_list]
 
-subset = all_papers_wtext[0:10]
+
+# subset only to papers that have at least one citation
+all_papers_wtxt_cite_5 = [i for i in all_papers_wtext if citation_counts[i] > 5]
+
+# create the xml corpus for this group, send to Tim
+#create_xml_corpus_reduced_words(all_papers_wtxt_cite_5, p, 'over5citations.xml')
+
+all_papers_wtxt_cite_10 = [i for i in all_papers_wtext if citation_counts[i] > 20]
+#create_xml_corpus_reduced_words(all_papers_wtxt_cite_10, p, 'over20citations.xml')
+
+all_papers_wtxt_cite_25 = [i for i in all_papers_wtext if citation_counts[i] > 25]
+#create_xml_corpus_reduced_words(all_papers_wtxt_cite_25, p, 'over25citations.xml')
+
+
+subset = all_papers_wtxt_cite_25
 
 # we will do our first experiment on the papers in all_papers2
 # first, just the compass, and one for each paper in the corpus.
 # this will enable us to kick start our experiment coding infrastructure
 
 # TRAIN COMPASS on all_papers_wtext
-experiment1 = Experiment("exp1", exp_dir='exp1_dir')
+experiment1 = Experiment("exp12", exp_dir='exp2_dir')
 
 # train the compass
 experiment1.train_compass_from_id_list(subset)
 
 # train all the individual papers
 experiment1.train_single_paper_embeddings(subset)
+
+
+# get common words...
+all_models = {key: experiment1.get_model_handle(val) for key, val in experiment1.models.items()}
+shared_words = get_intersection_vocab(all_models.values())
+
+# get similarity statistics between all the paper embeddings and the compass embeddings
+words_to_check = ['number', 'result', 'mmi', 'unsmoothed', 'mwer', 'corpus', 'error', 'translation', 'smooth']
+
+c_handle = experiment1.get_model_handle(experiment1.compass_path)
+
+### check to compare the network distance with the similarity scores...
+### are papers close in the citation network close in their similarity scores for word embeddings?
+## each data point will be a pair of papers
+## and will include the similarity across some set of words, and a network geodesic distance
+## let's get the geodesic distance first
+
+
+# pickle the shortest paths as this takes time
+if not Path('shortest_paths.p').is_file():
+    G_undirected = G.to_undirected()
+
+    all_paths = {}
+
+    for mNode in subset:
+        all_paths[mNode] = nx.shortest_path_length(G_undirected, source = mNode)
+
+    pickle.dump(all_paths, open('shortest_paths.p', 'wb'))
+    shortest_paths_dict = all_paths
+else:
+    shortest_paths_dict = pickle.load(open('shortest_paths.p', 'rb'))
+
+# pickle the shortest paths as this takes time
+if not Path('shortest_paths_directed.p').is_file():
+    all_paths = {}
+
+    for mNode in subset:
+        all_paths[mNode] = nx.shortest_path_length(G, source = mNode)
+
+    pickle.dump(all_paths, open('shortest_paths_directed.p', 'wb'))
+    shortest_paths_dict = all_paths
+else:
+    shortest_paths_dict = pickle.load(open('shortest_paths_directed.p', 'rb'))
+
+
+
+exp2results = get_pairwise_model_comparisons(all_models, words_to_check, shortest_paths_dict)
+
+# convert into a csv to save it
+df = pd.DataFrame(exp2results)
+
+df.to_csv('experiment1_geo_dist_directed.csv', header=True,index=False)
+
+print("start graphing!")
+
+
+# load from csv
+#['number', 'result', 'mmi', 'unsmoothed', 'mwer', 'corpus', 'error', 'translation', 'smooth']
+df = pd.read_csv('experiment1_geo_dist_directed.csv')
+
+
+# some basic plots
+
+
+
+
+
+to_plot = df[df['geodesic_dist'] != -1]
+
+
+line = alt.Chart(to_plot).mark_line().encode(
+    x='geodesic_dist',
+    y='mean(number)'
+)
+
+band = alt.Chart(to_plot).mark_errorband(extent='ci').encode(
+    x='geodesic_dist',
+    y=alt.Y('number', title='Similarity in "Error" Embedding'),
+)
+
+altair_viewer.display(band + line)
+
+
+
+
+
+# plotting distributions to see what's up there
+dist_chart_1 = alt.Chart(df).mark_bar().encode(
+    alt.X('corpus', bin=True),
+    y='count()',
+)
+altair_viewer.display(dist_chart_1)
+
+
+
+
+chart1 = alt.Chart(to_plot).mark_point().encode(
+    alt.X('geodesic_dist',
+          scale=alt.Scale(domain=(0, 10))
+    ),
+    y='error'
+).configure_mark(
+    opacity=0.1
+)
+
+errorbars = chart1.mark_errorbar().encode(
+    x="x",
+    y="ymin:Q",
+    y2="ymax:Q"
+)
+
+altair_viewer.display(chart1 + errorbars)
+
+#OLS model to see if we find anything
+
+import statsmodels.api as sm
+
+y = df['geodesic_dist']
+X = df['error']
+X = sm.add_constant(X)
+model11 = sm.OLS(y, X).fit()
+model11.summary()
+
+
+
+alt.Chart(source).mark_bar().encode(
+    alt.X("IMDB_Rating:Q", bin=True),
+    y='count()',
+)
+
+chart2 = alt.Chart(df).mark_point().encode(
+    alt.X('corpus',
+          scale=alt.Scale(domain=(0, 1))
+    ),
+    y='citations'
+)
+
+
+altair_viewer.display(chart1)
+altair_viewer.display(chart2)
+
+
+
+exit()
+
+
+
+
+
+
+#OLS model to see if we find anything
+
+import statsmodels.api as sm
+
+y = df['citations']
+X = df[shared_words]
+X = sm.add_constant(X)
+model11 = sm.OLS(y, X).fit()
+model11.summary()
+
+
+
+#### THIS IS JUST SOME BASIC COMPARISONS TO THE COMPASS... NOT VERY MEANINGFUL I GUESS
+
+
+my_dicts = experiment1.get_df_for_compass_comparisons(all_models, c_handle, words_to_check)
+
+my_dicts2 = experiment1.get_df_for_compass_comparisons(all_models, c_handle, shared_words)
+
+# now do some analysis in pd
+
+df = pd.DataFrame(my_dicts2)
+
+# where is unsmoothed
+df2 = pd.DataFrame(my_dicts)
+
+
+chart1 = alt.Chart(df2).mark_point().encode(
+    alt.X('error',
+          scale=alt.Scale(domain=(0, 1))
+    ),
+    y='citations'
+)
+
+chart2 = alt.Chart(df).mark_point().encode(
+    alt.X('corpus',
+          scale=alt.Scale(domain=(0, 1))
+    ),
+    y='citations'
+)
+
+
+altair_viewer.display(chart1)
+altair_viewer.display(chart2)
+
+
+
+
+
+
+exit()
 
 #test the cosine similarity
 
@@ -673,3 +1003,30 @@ def get_downstream_papers(G, node_id):
         for node in node_successors_real:
             all_papers.add(node)
             get_downstream_papers(G, node)
+
+
+
+
+# SHORTEST PATH JUNK
+
+    shortest_paths = nx.shortest_path_length(G_undirected, source='P13-1037')
+
+    shortest_paths['P13-1037']
+
+    # go through shortest path generator and only keep distances between internal papers (not starting with external)
+    dict_o_lengths = {}  # will hold everything
+    i = 0
+    for (myKey, myDict) in shortest_paths:
+        print(i)
+        i += 1
+        curr_dict = {}  # holds the key pairs for a single paper
+        if not str.startswith(myKey, 'External'):
+            for key1, dist in myDict.items():
+                if not str.startswith(key1, 'External'):
+                    curr_dict[key1] = dist
+            dict_o_lengths[myKey] = curr_dict
+
+    s2 = nx.shortest_path_length(G_undirected)
+    s2dict = dict(s2)
+
+    shortest_paths_dict = dict(shortest_paths)
