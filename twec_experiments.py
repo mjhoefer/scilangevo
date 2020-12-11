@@ -832,12 +832,16 @@ if exp_1:
     from scipy.stats import ttest_ind
 
     r, p = pearsonr(melted_df['geo_dist'], melted_df['similarity'])
+    r # -0.0026976455744492467
+    p # 0.00039623700835570114
 
     disconnected_df = melted_df[melted_df['geo_dist'] == -1]
     connected_df = melted_df[melted_df['geo_dist'] != -1]
 
 
     t, p_t = ttest_ind(connected_df['similarity'], disconnected_df['similarity'])
+    t  # 16.091777081818524
+    p_t  # 2.9422071907460567e-58
 
     # there is really no difference
     disconnected_df['similarity'].mean()
@@ -867,12 +871,17 @@ if exp_1:
     # 17.4 % of comparisons involve title words
 
     r, p = pearsonr(title_df['geo_dist'], title_df['similarity'])
+    r
+    p
 
     disconnected_title_df = title_df[title_df['geo_dist'] == -1]
     connected_title_df = title_df[title_df['geo_dist'] != -1]
 
 
     t, p_t = ttest_ind(connected_title_df['similarity'], disconnected_title_df['similarity'])
+
+    t # 11.837458476209127
+    p_t # 2.540911614171873e-32
 
     # there is really no difference
     disconnected_title_df['similarity'].mean()
@@ -898,8 +907,17 @@ if exp_1:
     # 17.4 % of comparisons involve title words
     # 10.5 % of comparisons involve title no stop
 
-    r, p = pearsonr(title_nostop_df['geo_dist'], title_nostop_df['similarity'])
+    r, p = pearsonr(title_nostop_df['similarity'], title_nostop_df['geo_dist'])
+    r
+    p
+    # r = 0.005435610301003945
+    # p = 0.020663807195867908
 
+    # just in titles
+    title_nostop_in_title_df = title_df[title_df['is_title'] == True]
+    r, p = pearsonr(title_nostop_in_title_df['similarity'], title_nostop_in_title_df['geo_dist'])
+    r
+    p
     # r = 0.005435610301003945
     # p = 0.020663807195867908
 
@@ -908,16 +926,16 @@ if exp_1:
 
 
     t, p_t = ttest_ind(connected_title_notstop_df['similarity'], disconnected_title_nostop_df['similarity'])
-    # t = 13.5349
-    # p_t = 1.0204391544366794e-41
+    t # t = 13.5349
+    p_t # p_t = 1.0204391544366794e-41
 
 
     # nearly a percent increase in similarity when connected
     disconnected_title_nostop_df['similarity'].mean()
-    # 0.6109308238724026
+    # 0.6090279919737839
 
     connected_title_notstop_df['similarity'].mean()
-    # 0.617403017484626
+    # 0.6190171975017877
 
 
     # variance?
@@ -983,6 +1001,10 @@ if exp_1:
 
 
     ax = sns.violinplot(x="geo_dist", y="similarity", data=connected_title_notstop_df)
+    ax.set_title('Word Embedding Similarity vs. Geodesic Distance in Citation Network')
+    ax.set_ylabel('Cosine Similarity')
+    ax.set_xlabel('Geodesic Distance')
+    plt.savefig('exp1_violin.png')
 
     ax = sns.violinplot(x="geo_dist", y="similarity", data=connected_df)
 
@@ -1137,9 +1159,15 @@ if exp_2:
 
 
     import seaborn as sns
+    import matplotlib.pyplot as plt
     ax = sns.histplot(data=set_df, x="num_downstream_influences", binwidth=1, hue="is_title_word", element="step")
+    ax.set_title('Histogram of Downstream Influences by Title Word Status')
+    ax.set_ylabel('Count')
+    ax.set_xlabel('Number of Downstream Influences')
     #ax.set_xlim(0, 20)
     ax.set_ylim(0, 100)
+    plt.savefig('exp2_hist.png', dpi=400)
+
 
     # data viz not really clear. Let's look for statistical changes
     set_title_df = set_df[set_df['is_title_word']]
@@ -1162,6 +1190,39 @@ if exp_2:
 
     set_title_df
 
+    ax = sns.violinplot(x="is_title_word", y="num_downstream_influences", data=set_df)
+    ax.set_title('Word Embedding Similarity vs. Geodesic Distance in Citation Network')
+    ax.set_ylabel('Cosine Similarity')
+    ax.set_xlabel('Geodesic Distance')
+    plt.savefig('exp1_violin.png')
+
+
+    influence_df = set_df[set_df['num_downstream_influences']>0]
+
+    import seaborn as sns
+    import matplotlib.pyplot as plt
+    # what about citations and downstream influence?
+    ax = sns.regplot(data=influence_df, x="citations", y="num_downstream_influences")
+    ax.set_title('Downstream Influence by Citation Count')
+    ax.set_ylabel('Number of Downstream Influences')
+    ax.set_xlabel('Citations')
+    #ax.set_xlim(25, 100)
+    #ax.set_ylim(0,50)
+    plt.savefig('exp2_scatter_citation_vs_downstream_influence_REG.png', dpi=400)
+
+    influence_title_df = set_title_df[set_title_df['is_title_word'] == True]
+
+    import seaborn as sns
+    import matplotlib.pyplot as plt
+
+    # what about citations and downstream influence?
+    ax = sns.regplot(data=influence_title_df, x="citations", y="num_downstream_influences")
+    ax.set_title('Downstream Influence by Citation Count')
+    ax.set_ylabel('Number of Downstream Influences')
+    ax.set_xlabel('Citations')
+    # ax.set_xlim(25, 100)
+    # ax.set_ylim(0,50)
+    plt.savefig('exp2_scatter_citation_vs_downstream_influence_REG_TITLEWORDSONLY.png', dpi=400)
 
 ## That's a great result.
 
@@ -1227,6 +1288,7 @@ if exp_3:
     sns.scatterplot(data=df_n, x="citations", y="downstream_similarity", hue="is_title_word")
 
     sns.scatterplot(data=df_n, x="citations", y="extra_similarity", hue="is_title_word")
+    sns.regplot(data=df_n, x="citations", y="extra_similarity")
 
     sns.relplot(x="downstream_count", y="downstream_similarity", kind="line", ci="sd", data=df_n)
 
@@ -1266,10 +1328,10 @@ if exp_3:
 
     # there is really no difference
     df_title_words['up_and_down_similairty'].mean()
-    # 0.6371298224048715
+    # 0.6197356441596025
 
     df_non_title_words['up_and_down_similairty'].mean()
-    # 0.5653249790444562
+    # 0.5554086504245227
 
 
 
@@ -1278,9 +1340,15 @@ if exp_3:
     r  # -0.060540256961420735
     p  # 4.152068569050007e-05
 
+    r, p = pearsonr(df_n['citations'], df_n['downstream_similarity'])
+    r  # -0.18616058736922303
+    p  # 5.65032229919892e-37
 
-
-
+    ax = sns.regplot(data=df_title_words, x="citations", y="extra_similarity")
+    ax.set_title("Citations vs. 'Extra' Similarity")
+    ax.set_ylabel("'Extra' Similarity")
+    ax.set_xlabel('Citations')
+    plt.savefig('exp3_citations_vs_extra_similarity.png')
 
 
 exit()
