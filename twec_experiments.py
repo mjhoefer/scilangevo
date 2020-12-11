@@ -206,15 +206,19 @@ def cosine_similarity(word1, word2):
     return to_ret
 
 
-# model_list is a ist of actual word2vec models
-def get_intersection_vocab(model_list):
+# model_list is a list of actual word2vec models
+def get_intersection_vocab(model_list, limit_to_vocab_list=None):
     words = []
 
     for model in model_list:
         if len(words) == 0:
             words += model.wv.vocab.keys()
         words = [i for i in words if i in model.wv.vocab.keys()]
-    return words
+
+    if limit_to_vocab_list:
+        return [i for i in words if i in limit_to_vocab_list]
+    else:
+        return words
 
 
 # model_list is a ist of actual word2vec models
@@ -317,13 +321,17 @@ def get_pairwise_model_comparisons(model_handles, word_list, geodesic_dict, verb
         completed_handles.append(key1)
     return myDicts
 
+# log files will be pickels of dicts with info
+def read_log_file(log_path):
+    return pickle.load(open(str(log_path), 'rb'))
+
 
 
 ## WINDOW DEFAULTS TO 5 ON WORD TO VEC!! INCREASE WINDOW SIZE TO GET MORE SEMANTIC RICHNESS
 ## OTHERWISE YOU MAY PICK UP ONLY SYNTACTIC SIMILARITIES
 class Experiment:
     def __init__(self, prefix_in, size_in=50, siter_in=10, diter_in=10, workers_in=4, exp_dir='.',
-                 paper_dir_in=Path('.') / '..' / 'project_code' / 'papers' / 'acl-arc-json' / 'json', window_in=5):
+                 paper_dir_in=Path('.') / '..' / 'project_code' / 'papers' / 'acl-arc-json' / 'json', window_in=5, g_in=None, p_deets_in=None):
         self.prefix = prefix_in
         self.size = size_in
         self.siter = siter_in
@@ -337,6 +345,13 @@ class Experiment:
         self.window = window_in
         self.paper_dir = paper_dir_in
         self.models = {}  # key is the paper id. Value is the model path
+        self.graph = g_in
+
+        self.training_deets = {}  # this dict holds info about the networked corpus training
+        # path to log will have num upstream and downstream papers
+        # id: {num_downstream: X, num_upstream: Y, log_path: path_to_log}
+
+        self.paper_deets = p_deets_in
 
         # make the path if it does not exist yet
         if not Path(exp_dir).is_dir():
@@ -365,12 +380,10 @@ class Experiment:
             outfile.write(
                 "compass training time: " + str(elapsed2) + " seconds")
 
-
     # highest level function - just falls a create text slice and a train compass function
     def train_compass_from_id_list(self, id_list):
         train_txt = self.create_text_slice(id_list)
         self.train_compass(str(train_txt))
-
 
     def train_single_paper_embeddings(self, ids):
         if not self.aligner:
@@ -397,6 +410,109 @@ class Experiment:
                 self.models[id]= str((Path('model') / (self.prefix + '_' + id + '.model')))
 
 
+    # this is for the nuanced experiment training embeddings on the entire upstream/downstream corpus
+    def train_networked_corpus_embeddings(self, ids):
+        if not self.aligner:
+            print ("Train compass first, use train_compass")
+            return
+
+        if not self.graph:
+            print ("Must supply a graph as argument in order to train on networked corpora")
+            return
+
+
+        count = 0
+        # each paper will have three models trained. Upstream, self, and downstream.
+        for id in ids:
+            count += 1
+            print ("starting on number ", count, " id: ", id)
+            # check to see if the model already exists.
+            # if it does, do not retrain
+
+            log_path = (Path('network_training_logs') / (self.prefix + '_' + id + '.log'))
+            if log_path.is_file():
+                # log file complete. Let's read it and see what models we have
+                deets = read_log_file(log_path)
+                if deets['upstream_count'] > 0:
+                    # load upstream model
+                    if (Path('model') / (self.prefix + '_' + id + '_UPSTREAM.model')).is_file():
+                        self.models[id + '_UPSTREAM'] = str((Path('model') / (self.prefix + '_' + id + '_UPSTREAM.model')))
+                if deets['downstream_count'] > 0:
+                    # load downstream model
+                    if (Path('model') / (self.prefix + '_' + id + '_DOWNSTREAM.model')).is_file():
+                        self.models[id + '_DOWNSTREAM'] = str(
+                            (Path('model') / (self.prefix + '_' + id + '_DOWNSTREAM.model')))
+
+                # load the paper-only model
+                if (Path('model') / (self.prefix + '_' + id + '.model')).is_file():
+                    self.models[id] = str((Path('model') / (self.prefix + '_' + id + '.model')))
+            else:  # no log file, hasn't been trained yet
+                deets = {}
+                # get the paper
+                c_path = get_path_from_id(id, self.paper_dir)
+                slice_txt = self.create_text_slice([id], self.prefix + "_" + id + ".txt")
+
+                # train a model for it!
+                #new_slice = self.aligner.train_slice(str(slice_txt), save=True, saveName = str(self.experiment_dir / (self.prefix + '_' + id)))
+
+                start_t = time.time()
+                new_slice = self.aligner.train_slice(str(slice_txt), save=True,
+                                                     saveName=(self.prefix + '_' + id))
+                end_t = time.time()
+                deets['self_training_time'] = end_t - start_t
+                # what is new_slice?
+                #add to model list
+                self.models[id]= str((Path('model') / (self.prefix + '_' + id + '.model')))
+
+                ### TRAINING UPSTREAM MODELS
+                # now get upstream and train
+                upstream_paper_ids = get_connected_papers(self.graph, id, upstream=True)
+
+                # limit to only papers in the subset corpus
+                upstream_paper_ids = [paper for paper in upstream_paper_ids if paper in ids]
+
+                if len(upstream_paper_ids) > 0:
+                    deets['upstream_count'] = len(upstream_paper_ids)
+                    upstream_slice = self.create_text_slice(upstream_paper_ids, self.prefix + "_" + id + "_UPSTREAMS.txt")
+
+                    start_t = time.time()
+                    new_slice = self.aligner.train_slice(str(upstream_slice), save=True,
+                                                         saveName=(self.prefix + '_' + id + "_UPSTREAM"))
+                    end_t = time.time()
+                    deets['upstream_training_time'] = end_t - start_t
+                    # add to model list
+                    self.models[id+'_UPSTREAM'] = str((Path('model') / (self.prefix + '_' + id + '_UPSTREAM.model')))
+                else:
+                    deets['upstream_count'] = 0
+                    print("no upstream papers for ", id)
+
+
+                ### TRAINING DOWNSTREAM MODELS
+                # now get downstream and train
+                downstream_paper_ids = get_connected_papers(self.graph, id, upstream=False)
+                # limit to only papers in the subset corpus
+                downstream_paper_ids = [paper for paper in downstream_paper_ids if paper in ids]
+
+                if len(downstream_paper_ids) > 0:
+                    deets['downstream_count'] = len(downstream_paper_ids)
+                    downstream_slice = self.create_text_slice(downstream_paper_ids, self.prefix + "_" + id + "_DOWNSTREAMS.txt")
+
+                    start_t = time.time()
+                    new_slice = self.aligner.train_slice(str(downstream_slice), save=True,
+                                                         saveName=(self.prefix + '_' + id + "_DOWNSTREAM"))
+                    end_t = time.time()
+                    deets['downstream_training_time'] = end_t - start_t
+                    # add to model list
+                    self.models[id + '_DOWNSTREAM'] = str((Path('model') / (self.prefix + '_' + id + '_DOWNSTREAM.model')))
+                else:
+                    deets['downstream_count'] = 0
+                    print("no downstream papers for ", id)
+
+                # write out the log file for future use
+                pickle.dump(deets, open(str(log_path), 'wb'))
+
+            self.training_deets[id] = deets
+
     def cosine_similarity(self, word1, word2):
         cosine_similarity = numpy.dot(word1, word2) / (
                     numpy.linalg.norm(word1) * numpy.linalg.norm(word2))
@@ -410,12 +526,67 @@ class Experiment:
         model1 = Word2Vec.load(model_path)
         return model1[word]
 
-
     def compare_word_to_compass(self, word, model_path):
         this_word = self.get_wordvec_from_model(word, model_path)
         compass_word = self.get_wordvec_from_model(word, self.compass_path)
         return self.cosine_similarity(this_word, compass_word)
 
+
+    # EXPERIMENT 3 DATA FRAME GENERATION FUNCTION
+    # get a list of dicts with the data for exp 3
+    def get_network_comparison_dict(self, ids, title_words_nostop, nn_window = 5):
+        all_data = []
+        if not self.compass_path:
+            print("train compass first")
+            return
+
+        if not self.training_deets:
+            print("run the training function first - train_networked_corpus_embeddings")
+            return
+
+        if not self.paper_deets:
+            print("provide paper deets (title, year, etc) before calling this function")
+            return
+
+        for id in ids:
+            if self.training_deets[id]['upstream_count'] == 0 or self.training_deets[id]['downstream_count'] == 0:
+                print ("no upstream or downstream for this paper")
+                continue
+
+            self_model = self.get_model_handle(self.models[id])
+            up_model = self.get_model_handle(self.models[id+"_UPSTREAM"])
+            down_model = self.get_model_handle(self.models[id+"_DOWNSTREAM"])
+
+            # need the intersection vocab of all three models, and the title words
+            valid_words = get_intersection_vocab([self_model, up_model, down_model], title_words_nostop)
+
+            # for each word in the intersection:
+            # is_title_word, citations, similarity with upstream, similarity with downstream, common words with upstream
+            # common words with downstream, up/down similarity, num_papers_upstream, num_papers_downstream
+            for word in valid_words:
+                curr_dict = {}
+                curr_dict['upstream_count'] = self.training_deets[id]['upstream_count']
+                curr_dict['downstream_count'] = self.training_deets[id]['downstream_count']
+                curr_dict['upstream_similarity'] = cosine_similarity(self_model[word], up_model[word])
+                curr_dict['downstream_similarity'] = cosine_similarity(self_model[word], down_model[word])
+                curr_dict['up_and_down_similairty'] = cosine_similarity(up_model[word], down_model[word])
+                self_neighbors = self_model.wv.most_similar(positive=[word], topn=nn_window)
+                down_neighbors = down_model.wv.most_similar(positive=[word], topn=nn_window)
+                up_neighbors = up_model.wv.most_similar(positive=[word], topn=nn_window)
+                curr_dict['neighborhood_size'] = nn_window
+                curr_dict['upstream_shared_neighbors'] = sum([1 for i in up_neighbors if i in self_neighbors])
+                curr_dict['downstream_shared_neighbors'] = sum([1 for i in down_neighbors if i in self_neighbors])
+                curr_dict['up_and_down_shared_neighbors'] = sum([1 for i in up_neighbors if i in down_neighbors])
+
+                # words that showed up in the paper and are downstream neighborhood
+                curr_dict['downstream_influence'] = sum([1 for i in self_neighbors if i in down_neighbors and i not in up_neighbors])
+
+                curr_dict['word'] = word
+
+                curr_dict['is_title_word'] = word in self.paper_deets[id]['title_word_list']
+                curr_dict['citations'] = self.paper_deets[id]['citations']
+                all_data.append(curr_dict)
+        return all_data
 
 # path to stopwords
 p_stop = Path('.') / 'STOPWORDS.txt'
@@ -495,6 +666,9 @@ with open(path_to_ids, 'r', encoding='utf-8') as infile:
     test = csv.DictReader(infile, delimiter='\t')
     for row in test:
         paper_deets[row['id']] = row
+        paper_deets[row['id']]['title_word_list'] = row['title'].split()
+        if row['id'] in citation_counts.keys():
+            paper_deets[row['id']]['citations'] = citation_counts[row['id']]
 
 # create list of words of the 100 paper titles in the subset, minus stopwords
 title_words = []
@@ -507,314 +681,314 @@ len(title_words_nostop)
 # 615 words not stop words
 
 
+### SET THIS FLAG TO ENABLE CHUNKS OF CODE
+exp_1 = False
+exp_2 = False
+exp_3 = True
+
+if exp_1:
+    # we will do our first experiment on the papers in all_papers2
+    # first, just the compass, and one for each paper in the corpus.
+    # this will enable us to kick start our experiment coding infrastructure
+
+    # TRAIN COMPASS on all_papers_wtext
+    experiment1 = Experiment("exp12", exp_dir='exp2_dir')
+
+    # train the compass
+    experiment1.train_compass_from_id_list(subset)
+
+    # train all the individual papers
+    experiment1.train_single_paper_embeddings(subset)
 
 
-# we will do our first experiment on the papers in all_papers2
-# first, just the compass, and one for each paper in the corpus.
-# this will enable us to kick start our experiment coding infrastructure
+    # get common words...
+    all_models = {key: experiment1.get_model_handle(val) for key, val in experiment1.models.items()}
+    shared_words = get_intersection_vocab(all_models.values())
 
-# TRAIN COMPASS on all_papers_wtext
-experiment1 = Experiment("exp12", exp_dir='exp2_dir')
+    # get similarity statistics between all the paper embeddings and the compass embeddings
+    words_to_check = ['number', 'result', 'mmi', 'unsmoothed', 'mwer', 'corpus', 'error', 'translation', 'smooth']
 
-# train the compass
-experiment1.train_compass_from_id_list(subset)
+    c_handle = experiment1.get_model_handle(experiment1.compass_path)
 
-# train all the individual papers
-experiment1.train_single_paper_embeddings(subset)
-
-
-# get common words...
-all_models = {key: experiment1.get_model_handle(val) for key, val in experiment1.models.items()}
-shared_words = get_intersection_vocab(all_models.values())
-
-# get similarity statistics between all the paper embeddings and the compass embeddings
-words_to_check = ['number', 'result', 'mmi', 'unsmoothed', 'mwer', 'corpus', 'error', 'translation', 'smooth']
-
-c_handle = experiment1.get_model_handle(experiment1.compass_path)
-
-### check to compare the network distance with the similarity scores...
-### are papers close in the citation network close in their similarity scores for word embeddings?
-## each data point will be a pair of papers
-## and will include the similarity across some set of words, and a network geodesic distance
-## let's get the geodesic distance first
+    ### check to compare the network distance with the similarity scores...
+    ### are papers close in the citation network close in their similarity scores for word embeddings?
+    ## each data point will be a pair of papers
+    ## and will include the similarity across some set of words, and a network geodesic distance
+    ## let's get the geodesic distance first
 
 
-# pickle the shortest paths as this takes time
-if not Path('shortest_paths.p').is_file():
-    G_undirected = G.to_undirected()
+    # pickle the shortest paths as this takes time
+    if not Path('shortest_paths.p').is_file():
+        G_undirected = G.to_undirected()
 
-    all_paths = {}
+        all_paths = {}
 
-    for mNode in subset:
-        all_paths[mNode] = nx.shortest_path_length(G_undirected, source = mNode)
+        for mNode in subset:
+            all_paths[mNode] = nx.shortest_path_length(G_undirected, source = mNode)
 
-    pickle.dump(all_paths, open('shortest_paths.p', 'wb'))
-    shortest_paths_dict = all_paths
-else:
-    shortest_paths_dict = pickle.load(open('shortest_paths.p', 'rb'))
+        pickle.dump(all_paths, open('shortest_paths.p', 'wb'))
+        shortest_paths_dict = all_paths
+    else:
+        shortest_paths_dict = pickle.load(open('shortest_paths.p', 'rb'))
 
-# pickle the shortest paths as this takes time
-if not Path('shortest_paths_directed.p').is_file():
-    all_paths = {}
+    # pickle the shortest paths as this takes time
+    if not Path('shortest_paths_directed.p').is_file():
+        all_paths = {}
 
-    for mNode in subset:
-        all_paths[mNode] = nx.shortest_path_length(G, source = mNode)
+        for mNode in subset:
+            all_paths[mNode] = nx.shortest_path_length(G, source = mNode)
 
-    pickle.dump(all_paths, open('shortest_paths_directed.p', 'wb'))
-    shortest_paths_dict = all_paths
-else:
-    shortest_paths_dict = pickle.load(open('shortest_paths_directed.p', 'rb'))
-
-
-# quick look at the vocab in the network of 100
-words_to_compare = get_union_vocab(all_models.values())
+        pickle.dump(all_paths, open('shortest_paths_directed.p', 'wb'))
+        shortest_paths_dict = all_paths
+    else:
+        shortest_paths_dict = pickle.load(open('shortest_paths_directed.p', 'rb'))
 
 
-if not Path('experiment1_geo_dist_directed_all_words.csv').is_file():
-    # turn counter into a list. Just grab embeddings with a frequency of more than 5 for sanity.
-    min_occur = 5
-    new_list = [myWord for (myWord, myCount) in words_to_compare.items() if myCount >= min_occur]
+    # quick look at the vocab in the network of 100
+    words_to_compare = get_union_vocab(all_models.values())
 
-    to_write = str(sum(words_to_compare.values())) + " tokens across a vocab size of " + str(len(words_to_compare)) + \
-                ", when you remove all words with less than " + str(min_occur) + " occurances, there are " + \
-                str(len(new_list))
-    with open("embedding stats_experiment1.txt", 'w', encoding='utf8') as outfile:
-        outfile.write(to_write)
+
+    if not Path('experiment1_geo_dist_directed_all_words.csv').is_file():
+        # turn counter into a list. Just grab embeddings with a frequency of more than 5 for sanity.
+        min_occur = 5
+        new_list = [myWord for (myWord, myCount) in words_to_compare.items() if myCount >= min_occur]
+
+        to_write = str(sum(words_to_compare.values())) + " tokens across a vocab size of " + str(len(words_to_compare)) + \
+                    ", when you remove all words with less than " + str(min_occur) + " occurances, there are " + \
+                    str(len(new_list))
+        with open("embedding stats_experiment1.txt", 'w', encoding='utf8') as outfile:
+            outfile.write(to_write)
 
 
 
-    ### ACTUALLY RUN THE EXPERIMENT
+        ### ACTUALLY RUN THE EXPERIMENT
 
-    ## SET SOME TIMER
-    start = time.time()
-    exp2results = get_pairwise_model_comparisons(all_models, new_list, shortest_paths_dict,verbose=True)
-    end = time.time()
-    diff = end-start
-    print ('it took ', diff, ' seconds to run the experiment')
+        ## SET SOME TIMER
+        start = time.time()
+        exp2results = get_pairwise_model_comparisons(all_models, new_list, shortest_paths_dict,verbose=True)
+        end = time.time()
+        diff = end-start
+        print ('it took ', diff, ' seconds to run the experiment')
 
-    # convert into a csv to save it
-    df = pd.DataFrame(exp2results)
+        # convert into a csv to save it
+        df = pd.DataFrame(exp2results)
 
-    df.to_csv('experiment1_geo_dist_directed_all_words.csv', header=True,index=False)
+        df.to_csv('experiment1_geo_dist_directed_all_words.csv', header=True,index=False)
 
-print("start graphing!")
-
-
-# treating every embedding comparison as its own data point... let's see what we find
-# this will be a massive set of data
-df = pd.read_csv('experiment1_geo_dist_directed_all_words.csv')
-
-# well, even simpler. Compare embeddings between those connected in the network, and those who aren't!
-
-# to do these tests, we need a dataset of similarity and distance... would be good to know the word too.. reshape time
-#stacked = df.melt(id_vars=['model1', 'model2', 'geodesic_dist'])
+    print("start graphing!")
 
 
-if not Path('experiment1_geo_dist_directed_all_words.csv').is_file():
-    ### AHH RUNNING OUT OF MEMORY! YIKES!!
-    # going to reset--- read in the CSV with a dict reader and just write a new csv with the data points we want. cool?
-    long_data = [] # list of dicts with soon to be melted data
-    with open('experiment1_geo_dist_directed_all_words.csv', 'r', encoding='utf-8') as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            for key, val in row.items():
-                curr_dict = {}
-                if key == 'model1' or key == 'model2' or key == 'geodesic_dist' or val == '':
-                    pass
-                else:
-                    curr_dict['word'] = key
-                    curr_dict['similarity'] = val
-                    curr_dict['geo_dist'] = int(row['geodesic_dist'])
-                    long_data.append(curr_dict)
+    # treating every embedding comparison as its own data point... let's see what we find
+    # this will be a massive set of data
+    df = pd.read_csv('experiment1_geo_dist_directed_all_words.csv')
+
+    # well, even simpler. Compare embeddings between those connected in the network, and those who aren't!
+
+    # to do these tests, we need a dataset of similarity and distance... would be good to know the word too.. reshape time
+    #stacked = df.melt(id_vars=['model1', 'model2', 'geodesic_dist'])
 
 
-    # now save the melted data to a dataframe
-    melted_df = pd.DataFrame(long_data)
-    melted_df.to_csv('experiment1_geo_dist_directed_all_words_melted.csv', header=True,index=False)
-
-melted_df = pd.read_csv('experiment1_geo_dist_directed_all_words_melted.csv')
-
-melted_df["similarity"] = pd.to_numeric(melted_df["similarity"])
-len(melted_df)
-
-
-# need to add attribute to the dataframe first
-melted_df['is_title'] = pd.Series(melted_df['word'].isin(title_words_nostop))
-
-melted_nostop_df = melted_df[~melted_df['word'].isin(stopwords)]
-
-len(melted_nostop_df) / len(melted_df)
-# 64% after removing stopwords
-
-disconnected_nostop_df = melted_nostop_df[melted_nostop_df['geo_dist'] == -1]
-connected_nostop_df = melted_nostop_df[melted_nostop_df['geo_dist'] != -1]
+    if not Path('experiment1_geo_dist_directed_all_words.csv').is_file():
+        ### AHH RUNNING OUT OF MEMORY! YIKES!!
+        # going to reset--- read in the CSV with a dict reader and just write a new csv with the data points we want. cool?
+        long_data = [] # list of dicts with soon to be melted data
+        with open('experiment1_geo_dist_directed_all_words.csv', 'r', encoding='utf-8') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                for key, val in row.items():
+                    curr_dict = {}
+                    if key == 'model1' or key == 'model2' or key == 'geodesic_dist' or val == '':
+                        pass
+                    else:
+                        curr_dict['word'] = key
+                        curr_dict['similarity'] = val
+                        curr_dict['geo_dist'] = int(row['geodesic_dist'])
+                        long_data.append(curr_dict)
 
 
-from scipy.stats import pearsonr
-from scipy.stats import ttest_ind
+        # now save the melted data to a dataframe
+        melted_df = pd.DataFrame(long_data)
+        melted_df.to_csv('experiment1_geo_dist_directed_all_words_melted.csv', header=True,index=False)
 
-r, p = pearsonr(melted_df['geo_dist'], melted_df['similarity'])
+    melted_df = pd.read_csv('experiment1_geo_dist_directed_all_words_melted.csv')
 
-disconnected_df = melted_df[melted_df['geo_dist'] == -1]
-connected_df = melted_df[melted_df['geo_dist'] != -1]
+    melted_df["similarity"] = pd.to_numeric(melted_df["similarity"])
+    len(melted_df)
 
 
-t, p_t = ttest_ind(connected_df['similarity'], disconnected_df['similarity'])
+    # need to add attribute to the dataframe first
+    melted_df['is_title'] = pd.Series(melted_df['word'].isin(title_words_nostop))
 
-# there is really no difference
-disconnected_df['similarity'].mean()
-# 0.6316924669779691
+    melted_nostop_df = melted_df[~melted_df['word'].isin(stopwords)]
 
-connected_df['similarity'].mean()
-# 0.635573349578994
+    len(melted_nostop_df) / len(melted_df)
+    # 64% after removing stopwords
 
-# variance?
-disconnected_df['similarity'].var()
-connected_df['similarity'].var()
+    disconnected_nostop_df = melted_nostop_df[melted_nostop_df['geo_dist'] == -1]
+    connected_nostop_df = melted_nostop_df[melted_nostop_df['geo_dist'] != -1]
+
+
+    from scipy.stats import pearsonr
+    from scipy.stats import ttest_ind
+
+    r, p = pearsonr(melted_df['geo_dist'], melted_df['similarity'])
+
+    disconnected_df = melted_df[melted_df['geo_dist'] == -1]
+    connected_df = melted_df[melted_df['geo_dist'] != -1]
+
+
+    t, p_t = ttest_ind(connected_df['similarity'], disconnected_df['similarity'])
+
+    # there is really no difference
+    disconnected_df['similarity'].mean()
+    # 0.6316924669779691
+
+    connected_df['similarity'].mean()
+    # 0.635573349578994
+
+    # variance?
+    disconnected_df['similarity'].var()
+    connected_df['similarity'].var()
 
 
 ### SKIPPING GRAPHING FOR NOW. MAYBE I SHOULD THOUGH
 ### TODO - graph all the geodesic - similarity comparisons
 
-##### EXPERIMENT TWO ######
-# Using titles as ground truth words of semantic shift
-######
+
+    title_words_counter = Counter(title_words)
+
+    title_words_set = set(title_words)
+
+    # now let's do some analysis just with these words
+    # use the same 1.7 million data frame
+    title_df = melted_df[melted_df['word'].isin(title_words_set)]
+
+    len(title_df) / len(melted_df)
+    # 17.4 % of comparisons involve title words
+
+    r, p = pearsonr(title_df['geo_dist'], title_df['similarity'])
+
+    disconnected_title_df = title_df[title_df['geo_dist'] == -1]
+    connected_title_df = title_df[title_df['geo_dist'] != -1]
 
 
-title_words_counter = Counter(title_words)
+    t, p_t = ttest_ind(connected_title_df['similarity'], disconnected_title_df['similarity'])
 
-title_words_set = set(title_words)
+    # there is really no difference
+    disconnected_title_df['similarity'].mean()
+    # 0.6109308238724026
 
-# now let's do some analysis just with these words
-# use the same 1.7 million data frame
-title_df = melted_df[melted_df['word'].isin(title_words_set)]
+    connected_title_df['similarity'].mean()
+    # 0.617403017484626
 
-len(title_df) / len(melted_df)
-# 17.4 % of comparisons involve title words
-
-r, p = pearsonr(title_df['geo_dist'], title_df['similarity'])
-
-disconnected_title_df = title_df[title_df['geo_dist'] == -1]
-connected_title_df = title_df[title_df['geo_dist'] != -1]
-
-
-t, p_t = ttest_ind(connected_title_df['similarity'], disconnected_title_df['similarity'])
-
-# there is really no difference
-disconnected_title_df['similarity'].mean()
-# 0.6109308238724026
-
-connected_title_df['similarity'].mean()
-# 0.617403017484626
-
-# variance?
-disconnected_df['similarity'].var()
-connected_df['similarity'].var()
+    # variance?
+    disconnected_df['similarity'].var()
+    connected_df['similarity'].var()
 
 
 
-# also filter to make sure there's enough frequency
+    # also filter to make sure there's enough frequency
 
 
 
-# now let's do some analysis just with these words - get rid of stopwords
-title_nostop_df = title_df[title_df['word'].isin(title_words_nostop)]
+    # now let's do some analysis just with these words - get rid of stopwords
+    title_nostop_df = title_df[title_df['word'].isin(title_words_nostop)]
 
-len(title_nostop_df) / len(melted_df)
-# 17.4 % of comparisons involve title words
-# 10.5 % of comparisons involve title no stop
+    len(title_nostop_df) / len(melted_df)
+    # 17.4 % of comparisons involve title words
+    # 10.5 % of comparisons involve title no stop
 
-r, p = pearsonr(title_nostop_df['geo_dist'], title_nostop_df['similarity'])
+    r, p = pearsonr(title_nostop_df['geo_dist'], title_nostop_df['similarity'])
 
-# r = 0.005435610301003945
-# p = 0.020663807195867908
+    # r = 0.005435610301003945
+    # p = 0.020663807195867908
 
-disconnected_title_nostop_df = title_nostop_df[title_nostop_df['geo_dist'] == -1]
-connected_title_notstop_df = title_nostop_df[title_nostop_df['geo_dist'] != -1]
-
-
-t, p_t = ttest_ind(connected_title_notstop_df['similarity'], disconnected_title_nostop_df['similarity'])
-# t = 13.5349
-# p_t = 1.0204391544366794e-41
+    disconnected_title_nostop_df = title_nostop_df[title_nostop_df['geo_dist'] == -1]
+    connected_title_notstop_df = title_nostop_df[title_nostop_df['geo_dist'] != -1]
 
 
-# nearly a percent increase in similarity when connected
-disconnected_title_nostop_df['similarity'].mean()
-# 0.6109308238724026
-
-connected_title_notstop_df['similarity'].mean()
-# 0.617403017484626
+    t, p_t = ttest_ind(connected_title_notstop_df['similarity'], disconnected_title_nostop_df['similarity'])
+    # t = 13.5349
+    # p_t = 1.0204391544366794e-41
 
 
-# variance?
-disconnected_title_nostop_df['similarity'].var()
-connected_title_notstop_df['similarity'].var()
+    # nearly a percent increase in similarity when connected
+    disconnected_title_nostop_df['similarity'].mean()
+    # 0.6109308238724026
+
+    connected_title_notstop_df['similarity'].mean()
+    # 0.617403017484626
 
 
-# let's try to plot this and see what we find using matplotlib
-import matplotlib.pyplot as plt
-import matplotlib
-
-# trying scatter
-plt.scatter(title_nostop_df['geo_dist'], title_nostop_df['similarity'], color='b', alpha=.005, marker=',')
-
-plt.xlabel("Geodesic Distance")
-plt.ylabel("Cosine Similarity")
-
-plt.title("Embedding Similarity vs. Geodesic (network) Distance")
-
-fig = matplotlib.pyplot.gcf()
-fig.set_size_inches(20, 10)
-fig.savefig("Embedding similarity vs. geodesic distance.png", dpi=400)
-
-## that's one chart, not super informative given how many data points there are.
-
-# now let's plot the averages and the confidence intervals for each average
-
-import seaborn as sns
-sns.set_theme(style="darkgrid")
+    # variance?
+    disconnected_title_nostop_df['similarity'].var()
+    connected_title_notstop_df['similarity'].var()
 
 
-ax = sns.pointplot(x="geo_dist", y="similarity", data=connected_title_notstop_df)
-ax.set_title('Word Embedding Similarity vs. Geodesic Distance in Citation Network')
-ax.set_ylabel('Cosine Similarity')
-ax.set_xlabel('Geodesic Distance')
-plt.savefig('test_seaborn_v1_title_words_only_nostop.png')
+    # let's try to plot this and see what we find using matplotlib
+    import matplotlib.pyplot as plt
+    import matplotlib
+
+    # trying scatter
+    plt.scatter(title_nostop_df['geo_dist'], title_nostop_df['similarity'], color='b', alpha=.005, marker=',')
+
+    plt.xlabel("Geodesic Distance")
+    plt.ylabel("Cosine Similarity")
+
+    plt.title("Embedding Similarity vs. Geodesic (network) Distance")
+
+    fig = matplotlib.pyplot.gcf()
+    fig.set_size_inches(20, 10)
+    fig.savefig("Embedding similarity vs. geodesic distance.png", dpi=400)
+
+    ## that's one chart, not super informative given how many data points there are.
+
+    # now let's plot the averages and the confidence intervals for each average
+
+    import seaborn as sns
+    sns.set_theme(style="darkgrid")
 
 
-ax = sns.pointplot(x="geo_dist", y="similarity", data=connected_df)
-ax.set_title('Word Embedding Similarity vs. Geodesic Distance in Citation Network')
-ax.set_ylabel('Cosine Similarity')
-ax.set_xlabel('Geodesic Distance')
-plt.savefig('test_seaborn_all_words.png')
+    ax = sns.pointplot(x="geo_dist", y="similarity", data=connected_title_notstop_df)
+    ax.set_title('Word Embedding Similarity vs. Geodesic Distance in Citation Network')
+    ax.set_ylabel('Cosine Similarity')
+    ax.set_xlabel('Geodesic Distance')
+    plt.savefig('test_seaborn_v1_title_words_only_nostop.png')
 
 
-ax = sns.pointplot(x="geo_dist", y="similarity", hue='is_title', data=connected_df)
-ax.set_title('Word Embedding Similarity vs. Geodesic Distance in Citation Network')
-ax.set_ylabel('Cosine Similarity')
-ax.set_xlabel('Geodesic Distance')
-#ax.legend.set_title('Is Title Word')
-plt.legend(title="Is Title Word")
-plt.savefig('test_seaborn_all_vs_title.png')
-
-### Plot the geodesic distance vs. cosine similarity for non-stopwords, title vs non-title word
-ax = sns.pointplot(x="geo_dist", y="similarity", hue='is_title', data=connected_nostop_df)
-ax.set_title('Word Embedding Similarity vs. Geodesic Distance in Citation Network')
-ax.set_ylabel('Cosine Similarity')
-ax.set_xlabel('Geodesic Distance')
-#ax.legend.set_title('Is Title Word')
-plt.legend(title="Is Title Word")
-plt.savefig('test_seaborn_all_vs_title_no_stopwords.png')
+    ax = sns.pointplot(x="geo_dist", y="similarity", data=connected_df)
+    ax.set_title('Word Embedding Similarity vs. Geodesic Distance in Citation Network')
+    ax.set_ylabel('Cosine Similarity')
+    ax.set_xlabel('Geodesic Distance')
+    plt.savefig('test_seaborn_all_words.png')
 
 
+    ax = sns.pointplot(x="geo_dist", y="similarity", hue='is_title', data=connected_df)
+    ax.set_title('Word Embedding Similarity vs. Geodesic Distance in Citation Network')
+    ax.set_ylabel('Cosine Similarity')
+    ax.set_xlabel('Geodesic Distance')
+    #ax.legend.set_title('Is Title Word')
+    plt.legend(title="Is Title Word")
+    plt.savefig('test_seaborn_all_vs_title.png')
 
-ax = sns.violinplot(x="geo_dist", y="similarity", data=connected_title_notstop_df)
+    ### Plot the geodesic distance vs. cosine similarity for non-stopwords, title vs non-title word
+    ax = sns.pointplot(x="geo_dist", y="similarity", hue='is_title', data=connected_nostop_df)
+    ax.set_title('Word Embedding Similarity vs. Geodesic Distance in Citation Network')
+    ax.set_ylabel('Cosine Similarity')
+    ax.set_xlabel('Geodesic Distance')
+    #ax.legend.set_title('Is Title Word')
+    plt.legend(title="Is Title Word")
+    plt.savefig('test_seaborn_all_vs_title_no_stopwords.png')
 
-ax = sns.violinplot(x="geo_dist", y="similarity", data=connected_df)
 
-ax = sns.violinplot(x="geo_dist", y="similarity", hue='is_title', data=connected_df)
 
-plt.savefig('test_seaborn_v1.png')
+    ax = sns.violinplot(x="geo_dist", y="similarity", data=connected_title_notstop_df)
+
+    ax = sns.violinplot(x="geo_dist", y="similarity", data=connected_df)
+
+    ax = sns.violinplot(x="geo_dist", y="similarity", hue='is_title', data=connected_df)
+
+    plt.savefig('test_seaborn_v1.png')
 
 
 #################################################
@@ -824,79 +998,335 @@ plt.savefig('test_seaborn_v1.png')
 
 # start with compass
 
-ms = c_handle.wv.most_similar(positive=['error'], topn=5)
-ms
 
-# this will be a dict. Key is the paper in question
-# value is a dict of :
-# upstream_vocab - dict of words: upstream word list
-# uniquely_added_words - list of words
-# downstream_influence (number of times the uniquely_added_words show up downstream) - word: number unique hits
-experiment2_data = {}
+if exp_2:
+    if not Path('experiment2_data_v2.p').is_file():
+        # this will be a dict. Key is the paper in question
+        # value is a dict of :
+        # upstream_vocab - dict of words: upstream word list
+        # uniquely_added_words - list of words
+        # downstream_influence (number of times the uniquely_added_words show up downstream) - word: number unique hits
+        experiment2_data = {}
 
-count = 0
+        count = 0
 
-# for every paper in the subset
-for id, paper_model in all_models.items():
-    count += 1
-    print ('starting paper ', id, ", ",count, " out of ", len(subset))
-    curr_dict = {}
-    curr_dict['upstream_vocab'] = {}
+        # for every paper in the subset
+        for id, paper_model in all_models.items():
+            count += 1
+            print ('starting paper ', id, ", ",count, " out of ", len(subset))
+            curr_dict = {}
+            curr_dict['upstream_vocab'] = {}
+            curr_dict['upstream_word_users'] = {}
 
-    # get every upstream paper
-    upstream_papers = get_connected_papers(G, id, upstream=True)
-    for up_p in upstream_papers:
-        # for every upstream paper... if it's in the subset...
-        if up_p in subset:
-            # for every intersection word
-            for word in get_intersection_vocab([paper_model, all_models[up_p]]):
+            # get every upstream paper
+            upstream_papers = get_connected_papers(G, id, upstream=True)
+            for up_p in upstream_papers:
+                # for every upstream paper... if it's in the subset...
+                if up_p in subset:
+                    # for every intersection word
+                    for word in get_intersection_vocab([paper_model, all_models[up_p]]):
+                        if word in title_words_nostop:
+                            # only looking at title words
+                            if word not in curr_dict['upstream_vocab'].keys():
+                                curr_dict['upstream_vocab'][word] = Counter()  # init the empty list of upstream nn's for this word
+                                curr_dict['upstream_word_users'][word] = 0
+                            curr_nns = [nn for nn, sim in all_models[up_p].wv.most_similar(positive=[word], topn=5)]
+                            curr_dict['upstream_vocab'][word].update(curr_nns)
+                            curr_dict['upstream_word_users'][word] += 1
+            experiment2_data[id] = curr_dict
+
+        # create the set of newly added words to the list of nn's for each word in each paper
+        count = 0
+        for id, myDict in experiment2_data.items():
+            count += 1
+            print('starting paper ', id, ", ", count, " out of ", len(subset))
+            experiment2_data[id]['uniquely_added_words'] = {}  # dict with key: word, val = list of unique nn's added by this p.
+            for word in all_models[id].wv.vocab:
                 if word in title_words_nostop:
-                    # only looking at title words
-                    if word not in curr_dict['upstream_vocab'].keys():
-                        curr_dict['upstream_vocab'][word] = Counter()  # init the empty list of upstream nn's for this word
-                    curr_nns = [nn for nn, sim in all_models[up_p].wv.most_similar(positive=[word], topn=5)]
-                    curr_dict['upstream_vocab'][word].update(curr_nns)
-    experiment2_data[id] = curr_dict
-
-# create the set of newly added words to the list of nn's for each word in each paper
-count = 0
-for id, myDict in experiment2_data.items():
-    count += 1
-    print('starting paper ', id, ", ", count, " out of ", len(subset))
-    experiment2_data[id]['uniquely_added_words'] = {}  # dict with key: word, val = list of unique nn's added by this p.
-    for word in all_models[id].wv.vocab:
-        if word in title_words_nostop:
-            if word in experiment2_data[id]['upstream_vocab'].keys():
-                experiment2_data[id]['uniquely_added_words'][word] = \
-                    [nWord for nWord in all_models[id].wv.most_similar(positive=[word], topn=5) if nWord not in \
-                     experiment2_data[id]['upstream_vocab'][word]]
-            else:
-                # title word is brand new! So the whole set becomes unique
-                experiment2_data[id]['uniquely_added_words'][word] = \
-                    [nWord for nWord, sim in all_models[id].wv.most_similar(positive=[word], topn=5)]
+                    if word in experiment2_data[id]['upstream_vocab'].keys():
+                        experiment2_data[id]['uniquely_added_words'][word] = \
+                            [nWord for nWord in all_models[id].wv.most_similar(positive=[word], topn=5) if nWord not in \
+                             experiment2_data[id]['upstream_vocab'][word]]
+                    else:
+                        # title word is brand new! So the whole set becomes unique
+                        # print (id, " first time seeing this word: ", word)
+                        experiment2_data[id]['uniquely_added_words'][word] = \
+                            [nWord for nWord, sim in all_models[id].wv.most_similar(positive=[word], topn=5)]
 
 
-# now look for downstream influence
-count = 0
-for id, paper_model in all_models.items():
-    count += 1
-    print ('starting paper ', id, ", ",count, " out of ", len(subset))
-    curr_dict = {}
+        # now look for downstream influence
+        count = 0
+        for id, paper_model in all_models.items():
+            count += 1
+            print ('starting paper ', id, ", ",count, " out of ", len(subset))
+            curr_dict = {}
+            count_dict = {}
 
-    # get every downstream paper
-    downstream_papers = get_connected_papers(G, id, upstream=False)
-    for down_p in downstream_papers:
-        # for every downstream paper... if it's in the subset...
-        if down_p in subset:
-            # for every intersection word
-            for word in get_intersection_vocab([paper_model, all_models[down_p]]):
-                if word in title_words_nostop:
-                    # only looking at title words
-                    if word not in curr_dict.keys():
-                        curr_dict[word] = Counter()  # init the empty list of upstream nn's for this word
-                    curr_nns = [nn for nn, sim in all_models[down_p].wv.most_similar(positive=[word], topn=5)]
-                    curr_dict['upstream_vocab'][word].update(curr_nns)
-    experiment2_data[id] = curr_dict
+            # get every downstream paper
+            downstream_papers = get_connected_papers(G, id, upstream=False)
+            for down_p in downstream_papers:
+                # for every downstream paper... if it's in the subset...
+                if down_p in subset:
+                    # for every intersection word
+                    for word in get_intersection_vocab([paper_model, all_models[down_p]]):
+                        if word in title_words_nostop:
+                            # only looking at title words
+                            if word not in curr_dict.keys():
+                                curr_dict[word] = Counter()  # init the empty list of upstream nn's for this word
+                                count_dict[word] = 0
+                            curr_nns = [nn for nn, sim in all_models[down_p].wv.most_similar(positive=[word], topn=5)]
+                            curr_dict[word].update([w for w in curr_nns if w in \
+                                                   experiment2_data[id]['uniquely_added_words'][word]])
+                            count_dict[word] += 1
+            experiment2_data[id]['downstream_influence'] = curr_dict
+            experiment2_data[id]['downstream_word_users'] = count_dict
+
+        # now pickle experiment 2 data for future analysis
+        pickle.dump(experiment2_data, open("experiment2_data_v2.p", 'wb'))
+
+    exp2_data = pickle.load(open("experiment2_data_v2.p", 'rb'))
+
+
+    ## converting the complicated datastructure from above into a pandas dataframe
+    if not Path('experiment2-word-influence-v3.csv').is_file():
+        ## This will hold the list of dicts for the dataframe
+        list_o_influences = []
+        for id, data in exp2_data.items():
+
+            for word in all_models[id].wv.vocab:
+                if word in title_words_nostop:  # limit data to only title words....
+                    curr_dict = {}
+                    curr_dict['word'] = word
+                    curr_dict['paper_id'] = id
+                    curr_dict['citations'] = citation_counts[id]
+                    curr_dict['is_title_word'] = word in paper_deets[id]['title_word_list']
+                    if word in data['downstream_word_users'].keys():
+                        curr_dict['num_downstream_users'] = data['downstream_word_users'][word]
+                    else:
+                        curr_dict['num_downstream_users'] = 0
+
+                    if word in data['upstream_word_users'].keys():
+                        curr_dict['num_upstream_users'] = data['upstream_word_users'][word]
+                    else:
+                        curr_dict['num_upstream_users'] = 0
+
+
+
+                    if word in data['uniquely_added_words'].keys():
+                        curr_dict['num_uniquely_added_words'] = len(data['uniquely_added_words'][word])
+                    else:
+                        curr_dict['num_uniquely_added_words'] = 0
+
+                    if word in data['downstream_influence'].keys():
+                        curr_dict['num_downstream_influences'] = sum(data['downstream_influence'][word].values())
+                    else:
+                        curr_dict['num_downstream_influences'] = 0
+
+                    if word in data['upstream_vocab'].keys():
+                        curr_dict['upstream_unique_words'] = data['upstream_vocab'][word].keys()
+                        curr_dict['upstream_unique_word_count'] = len(data['upstream_vocab'][word])
+                        curr_dict['percent_of_new'] = curr_dict['num_uniquely_added_words'] / curr_dict['upstream_unique_word_count']
+
+                    list_o_influences.append(curr_dict)
+
+        set_df = pd.DataFrame(list_o_influences)
+        set_df.to_csv("experiment2-word-influence-v3.csv", header=True,index=False)
+
+    set_df = pd.read_csv("experiment2-word-influence-v3.csv")
+
+
+
+    import seaborn as sns
+    ax = sns.histplot(data=set_df, x="num_downstream_influences", binwidth=1, hue="is_title_word", element="step")
+    #ax.set_xlim(0, 20)
+    ax.set_ylim(0, 100)
+
+    # data viz not really clear. Let's look for statistical changes
+    set_title_df = set_df[set_df['is_title_word']]
+    set_notitle_df = set_df[~set_df['is_title_word']]
+
+    len(set_title_df)
+    len(set_notitle_df)
+    len(set_df)
+
+    t, p_t = ttest_ind(set_title_df['num_downstream_influences'], set_notitle_df['num_downstream_influences'])
+    t # 2.0769027829629643
+    p_t  # 0.03784729859253939
+
+    # there is really no difference
+    set_title_df['num_downstream_influences'].mean()
+    # 0.28475336322869954
+
+    set_notitle_df['num_downstream_influences'].mean()
+    # 0.12276372609500308
+
+    set_title_df
+
+
+## That's a great result.
+
+
+######################################################################################################################
+#### EXPERIMENT THREE ################################################################################################
+######################################################################################################################
+
+##  Now let's look at treating the papers like they are pivot points in the corpus.
+## Where we have upstream and downstream papers each forming their own corpus.
+## And we look at the similarities or number of mutual nearest neighbors before and after
+## Hypothesis: papers with words in title will have more similarity with downstream corpus vs. upstream, mediated thru citations
+
+# create the housing experiment object
+
+if exp_3:
+
+    if not Path('experiment3-networkedCorpus-v1.csv').is_file():
+        # TRAIN COMPASS on all_papers_wtext
+        experiment3 = Experiment("exp3", exp_dir='exp3_dir', g_in=G, p_deets_in=paper_deets)
+
+        # train the compass
+        experiment3.train_compass_from_id_list(subset)
+
+
+        # train all the individual papers
+        experiment3.train_networked_corpus_embeddings(subset)
+
+        # now let's think about making a dataframe for this...
+        # for each word in each paper:
+        # is_title_word, citations, similarity with upstream, similarity with downstream, common words with upstream
+        # common words with downstream, up/down similarity, num_papers_upstream, num_papers_downstream
+
+        # get a list of dicts with the data above
+        exp3data = experiment3.get_network_comparison_dict(subset, title_words_nostop)
+
+        df_3 = pd.DataFrame(exp3data)
+
+        df_3.to_csv("experiment3-networkedCorpus-v1.csv",header=True,index=False)
+
+    df_n = pd.read_csv("experiment3-networkedCorpus-v1.csv")
+
+    df_n['extra_similarity'] = df_n['downstream_similarity'] - df_n['up_and_down_similairty']
+
+    # now onto the data analysis for experiment 3
+    # eventually we could split the data generation from the data analysis
+    # that will be left as an exercise for the future self
+    df_n['downstream_shared_neighbors'].describe()
+
+    import seaborn as sns
+
+    sns.set_theme(style="darkgrid")
+
+    sns.histplot(df_n, x="extra_similarity", hue='citations',element="step")
+
+    ax = sns.pointplot(x="citations", y="downstream_similarity", hue='is_title_word', data=df_n) ## OKAY FOR PAPER
+    ax = sns.pointplot(x="is_title_word", y="downstream_similarity", data=df_n)  ## GOOD ONE FOR PAPER!!!
+
+    ax = sns.pointplot(x="is_title_word", y="extra_similarity", data=df_n)
+
+    ax = sns.pointplot(x="is_title_word", y="up_and_down_similairty", data=df_n)
+
+    sns.scatterplot(data=df_n, x="citations", y="downstream_similarity", hue="is_title_word")
+
+    sns.scatterplot(data=df_n, x="citations", y="extra_similarity", hue="is_title_word")
+
+    sns.relplot(x="downstream_count", y="downstream_similarity", kind="line", ci="sd", data=df_n)
+
+    sns.scatterplot(data=df_n, x="citations", y="up_and_down_similairty", hue="is_title_word")
+
+    sns.relplot(x="citations", y="extra_similarity", kind="line", ci="sd", data=df_n)
+
+    ax = sns.pointplot(x="downstream_shared_neighbors", y="citations", data=df_n)
+    ax.set_title('Word Embedding Similarity vs. Geodesic Distance in Citation Network')
+    ax.set_ylabel('Cosine Similarity')
+    ax.set_xlabel('Geodesic Distance')
+    plt.savefig('test_seaborn_v1p.png')
+
+
+    df_title_words = df_n[df_n['is_title_word'] == True]
+    df_non_title_words = df_n[df_n['is_title_word'] == False]
+
+    from scipy.stats import pearsonr
+    from scipy.stats import ttest_ind
+
+    # Now trying some statistical tests
+    t, p_t = ttest_ind(df_title_words['downstream_similarity'], df_non_title_words['downstream_similarity'])
+    t  # 6.223668729598324
+    p_t  # 5.291064610878137e-10
+
+    # there is really no difference
+    df_title_words['downstream_similarity'].mean()
+    # 0.6371298224048715
+
+    df_non_title_words['downstream_similarity'].mean()
+    # 0.5653249790444562
+
+
+    t, p_t = ttest_ind(df_title_words['up_and_down_similairty'], df_non_title_words['up_and_down_similairty'])
+    t  # 5.770948951210787
+    p_t  # 8.40265357707634e-09
+
+    # there is really no difference
+    df_title_words['up_and_down_similairty'].mean()
+    # 0.6371298224048715
+
+    df_non_title_words['up_and_down_similairty'].mean()
+    # 0.5653249790444562
+
+
+
+    ## Correlation checks
+    r, p = pearsonr(df_n['citations'], df_n['up_and_down_similairty'])
+    r  # -0.060540256961420735
+    p  # 4.152068569050007e-05
+
+
+
+
+
+
+exit()
+
+## issue with the dataset - so many papers are part of small internal network... because we subsampled too heavily.
+## oh well.. I could technically re-do everything with a larger corpus. I guess
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# time for data analysis on this new dataset
+# first check the hypothesis. Plot the number of influences
+
+# 2d histogram
+sns.histplot(set_df, x="num_downstream_influences", y="citations")
+ax.set_ylim(0, 100)
+
+
+
+## need to generate dataframe for analysis based on this data.
+## going for: paper_id, word, is_title_word, # downstream papers, # downstream influences,
+## influences per downstream paper, # unique words, # upstream papers, percent unique contribution
+
+
+
+
+# largely expecting that is_title_word means the average number of downstream influences is higher
+
+
+
+
+
+
 
 
 # so how does this work...
